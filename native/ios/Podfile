@@ -44,8 +44,8 @@ def flipper_post_install(installer)
   end
 end
 
-target 'monorepo' do
-  # Pods for monorepo
+target 'keeperspot' do
+  # Pods for keeperspot
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -77,7 +77,7 @@ target 'monorepo' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'monorepoTests' do
+  target 'keeperspotTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -94,11 +94,15 @@ target 'monorepo' do
   end
 end
 
-target 'monorepo-tvOS' do
-  # Pods for monorepo-tvOS
+target 'keeperspot-tvOS' do
+  # Pods for keeperspot-tvOS
 
-  target 'monorepo-tvOSTests' do
+  target 'keeperspot-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end
+end
+
+target 'OneSignalNotificationServiceExtension' do
+  pod 'OneSignal', '>= 2.9.3', '< 3.0'
 end

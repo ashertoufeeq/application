@@ -22,7 +22,7 @@ function getConfig(appDir) {
     absoluteImports[name] = path.join(__dirname, 'src', name);
     return null;
   });
-  
+
   const watchFolders = [
     ...workspaces.filter((workspaceDir) => !(workspaceDir === appDir)),
     path.resolve(appDir, '../node_modules'),
@@ -37,9 +37,9 @@ function getConfig(appDir) {
       ]),
       extraNodeModules: {
         ...absoluteImports,
-        
-        
-        
+
+
+
         /**
          * Resolve all dependency
          * which can clash
