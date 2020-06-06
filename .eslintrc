@@ -25,6 +25,7 @@
     "prefer-promise-reject-errors": ["off"],
     "jsx-quotes": ["error", "prefer-single"],
     "import/prefer-default-export": ["off"],
+    "no-console": ["off"],
 
     "indent": "warn",
     "no-unused-vars": "warn",
