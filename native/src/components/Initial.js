@@ -1,12 +1,16 @@
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { sessionStarted } from 'common/actions/demo';
+
+import RNBootSplash from "react-native-bootsplash";
 import Analytics from 'appcenter-analytics';
+
+import { sessionStarted } from 'common/actions/demo';
 
 export const Initial = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    RNBootSplash.hide();
     dispatch(sessionStarted());
     Analytics.trackEvent(
       'SessionStarted'
