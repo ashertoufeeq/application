@@ -18,6 +18,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* keeperspotTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* keeperspotTests.m */; };
 		3A4CF2F3248B15FF000BDCA4 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3A4CF2F2248B15FF000BDCA4 /* AppCenter-Config.plist */; };
+		3ACA08E8248BC70D00A350CD /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3ACA08E7248BC70D00A350CD /* BootSplash.storyboard */; };
 		3AFCD999248B05A3009504CC /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AFCD998248B05A3009504CC /* NotificationService.swift */; };
 		3AFCD99D248B05A3009504CC /* OneSignalNotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3AFCD996248B05A3009504CC /* OneSignalNotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		65BD80F641E20FEC27DB62FC /* libPods-keeperspot-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB6B730C79F2B4B55691417 /* libPods-keeperspot-tvOSTests.a */; };
@@ -82,6 +83,7 @@
 		2D02E4901E0B4A5D006451C7 /* keeperspot-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "keeperspot-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3019CBA41D1DECFC51144AD7 /* libPods-keeperspot-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-keeperspot-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A4CF2F2248B15FF000BDCA4 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AppCenter-Config.plist"; path = "keeperspot/AppCenter-Config.plist"; sourceTree = "<group>"; };
+		3ACA08E7248BC70D00A350CD /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = keeperspot/BootSplash.storyboard; sourceTree = "<group>"; };
 		3AFCD996248B05A3009504CC /* OneSignalNotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AFCD998248B05A3009504CC /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		3AFCD99A248B05A3009504CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		13B07FAE1A68108700A75B9A /* keeperspot */ = {
 			isa = PBXGroup;
 			children = (
+				3ACA08E7248BC70D00A350CD /* BootSplash.storyboard */,
 				3A4CF2F2248B15FF000BDCA4 /* AppCenter-Config.plist */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -423,6 +426,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				3A4CF2F3248B15FF000BDCA4 /* AppCenter-Config.plist in Resources */,
+				3ACA08E8248BC70D00A350CD /* BootSplash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
