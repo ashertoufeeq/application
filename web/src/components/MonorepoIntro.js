@@ -1,5 +1,6 @@
 import React from 'react';
 import { SessionClock } from 'components/SessionClock';
+import { Auth } from 'components/Auth';
 import { HelloButton } from './HelloButton';
 
 export const MonorepoIntro = () => (
@@ -17,5 +18,6 @@ export const MonorepoIntro = () => (
 
     <HelloButton />
     <SessionClock />
+    <Auth />
   </main>
 );

@@ -5,16 +5,22 @@ import RNBootSplash from "react-native-bootsplash";
 import Analytics from 'appcenter-analytics';
 
 import { sessionStarted } from 'common/actions/demo';
+import { useUser } from 'hooks/auth';
 
 export const Initial = () => {
   const dispatch = useDispatch();
+  const { getCurrentUser } = useUser(false);
+  
+  const init = async () => {
+    await getCurrentUser();
+    await Analytics.trackEvent('SessionStarted');
+    dispatch(sessionStarted());
+  };
 
   useEffect(() => {
-    RNBootSplash.hide();
-    dispatch(sessionStarted());
-    Analytics.trackEvent(
-      'SessionStarted'
-    ).then((...args) => console.log('App center session started', args));
+    init().finally(() => {
+      RNBootSplash.hide();
+    });
   }, []);
 
   return null;

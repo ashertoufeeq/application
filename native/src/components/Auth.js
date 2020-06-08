@@ -1,75 +1,44 @@
-import React, { useEffect, useState } from 'react';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from '@react-native-community/google-signin';
+import React from 'react';
 
-import { Text, TouchableOpacity } from 'react-native';
-import { GOOGLE_SIGNIN_WEB_CLIENT_ID } from 'common/secrets'
-
-GoogleSignin.configure({
-  webClientId: GOOGLE_SIGNIN_WEB_CLIENT_ID,
-  offlineAccess: true,
-});
+import { Text, TouchableOpacity, View } from 'react-native';
+import { styles } from 'styles/default';
+import { useUser } from 'hooks/auth';
 
 export const Auth = () => {
-  const [userInfo, setUserInfo] = useState(undefined);
-
-  const signIn = async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      setUserInfo(await GoogleSignin.signIn());
-    } catch (error) {
-      console.warn(error);
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        // user cancelled the login flow
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        // operation (e.g. sign in) is in progress already
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // play services not available or outdated
-      } else {
-        // some other error happened
-      }
-    }
-  };
-
-
-  const getCurrentUserInfo = async () => {
-    const start = new Date();
-    try {
-      setUserInfo(await GoogleSignin.signInSilently());
-    } catch (error) {
-      console.warn(error);
-      if (error.code === statusCodes.SIGN_IN_REQUIRED) {
-        // user has not signed in yet
-      } else {
-        // some other error
-      }
-    }
-
-    console.log(new Date() - start, 'TIME TAKEN');
-  };
-
-  useEffect(() => {
-    getCurrentUserInfo().then();
-  }, []);
-
-  useEffect(() => {
-    console.log(userInfo);
-  }, [userInfo]);
+  const { user, signIn, signOut, inProgress } = useUser();
 
   return (
     <>
-      <Text>
-        {userInfo ? 'User is signed-in' : 'Needs to sign-in'}
-      </Text>
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Signin with google</Text>
+        {
+          inProgress ? (
+            <Text>
+              Loading...
+            </Text>
+          ) : null
+        }
 
-      <TouchableOpacity onPress={signIn}>
-        <Text>
-          Click to sign in
-        </Text>
-      </TouchableOpacity>
+        {
+          user ? (
+            <TouchableOpacity onPress={signOut} type='primary'>
+              <Text style={styles.sectionDescription}>
+                Hello
+                {' '}
+                {user.givenName}
+                {' '}
+                [sign-out]
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={signIn} type='primary'>
+              <Text style={styles.sectionDescription}>
+                Click to sign-in
+              </Text>
+            </TouchableOpacity>
+          )
+        }
+      </View>
     </>
   );
 };
