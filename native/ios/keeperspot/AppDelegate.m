@@ -9,6 +9,7 @@
 #import <AppCenterReactNativeCrashes.h>
 
 #import "RNBootSplash.h"
+#import <RNGoogleSignin/RNGoogleSignin.h>
 
 #if DEBUG
 #import <FlipperKit/FlipperClient.h>
@@ -56,6 +57,10 @@ static void InitializeFlipper(UIApplication *application) {
   
   [RNBootSplash initWithStoryboard:@"BootSplash" rootView:rootView];
   return YES;
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url options:(nonnull NSDictionary<NSString *,id> *)options {
+  return [RNGoogleSignin application:application openURL:url options:options];
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
