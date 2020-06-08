@@ -5,6 +5,7 @@ import openURLInBrowser from 'react-native/Libraries/Core/Devtools/openURLInBrow
 import { styles } from 'styles/default';
 
 import { SessionTime } from 'components/SessionTime';
+import { Auth } from 'components/Auth';
 import { HelloButton } from './HelloButton';
 
 const repoLink = 'https://github.com/Faisal-Manzer/react-and-react-native-monorepo';
@@ -34,6 +35,7 @@ export const MonorepoIntro = () => (
           </View>
           <HelloButton />
           <SessionTime />
+          <Auth />
         </View>
       </ScrollView>
     </SafeAreaView>

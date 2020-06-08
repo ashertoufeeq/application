@@ -10,6 +10,7 @@ import {
 
 import { styles } from 'styles/default';
 import { HelloMonorepo } from 'common/components/helloMonorepo';
+import {Auth} from 'components/Auth';
 
 export const GettingStarted = ({ navigation }) => (
   <>
@@ -29,6 +30,7 @@ export const GettingStarted = ({ navigation }) => (
                 <HelloMonorepo />
               </Text>
             </TouchableOpacity>
+            <Auth />
           </View>
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionTitle}>Step One</Text>
