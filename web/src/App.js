@@ -1,23 +1,14 @@
-import React, { useEffect } from 'react';
+import React  from 'react';
 import './App.css';
 
 import { Router } from '@reach/router';
-import { Provider, useDispatch } from 'react-redux';
+import { Provider } from 'react-redux';
 
 import { store } from 'common/reducers';
-import { sessionStarted } from 'common/actions/demo';
 
 import { GettingStarted } from 'components/GettingStarted';
 import { MonorepoIntro } from 'components/MonorepoIntro';
-
-const Initial = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(sessionStarted());
-  }, [dispatch]);
-
-  return null;
-};
+import { Initial } from 'components/Initial';
 
 const App = () => (
   <Provider store={store}>
