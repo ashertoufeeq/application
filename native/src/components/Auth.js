@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-community/google-signin';
 
-import {Text, TouchableOpacity} from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
+import { GOOGLE_SIGNIN_WEB_CLIENT_ID } from 'common/secrets'
 
 GoogleSignin.configure({
-  webClientId: '242419208720-dnj0cc3fc9d1p3rg3umhblu2kkefkrvb.apps.googleusercontent.com',
+  webClientId: GOOGLE_SIGNIN_WEB_CLIENT_ID,
   offlineAccess: true,
-  iosClientId: '242419208720-pige2u1it77k9e90s9f8sor2i43ilc37.apps.googleusercontent.com',
 });
 
 export const Auth = () => {
