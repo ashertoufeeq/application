@@ -2,10 +2,6 @@ import { useEffect } from 'react';
 import OneSignal from 'react-native-onesignal';
 import secrets from 'common/secrets';
 
-const myiOSPromptCallback = (permission) => {
-  console.log(permission);
-};
-
 const onReceived = (notification) => {
   console.log('Notification received: ', notification);
 };
@@ -31,7 +27,6 @@ export const useOnesignal = () => {
       kOSSettingsKeyInFocusDisplayOption: 2,
     });
     OneSignal.inFocusDisplaying(2);
-    OneSignal.promptForPushNotificationsWithUserResponse(myiOSPromptCallback);
 
     OneSignal.addEventListener('received', onReceived);
     OneSignal.addEventListener('opened', onOpened);
