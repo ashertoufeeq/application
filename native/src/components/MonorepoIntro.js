@@ -7,6 +7,7 @@ import { styles } from 'styles/default';
 import { SessionTime } from 'components/SessionTime';
 import { Auth } from 'components/Auth';
 import { HelloButton } from './HelloButton';
+import {Tailwind} from 'components/Tailwind';
 
 const repoLink = 'https://github.com/Faisal-Manzer/react-and-react-native-monorepo';
 
@@ -36,6 +37,7 @@ export const MonorepoIntro = () => (
           <HelloButton />
           <SessionTime />
           <Auth />
+          <Tailwind />
         </View>
       </ScrollView>
     </SafeAreaView>
