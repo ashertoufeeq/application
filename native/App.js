@@ -1,4 +1,6 @@
 import React from 'react';
+import codePush from "react-native-code-push";
+
 import { StatusBar } from 'react-native';
 
 import 'react-native-gesture-handler';
@@ -34,4 +36,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default codePush()(App);

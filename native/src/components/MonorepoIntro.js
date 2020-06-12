@@ -8,6 +8,7 @@ import { SessionTime } from 'components/SessionTime';
 import { Auth } from 'components/Auth';
 import { Tailwind } from 'components/Tailwind';
 import { PushNotification } from 'components/PushNotification';
+import { CodePush } from 'components/CodePush';
 import { HelloButton } from './HelloButton';
 
 const repoLink = 'https://github.com/Faisal-Manzer/react-and-react-native-monorepo';
@@ -39,6 +40,7 @@ export const MonorepoIntro = () => (
           <SessionTime />
           <Auth />
           <PushNotification />
+          <CodePush />
           <Tailwind />
         </View>
       </ScrollView>
