@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import { useGoogleLogin, useGoogleLogout } from 'react-google-login';
 import { useState } from 'react';
 
@@ -7,11 +9,15 @@ export const useUser = (autoLoad = true) => {
   const [userInfo, setUserInfo] = useState(null);
   const [inProgress, setInProgress] = useState(true);
 
-  const onLoginSuccess = (info) => {
+  const onLoginSuccess = async (info) => {
     console.log('onLoginSuccess');
     console.log({ info });
     setUserInfo(info);
     setInProgress(false);
+    await axios.post('http://localhost/auth/google/', {
+      google_id: info.googleId,
+      token: info.tokenId,
+    });
   };
 
   const onLoginFail = (...args) => {
@@ -33,7 +39,7 @@ export const useUser = (autoLoad = true) => {
     onAutoLoadFinished,
     fetchBasicProfile: autoLoad,
     // autoLoad,
-    isSignedIn: true
+    isSignedIn: true,
   });
 
   const onLogoutSuccess = () => {

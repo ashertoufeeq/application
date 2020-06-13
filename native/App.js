@@ -9,15 +9,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Provider } from 'react-redux';
 
-import { store } from 'common/reducers';
+import { getStore } from 'common/reducers';
 
 import { Initial } from 'components/Initial';
+import AsyncStorage from '@react-native-community/async-storage';
 import { useOnesignal } from './src/hooks/onesignal';
 import { GettingStarted } from './src/components/GettingStarted';
 import { MonorepoIntro } from './src/components/MonorepoIntro';
 
 const Stack = createStackNavigator();
-
+const { store } = getStore(AsyncStorage);
 
 const App = () => {
   useOnesignal();

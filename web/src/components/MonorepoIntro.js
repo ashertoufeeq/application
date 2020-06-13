@@ -1,5 +1,4 @@
 import React from 'react';
-import { SessionClock } from 'components/SessionClock';
 import { Auth } from 'components/Auth';
 import { Tailwind } from 'components/Tailwind';
 import { PushNotification } from 'components/PushNotification';
@@ -19,7 +18,6 @@ export const MonorepoIntro = () => (
     </div>
 
     <HelloButton />
-    <SessionClock />
     <Auth />
     <PushNotification />
     <Tailwind />
