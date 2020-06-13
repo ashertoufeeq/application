@@ -17,6 +17,7 @@ export const Tailwind = () => (
           <p className='text-sm leading-tight text-gray-600'>Customer Support Specialist</p>
           <div className='mt-4'>
             <button
+              type='button'
               className='text-purple-500 hover:text-white hover:bg-purple-500 border border-purple-500 text-xs font-semibold rounded-full px-4 py-1 leading-normal'>
               Message
             </button>

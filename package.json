@@ -25,7 +25,8 @@
     "macos": "yarn workspace native macos",
     "xcode": "yarn workspace native xcode",
     "pod": "cd ./native/ios && pod install",
-    "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -rf native/ios/Pods"
+    "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' + && rm -rf native/ios/Pods",
+    "lint": "eslint --fix \"**/!(node_modules)/*.{js,jsx,ts,tsx}\""
   },
   "devDependencies": {
     "airbnb": "^0.0.2",

@@ -1,14 +1,12 @@
-import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { sessionStarted } from 'common/actions/demo';
-
-window.$ = (str) => str;
+import { getStorage } from 'common/storage';
 
 export const Initial = () => {
-  const dispatch = useDispatch();
+
   useEffect(() => {
-    dispatch(sessionStarted());
-  }, [dispatch]);
+    window.storage = getStorage(window.localStorage);
+
+  }, []);
 
   return null;
 };

@@ -4,7 +4,6 @@ import openURLInBrowser from 'react-native/Libraries/Core/Devtools/openURLInBrow
 
 import { styles } from 'styles/default';
 
-import { SessionTime } from 'components/SessionTime';
 import { Auth } from 'components/Auth';
 import { Tailwind } from 'components/Tailwind';
 import { PushNotification } from 'components/PushNotification';
@@ -37,7 +36,6 @@ export const MonorepoIntro = () => (
             </TouchableOpacity>
           </View>
           <HelloButton />
-          <SessionTime />
           <Auth />
           <PushNotification />
           <CodePush />
