@@ -40,6 +40,7 @@
     "react-native": "0.62.2",
     "react-native-bootsplash": "^2.2.4",
     "react-native-code-push": "^6.2.1",
+    "react-native-flash-message": "^0.1.15",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-onesignal": "^3.7.3",
     "react-native-reanimated": "^1.9.0",

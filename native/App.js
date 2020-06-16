@@ -1,5 +1,5 @@
 import React from 'react';
-import codePush from "react-native-code-push";
+import codePush from 'react-native-code-push';
 
 import { StatusBar } from 'react-native';
 
@@ -26,13 +26,13 @@ const App = () => {
   return (
     <Provider store={store}>
       <StatusBar barStyle='dark-content' />
-      <Initial />
       <NavigationContainer screenOptions={{ headerShown: false }}>
         <Stack.Navigator initialRouteName='Home'>
           <Stack.Screen name='Home' component={GettingStarted} />
           <Stack.Screen name='Intro' component={MonorepoIntro} />
         </Stack.Navigator>
       </NavigationContainer>
+      <Initial />
     </Provider>
   );
 };
