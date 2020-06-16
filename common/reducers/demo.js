@@ -1,3 +1,4 @@
+import { notification } from '../helpers/notify';
 import { HELLO_BUTTON_CLICKED } from '../actions';
 
 const initialState = {
@@ -10,6 +11,7 @@ export const demo = (state = initialState, action) => {
 
   switch (action.type) {
     case HELLO_BUTTON_CLICKED:
+      notification('Button clicked');
       return $({ clicked: state.clicked + 1 });
     default:
       return $();

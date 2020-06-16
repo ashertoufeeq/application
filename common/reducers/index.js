@@ -1,15 +1,16 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import hardSet from 'redux-persist/lib/stateReconciler/hardSet'
+import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
 
 import thunk from 'redux-thunk';
 
 import { demo } from './demo';
+import { auth } from './auth';
 
 const reducers = combineReducers({
   demo,
+  auth,
 });
-
 
 export const getStore = (storage) => {
   const persistConfig = {
