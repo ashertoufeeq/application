@@ -3,11 +3,12 @@ import { useUser } from 'hooks/auth';
 
 export const Auth = () => {
 
-  const { signIn, user, signOut, inProgress } = useUser();
+  const { signIn, user, signOut, inProgress, isAuthenticated } = useUser();
 
   return (
     <div>
       <h3>Google Sign-in</h3>
+
       {
         inProgress? (
           <>
@@ -17,11 +18,11 @@ export const Auth = () => {
         ) : null
       }
 
-      {user ? (
+      {isAuthenticated ? (
         <div>
           Hello
           {' '}
-          {user.givenName}
+          {user.firstName}
           <br />
           <button type='button' onClick={signOut}>
             Sign-out

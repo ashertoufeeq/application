@@ -1,23 +1,22 @@
-import axios from 'axios';
-
 import { useGoogleLogin, useGoogleLogout } from 'react-google-login';
 import { useState } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { googleAuthenticate, logout as logoutAction } from 'common/actions/auth';
 
 import { GOOGLE_SIGNIN_WEB_CLIENT_ID } from 'common/secrets';
 
 export const useUser = (autoLoad = true) => {
-  const [userInfo, setUserInfo] = useState(null);
+  const user = useSelector((state) => state.auth.user);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const [inProgress, setInProgress] = useState(true);
+  const dispatch = useDispatch();
+
 
   const onLoginSuccess = async (info) => {
-    console.log('onLoginSuccess');
-    console.log({ info });
-    setUserInfo(info);
+    await googleAuthenticate({ googleId: info.googleId, token: info.tokenId })(dispatch);
     setInProgress(false);
-    await axios.post('http://localhost/auth/google/', {
-      google_id: info.googleId,
-      token: info.tokenId,
-    });
   };
 
   const onLoginFail = (...args) => {
@@ -42,12 +41,12 @@ export const useUser = (autoLoad = true) => {
     isSignedIn: true,
   });
 
-  const onLogoutSuccess = () => {
-    setUserInfo(null);
+  const onLogoutSuccess = async () => {
+    dispatch(logoutAction());
     setInProgress(false);
   };
 
-  const onLogoutFailure = () => {
+  const onLogoutFailure = async () => {
     setInProgress(false);
   };
 
@@ -70,12 +69,12 @@ export const useUser = (autoLoad = true) => {
     await googleSignOut();
   };
 
-  const user = userInfo?.profileObj;
   const getCurrentUser = async () => {
   };
 
   return {
-    userInfo, user, signIn, signOut, getCurrentUser,
+    user, isAuthenticated,
+    signIn, signOut, getCurrentUser,
     inProgress: inProgress || !signInLoaded || !signOutLoaded,
   };
 };

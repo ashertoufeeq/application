@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { GoogleSignin, statusCodes } from '@react-native-community/google-signin';
 import { GOOGLE_SIGNIN_WEB_CLIENT_ID } from 'common/secrets';
+import { useDispatch, useSelector } from 'react-redux';
+import { googleAuthenticate, logout as logoutAction } from 'common/actions/auth';
 
 
 GoogleSignin.configure({
@@ -9,8 +11,15 @@ GoogleSignin.configure({
 });
 
 export const useUser = (autoLoad = true) => {
-  const [userInfo, setUserInfo] = useState(null);
+  const user = useSelector((state) => state.auth.user);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   const [inProgress, setInProgress] = useState(true);
+  const dispatch = useDispatch();
+
+  const authenticate = async (info) => {
+    await googleAuthenticate({ googleId: info.user.id, token: info.idToken })(dispatch);
+  };
 
   const signIn = async () => {
     try {
@@ -18,7 +27,7 @@ export const useUser = (autoLoad = true) => {
       await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
       const info = await GoogleSignin.signIn();
 
-      setUserInfo(info);
+      await authenticate(info);
       setInProgress(false);
     } catch (error) {
       switch (error.code) {
@@ -34,7 +43,7 @@ export const useUser = (autoLoad = true) => {
   const getCurrentUser = async () => {
     try {
       setInProgress(true);
-      setUserInfo(await GoogleSignin.signInSilently());
+      // await authenticate(await GoogleSignin.signInSilently());
     } catch (error) {
       switch (error.code) {
         case statusCodes.SIGN_IN_REQUIRED:
@@ -54,10 +63,13 @@ export const useUser = (autoLoad = true) => {
   const signOut = async () => {
     setInProgress(true);
     await GoogleSignin.signOut();
-    setUserInfo(undefined);
+    await logoutAction()(dispatch);
     setInProgress(false);
   };
 
-  const user = userInfo?.user;
-  return { userInfo, inProgress, user, signIn, signOut, getCurrentUser };
+  return {
+    inProgress,
+    user, isAuthenticated,
+    signIn, signOut, getCurrentUser,
+  };
 };
