@@ -8,6 +8,7 @@ import { Auth } from 'components/Auth';
 import { Tailwind } from 'components/Tailwind';
 import { PushNotification } from 'components/PushNotification';
 import { CodePush } from 'components/CodePush';
+import { ResetState } from 'components/ResetState';
 import { HelloButton } from './HelloButton';
 
 const repoLink = 'https://github.com/Faisal-Manzer/react-and-react-native-monorepo';
@@ -23,19 +24,16 @@ export const MonorepoIntro = () => (
           </View>
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionTitle}>React</Text>
-            <Text style={styles.sectionDescription}>
-              Different guides are available in README.
-            </Text>
-            <TouchableOpacity
-              accessibilityRole='button'
-              onPress={() => openURLInBrowser(repoLink)}
-            >
+            <Text style={styles.sectionDescription}>Different guides are available in README.</Text>
+            <TouchableOpacity accessibilityRole='button' onPress={() => openURLInBrowser(repoLink)}>
               <Text style={styles.sectionDescription}>
                 https://github.com/Faisal-Manzer/react-and-react-native-monorepo
               </Text>
             </TouchableOpacity>
           </View>
+
           <HelloButton />
+          <ResetState />
           <Auth />
           <PushNotification />
           <CodePush />

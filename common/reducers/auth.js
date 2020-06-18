@@ -1,4 +1,4 @@
-import { USER_AUTHENTICATED, LOGOUT } from 'common/actions';
+import { USER_AUTHENTICATED, LOGOUT, RESET_STATE } from 'common/actions';
 
 const initialState = {
   user: {
@@ -22,6 +22,9 @@ export const auth = (state = initialState, action) => {
     }
     case LOGOUT:
       return $(initialState);
+
+    case RESET_STATE:
+      return initialState;
     default:
       return $();
   }

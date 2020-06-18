@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { Auth } from 'components/Auth';
 import { Tailwind } from 'components/Tailwind';
 import { PushNotification } from 'components/PushNotification';
-import { HelloButton } from './HelloButton';
+import { ResetState } from 'components/ResetState';
+import { HelloButton } from 'components/HelloButton';
 
 export const MonorepoIntro = () => (
   <main style={{ padding: 20 }}>
@@ -18,6 +20,7 @@ export const MonorepoIntro = () => (
     </div>
 
     <HelloButton />
+    <ResetState />
     <Auth />
     <PushNotification />
     <Tailwind />

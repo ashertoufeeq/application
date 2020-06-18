@@ -1,6 +1,7 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
+import createEncryptor from 'redux-persist-transform-encrypt';
 
 import thunk from 'redux-thunk';
 
@@ -12,12 +13,16 @@ const reducers = combineReducers({
   auth,
 });
 
+const encryptor = createEncryptor({
+  secretKey: '&ug6!_v61ww8410ji9f=-06)v2&&nq$kc01249rg4fdk(l94m3',
+});
+
 export const getStore = (storage) => {
   const persistConfig = {
     key: 'root-store',
     storage,
-    whitelist: ['demo'],
     stateReconciler: hardSet,
+    transforms: [encryptor],
   };
   const persistedReducer = persistReducer(persistConfig, reducers);
 

@@ -1,24 +1,32 @@
 import React from 'react';
-import codePush from 'react-native-code-push';
-
-import { StatusBar } from 'react-native';
-
 import 'react-native-gesture-handler';
+
+import codePush from 'react-native-code-push';
+import { StatusBar } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-community/async-storage';
 import { Provider } from 'react-redux';
 
 import { getStore } from 'common/reducers';
+import { getStorage } from 'common/storage';
 
+import { notify } from 'helpers/notify';
+import { css } from 'styles';
 import { Initial } from 'components/Initial';
-import AsyncStorage from '@react-native-community/async-storage';
+
 import { useOnesignal } from './src/hooks/onesignal';
 import { GettingStarted } from './src/components/GettingStarted';
 import { MonorepoIntro } from './src/components/MonorepoIntro';
 
 const Stack = createStackNavigator();
-const { store } = getStore(AsyncStorage);
+const { store, persistor } = getStore(AsyncStorage);
+
+global.persistor = persistor;
+global.storage = getStorage(AsyncStorage);
+global.notify = notify;
+global.css = css;
 
 const App = () => {
   useOnesignal();

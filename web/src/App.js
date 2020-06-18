@@ -11,8 +11,16 @@ import { getStore } from 'common/reducers';
 import { GettingStarted } from 'components/GettingStarted';
 import { MonorepoIntro } from 'components/MonorepoIntro';
 import { Initial } from 'components/Initial';
+import { getStorage } from 'common/storage';
+import { notify } from 'helpers/alert';
+import { css } from 'styles';
 
 const { store, persistor } = getStore(storage);
+
+window.persistor = persistor;
+window.storage = getStorage(window.localStorage);
+window.notify = notify;
+window.css = css;
 
 const App = () => (
   <Provider store={store}>
