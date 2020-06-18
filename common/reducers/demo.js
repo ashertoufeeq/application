@@ -1,5 +1,5 @@
-import { notification } from '../helpers/notify';
-import { HELLO_BUTTON_CLICKED } from '../actions';
+import { Notify } from '../helpers/shared';
+import { HELLO_BUTTON_CLICKED, RESET_STATE } from '../actions';
 
 const initialState = {
   clicked: 0,
@@ -11,8 +11,12 @@ export const demo = (state = initialState, action) => {
 
   switch (action.type) {
     case HELLO_BUTTON_CLICKED:
-      notification('Button clicked');
+      Notify('Button clicked', { type: 'success' });
       return $({ clicked: state.clicked + 1 });
+
+    case RESET_STATE:
+      return initialState;
+
     default:
       return $();
   }
