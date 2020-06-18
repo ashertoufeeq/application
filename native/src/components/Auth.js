@@ -5,7 +5,7 @@ import { styles } from 'styles/default';
 import { useUser } from 'hooks/auth';
 
 export const Auth = () => {
-  const { user, signIn, signOut, inProgress } = useUser();
+  const { user, signIn, signOut, inProgress, isAuthenticated } = useUser();
 
   return (
     <>
@@ -20,12 +20,12 @@ export const Auth = () => {
         }
 
         {
-          user ? (
+          isAuthenticated ? (
             <TouchableOpacity onPress={signOut} type='primary'>
               <Text style={styles.sectionDescription}>
                 Hello
                 {' '}
-                {user.givenName}
+                {user.firstName}
                 {' '}
                 [sign-out]
               </Text>

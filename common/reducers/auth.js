@@ -1,9 +1,10 @@
-import { USER_AUTHENTICATED, LOGOUT, RESET_STATE } from 'common/actions';
+import { USER_AUTHENTICATED, USER_LOGOUT, RESET_STATE } from 'common/actions';
 
 const initialState = {
   user: {
-    givenName: null,
-    familyName: null,
+    firstName: null,
+    lastName: null,
+    email: null,
     image: null,
     id: null,
   },
@@ -18,9 +19,9 @@ export const auth = (state = initialState, action) => {
   switch (action.type) {
     case USER_AUTHENTICATED: {
       const { user, access, refresh } = action;
-      return $({ user, access, refresh });
+      return $({ user, access, refresh, isAuthenticated: true });
     }
-    case LOGOUT:
+    case USER_LOGOUT:
       return $(initialState);
 
     case RESET_STATE:

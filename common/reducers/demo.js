@@ -11,7 +11,7 @@ export const demo = (state = initialState, action) => {
 
   switch (action.type) {
     case HELLO_BUTTON_CLICKED:
-      Notify('Button clicked', { type: 'success' });
+      Notify()('Button clicked', { type: 'success' });
       return $({ clicked: state.clicked + 1 });
 
     case RESET_STATE:

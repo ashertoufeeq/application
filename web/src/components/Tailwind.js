@@ -9,8 +9,9 @@ export const Tailwind = () => (
     <div className='max-w-sm bg-white shadow-lg rounded-lg overflow-hidden'>
       <div className='sm:flex sm:items-center px-6 py-4'>
         <img
-          className='block mx-auto sm:mx-0 sm:flex-shrink-0 h-16 sm:h-24 rounded-full'
+          className='block mx-auto sm:mx-0 sm:flex-shrink-0 h-24 rounded-full'
           src='https://randomuser.me/api/portraits/women/17.jpg'
+          style={{ height: '6rem', width: '6rem' }}
           alt="Woman's Face" />
         <div className='mt-4 sm:mt-0 sm:ml-4 text-center sm:text-left'>
           <p className='text-xl leading-tight'>Erin Lindford</p>
