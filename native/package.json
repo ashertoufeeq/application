@@ -8,20 +8,12 @@
   },
   "workspaces": {
     "nohoist": [
-      "@react-native-community/async-storage",
-      "react-native",
-      "react-native/**",
-      "react-native-dev-menu",
-      "react-native-svg",
-      "jetifier",
-      "**react-native**",
-      "@react-navigation/**",
-      "react",
-      "react-redux"
+      "**"
     ]
   },
   "scripts": {
-    "start": "react-native start",
+    "sync": "../sync.js native",
+    "start": "concurrently \"yarn sync\" \"react-native start\"",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "studio": "studio android",
@@ -40,7 +32,6 @@
     "appcenter-analytics": "3.0.3",
     "appcenter-crashes": "3.0.3",
     "babel-plugin-module-resolver": "^4.0.0",
-    "common": "file:../common",
     "react": "^16.13.1",
     "react-native": "0.62.2",
     "react-native-bootsplash": "^2.2.4",
@@ -61,6 +52,7 @@
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
     "babel-jest": "^24.9.0",
+    "concurrently": "^5.2.0",
     "get-yarn-workspaces": "^1.0.2",
     "hoist-non-react-statics": "^3.3.2",
     "jest": "^24.9.0",

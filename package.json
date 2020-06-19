@@ -1,10 +1,9 @@
 {
   "private": true,
   "workspaces": [
-    "common",
     "web",
     "native",
-    "comps"
+    "shared"
   ],
   "keywords": [
     "react-native",
@@ -56,5 +55,8 @@
       "pretty-quick —-staged",
       "eslint --fix"
     ]
+  },
+  "dependencies": {
+    "sync-directory": "^2.2.2"
   }
 }

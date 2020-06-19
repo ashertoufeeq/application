@@ -8,7 +8,6 @@ import { Storage } from 'common/helpers/shared';
 
 const axios = realAxios.create({ baseURL: API_BASE_URL });
 
-
 const requestDataToSnakeCase = (url, options) => {
   if (options.data)
     // eslint-disable-next-line no-param-reassign
@@ -44,8 +43,8 @@ const load = async (url, opts = {}) => {
     secure = true,
     defaultData,
     headers,
-    requestMiddlewares=[requestDataToSnakeCase],
-    responseMiddlewares=[responseDataToCamelCase],
+    requestMiddlewares = [requestDataToSnakeCase],
+    responseMiddlewares = [responseDataToCamelCase],
     ...options
   } = opts;
 
@@ -57,18 +56,19 @@ const load = async (url, opts = {}) => {
       },
       ...options,
     };
-    
+
     // eslint-disable-next-line no-restricted-syntax
-    for (const middleware of requestMiddlewares)
-      finalOptions = middleware(url, finalOptions);
-    
+    for (const middleware of requestMiddlewares) finalOptions = middleware(url, finalOptions);
+
     const res = await axios(url, finalOptions);
 
     let { data } = res;
     const { status } = res;
+
+    // eslint-disable-next-line no-restricted-syntax
     for (const middleware of responseMiddlewares)
       data = middleware(data, status, url, finalOptions);
-    
+
     await onSuccess(data);
     return { data, status, error: undefined, loading: false };
   } catch (error) {
@@ -89,20 +89,18 @@ const load = async (url, opts = {}) => {
   }
 };
 
-
-const loadDataMethod = (method) => (url, data, options = {}) => load(url,
-  { method, data, ...options },
-);
+const loadDataMethod = (method) => (url, data, options = {}) =>
+  load(url, { method, data, ...options });
 const loadMethod = (method) => (url, options) => load(url, { method, ...options });
 
 export default {
-  'axios': axios,
-  'request': load,
-  'get': loadMethod('GET'),
-  'delete': loadMethod('DELETE'),
-  'head': loadMethod('HEAD'),
-  'options': loadMethod('OPTIONS'),
-  'post': loadDataMethod('POST'),
-  'put': loadDataMethod('PUT'),
-  'patch': loadDataMethod('PATCH'),
+  axios,
+  request: load,
+  get: loadMethod('GET'),
+  delete: loadMethod('DELETE'),
+  head: loadMethod('HEAD'),
+  options: loadMethod('OPTIONS'),
+  post: loadDataMethod('POST'),
+  put: loadDataMethod('PUT'),
+  patch: loadDataMethod('PATCH'),
 };
