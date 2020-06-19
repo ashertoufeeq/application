@@ -9,13 +9,6 @@ GoogleSignin.configure({
   offlineAccess: true,
 });
 
-export const useUser = () => {
-  const user = useSelector((state) => state.auth.user);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
-  return { user, isAuthenticated };
-};
-
 export const useGoogleAuthentication = (autoLoad = true) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 

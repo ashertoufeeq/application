@@ -3,7 +3,8 @@ import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { styles } from 'styles/default';
 
-import { useGoogleAuthentication, useUser } from 'hooks/auth';
+import { useGoogleAuthentication } from 'hooks/auth';
+import { useUser } from 'common/hooks/auth';
 
 export const GoogleAuthenticate = () => {
   const { user, isAuthenticated } = useUser();

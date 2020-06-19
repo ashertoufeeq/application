@@ -1,6 +1,6 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import { createLogger } from 'redux-logger'
+import { createLogger } from 'redux-logger';
 
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
 import createEncryptor from 'redux-persist-transform-encrypt';

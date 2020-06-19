@@ -5,18 +5,14 @@ export const mapObject = (obj, func) => {
   const newObj = {};
 
   if (typeof obj === 'object' && obj !== null)
-    // eslint-disable-next-line no-restricted-syntax
     for (const o in obj)
-      // eslint-disable-next-line no-prototype-builtins
-      if (obj.hasOwnProperty(o)) {
-        // eslint-disable-next-line no-param-reassign
+      if (Object.prototype.hasOwnProperty.call(obj, o)) {
         const [key, value] = func(o, obj[o]);
         newObj[key] = value;
       }
 
   return newObj;
 };
-
 
 export const camelCaseObject = (obj) => {
   if (typeof obj === 'object' && obj !== null)

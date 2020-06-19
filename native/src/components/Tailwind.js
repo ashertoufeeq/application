@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View, Image } from 'react-native';
 
 import { css } from 'styles';
 import { styles } from 'styles/default';
-import { useUser } from 'hooks/auth';
+import { useUser } from 'common/hooks/auth';
 
 export const Tailwind = () => {
   const { user, isAuthenticated } = useUser();
@@ -17,10 +17,12 @@ export const Tailwind = () => {
             <Image
               style={[css('rounded-full self-center'), { height: 160, width: 160 }]}
               source={{
-                uri:
-                  isAuthenticated ? user.image : 'https://randomuser.me/api/portraits/women/17.jpg',
+                uri: isAuthenticated
+                  ? user.image
+                  : 'https://randomuser.me/api/portraits/women/17.jpg',
               }}
-              alt="Woman's Face" />
+              alt="Woman's Face"
+            />
           </View>
           <View style={css('mt-4 ')}>
             <Text style={css('text-xl text-center')}>
@@ -32,7 +34,7 @@ export const Tailwind = () => {
             <View style={css('mt-4')}>
               <TouchableOpacity style={css('border border-purple-500 rounded-full px-4 py-1')}>
                 <Text style={css('text-purple-500 text-center text-base font-semibold')}>
-                  Message
+                  Message 
                   {' '}
                   {user.email}
                 </Text>
