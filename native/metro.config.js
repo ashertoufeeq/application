@@ -26,7 +26,6 @@ function getConfig(appDir) {
   const watchFolders = [
     ...workspaces.filter((workspaceDir) => !(workspaceDir === appDir)),
     path.resolve(appDir, '../node_modules'),
-    path.resolve(appDir, '../common/node_modules'),
   ];
 
   return {
@@ -45,7 +44,7 @@ function getConfig(appDir) {
          */
         'react-redux': path.resolve(appDir, 'node_modules', 'react-redux'),
         'react-native': path.resolve(appDir, 'node_modules', 'react-native'),
-        'react': path.resolve(appDir, 'node_modules', 'react'),
+        react: path.resolve(appDir, 'node_modules', 'react'),
         'react-native-svg': path.resolve(appDir, 'node_modules', 'react-native-svg'),
         'core-js': path.resolve(appDir, 'node_modules', 'core-js'),
       },

@@ -3,7 +3,8 @@
   "workspaces": [
     "common",
     "web",
-    "native"
+    "native",
+    "comps"
   ],
   "keywords": [
     "react-native",

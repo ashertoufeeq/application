@@ -39,6 +39,7 @@
     "appcenter": "3.0.3",
     "appcenter-analytics": "3.0.3",
     "appcenter-crashes": "3.0.3",
+    "babel-plugin-module-resolver": "^4.0.0",
     "common": "file:../common",
     "react": "^16.13.1",
     "react-native": "0.62.2",
