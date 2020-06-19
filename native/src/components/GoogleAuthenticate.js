@@ -4,7 +4,6 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import { styles } from 'styles/default';
 
 import { useGoogleAuthentication, useUser } from 'hooks/auth';
-// import { useUser } from 'common/hooks/auth';
 
 export const GoogleAuthenticate = () => {
   const { user, isAuthenticated } = useUser();
@@ -14,33 +13,22 @@ export const GoogleAuthenticate = () => {
     <>
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionTitle}>Signin with google</Text>
-        {
-          inProgress ? (
-            <Text>
-              Loading...
-            </Text>
-          ) : null
-        }
+        {inProgress ? <Text>Loading...</Text> : null}
 
-        {
-          isAuthenticated ? (
-            <TouchableOpacity onPress={signOut} type='primary'>
-              <Text style={styles.sectionDescription}>
-                Hello
-                {' '}
-                {user.firstName}
-                {' '}
-                [sign-out]
-              </Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={signIn} type='primary'>
-              <Text style={styles.sectionDescription}>
-                Click to sign-in
-              </Text>
-            </TouchableOpacity>
-          )
-        }
+        {isAuthenticated ? (
+          <TouchableOpacity onPress={signOut} type='primary'>
+            <Text style={styles.sectionDescription}>
+              Hello
+              {user.firstName}
+              {' '}
+              [sign-out]
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={signIn} type='primary'>
+            <Text style={styles.sectionDescription}>Click to sign-in</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </>
   );

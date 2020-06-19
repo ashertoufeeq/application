@@ -3,7 +3,6 @@ import { GoogleSignin, statusCodes } from '@react-native-community/google-signin
 import { GOOGLE_SIGNIN_WEB_CLIENT_ID } from 'common/secrets';
 import { useDispatch, useSelector } from 'react-redux';
 import { googleAuthenticate, logout as logoutAction } from 'common/actions/auth';
-// import { useUser as commonUseUser } from 'common/hooks/auth';
 
 GoogleSignin.configure({
   webClientId: GOOGLE_SIGNIN_WEB_CLIENT_ID,
@@ -11,22 +10,20 @@ GoogleSignin.configure({
 });
 
 export const useUser = () => {
-  const user = useSelector(state => state.auth.user);
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const user = useSelector((state) => state.auth.user);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   return { user, isAuthenticated };
 };
 
-
 export const useGoogleAuthentication = (autoLoad = true) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  
+
   const [inProgress, setInProgress] = useState(true);
   const dispatch = useDispatch();
 
   const authenticate = async (info) => {
-    dispatch(googleAuthenticate({ googleId: info.user.id, token: info.idToken }));
-    // await googleAuthenticate({ googleId: info.user.id, token: info.idToken })(dispatch);
+    await googleAuthenticate({ googleId: info.user.id, token: info.idToken })(dispatch);
   };
 
   const signIn = async () => {
@@ -55,12 +52,11 @@ export const useGoogleAuthentication = (autoLoad = true) => {
     await logoutAction()(dispatch);
     setInProgress(false);
   };
-  
+
   const getCurrentUser = async () => {
     try {
       setInProgress(true);
-      if (!isAuthenticated)
-        await authenticate(await GoogleSignin.signInSilently());
+      if (!isAuthenticated) await authenticate(await GoogleSignin.signInSilently());
     } catch (error) {
       switch (error.code) {
         case statusCodes.SIGN_IN_REQUIRED:
@@ -73,14 +69,15 @@ export const useGoogleAuthentication = (autoLoad = true) => {
 
     setInProgress(false);
   };
-  
+
   useEffect(() => {
-    if (autoLoad)
-      getCurrentUser().then();
+    if (autoLoad) getCurrentUser().then();
   }, []);
 
   return {
     inProgress,
-    signIn, signOut, getCurrentUser,
+    signIn,
+    signOut,
+    getCurrentUser,
   };
 };
