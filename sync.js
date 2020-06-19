@@ -8,19 +8,15 @@ const sync = (target) => {
   const absoluteTarget = join(__dirname, target, 'src', 'common');
   const watcher = syncDirectory(mainDir, absoluteTarget, {
     watch: true,
-    exclude: [
-      'node_modules',
-      'package.json',
-    ],
+    exclude: ['node_modules', 'package.json'],
   });
 
   const { log } = console;
 
   watcher
     .on('ready', () => log(`Initial scan complete for ${target}. Ready for changes...`))
-    .on('change', path => log(`File ${path} has been changed...`));
+    .on('change', (path) => log(`File ${path} has been changed...`));
 };
-
 
 module.exports = sync;
 
