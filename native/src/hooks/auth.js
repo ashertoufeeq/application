@@ -3,62 +3,51 @@ import { GoogleSignin, statusCodes } from '@react-native-community/google-signin
 import { GOOGLE_SIGNIN_WEB_CLIENT_ID } from 'common/secrets';
 import { useDispatch, useSelector } from 'react-redux';
 import { googleAuthenticate, logout as logoutAction } from 'common/actions/auth';
-
+// import { useUser as commonUseUser } from 'common/hooks/auth';
 
 GoogleSignin.configure({
   webClientId: GOOGLE_SIGNIN_WEB_CLIENT_ID,
   offlineAccess: true,
 });
 
-export const useUser = (autoLoad = true) => {
-  const user = useSelector((state) => state.auth.user);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+export const useUser = () => {
+  const user = useSelector(state => state.auth.user);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
+  return { user, isAuthenticated };
+};
+
+
+export const useGoogleAuthentication = (autoLoad = true) => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  
   const [inProgress, setInProgress] = useState(true);
   const dispatch = useDispatch();
 
   const authenticate = async (info) => {
-    await googleAuthenticate({ googleId: info.user.id, token: info.idToken })(dispatch);
+    dispatch(googleAuthenticate({ googleId: info.user.id, token: info.idToken }));
+    // await googleAuthenticate({ googleId: info.user.id, token: info.idToken })(dispatch);
   };
 
   const signIn = async () => {
-    try {
-      setInProgress(true);
-      await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-      const info = await GoogleSignin.signIn();
+    if (!isAuthenticated)
+      try {
+        setInProgress(true);
+        await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
+        const info = await GoogleSignin.signIn();
 
-      await authenticate(info);
-      setInProgress(false);
-    } catch (error) {
-      switch (error.code) {
-        case statusCodes.SIGN_IN_CANCELLED:
-        case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-        case statusCodes.IN_PROGRESS:
-        default:
-          setInProgress(false);
+        await authenticate(info);
+        setInProgress(false);
+      } catch (error) {
+        switch (error.code) {
+          case statusCodes.SIGN_IN_CANCELLED:
+          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+          case statusCodes.IN_PROGRESS:
+          default:
+            setInProgress(false);
+        }
       }
-    }
   };
-
-  const getCurrentUser = async () => {
-    try {
-      setInProgress(true);
-      // await authenticate(await GoogleSignin.signInSilently());
-    } catch (error) {
-      switch (error.code) {
-        case statusCodes.SIGN_IN_REQUIRED:
-        default:
-        // pass
-      }
-    }
-
-    setInProgress(false);
-  };
-
-  useEffect(() => {
-    if (autoLoad)
-      getCurrentUser().then();
-  }, []);
 
   const signOut = async () => {
     setInProgress(true);
@@ -66,10 +55,32 @@ export const useUser = (autoLoad = true) => {
     await logoutAction()(dispatch);
     setInProgress(false);
   };
+  
+  const getCurrentUser = async () => {
+    try {
+      setInProgress(true);
+      if (!isAuthenticated)
+        await authenticate(await GoogleSignin.signInSilently());
+    } catch (error) {
+      switch (error.code) {
+        case statusCodes.SIGN_IN_REQUIRED:
+          await signOut();
+          break;
+        default:
+        // pass
+      }
+    }
+
+    setInProgress(false);
+  };
+  
+  useEffect(() => {
+    if (autoLoad)
+      getCurrentUser().then();
+  }, []);
 
   return {
     inProgress,
-    user, isAuthenticated,
     signIn, signOut, getCurrentUser,
   };
 };

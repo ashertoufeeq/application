@@ -6,22 +6,21 @@ import { googleAuthenticate, logout as logoutAction } from 'common/actions/auth'
 
 import { GOOGLE_SIGNIN_WEB_CLIENT_ID } from 'common/secrets';
 
-export const useUser = (autoLoad = true) => {
-  const user = useSelector((state) => state.auth.user);
+export const useGoogleAuthentication = (autoLoad = true) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  const [inProgress, setInProgress] = useState(true);
+  const [inProgress, setInProgress] = useState(!isAuthenticated);
   const dispatch = useDispatch();
 
-
   const onLoginSuccess = async (info) => {
-    await googleAuthenticate({ googleId: info.googleId, token: info.tokenId })(dispatch);
+    if (!isAuthenticated)
+      await googleAuthenticate({ googleId: info.googleId, token: info.tokenId })(dispatch);
+
     setInProgress(false);
   };
 
-  const onLoginFail = (...args) => {
-    console.log('On Login Fail');
-    console.log(args);
+  const onLoginFail = async (reason) => {
+    await logoutAction()(dispatch);
     setInProgress(false);
   };
 
@@ -42,7 +41,6 @@ export const useUser = (autoLoad = true) => {
   });
 
   const onLogoutSuccess = async () => {
-    dispatch(logoutAction());
     setInProgress(false);
   };
 
@@ -60,12 +58,15 @@ export const useUser = (autoLoad = true) => {
   });
 
   const signIn = async () => {
-    setInProgress(true);
-    await googleSignIn();
+    if (!isAuthenticated) {
+      setInProgress(true);
+      await googleSignIn();
+    }
   };
 
   const signOut = async () => {
     setInProgress(true);
+    await logoutAction()(dispatch);
     await googleSignOut();
   };
 
@@ -73,7 +74,6 @@ export const useUser = (autoLoad = true) => {
   };
 
   return {
-    user, isAuthenticated,
     signIn, signOut, getCurrentUser,
     inProgress: inProgress || !signInLoaded || !signOutLoaded,
   };

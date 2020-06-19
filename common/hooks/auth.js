@@ -1,6 +1,8 @@
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-export const useAuthentication = () => {
-  const dispatch = useDispatch();
-  const authenticate = () => {};
+export const useUser = () => {
+  const user = useSelector(state => state.auth.user);
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
+  return { user, isAuthenticated };
 };
