@@ -5,10 +5,10 @@ import RNBootSplash from 'react-native-bootsplash';
 import Analytics from 'appcenter-analytics';
 import FlashMessage from 'react-native-flash-message';
 
-import { useUser } from 'hooks/auth';
+import { useGoogleAuthentication } from 'hooks/auth';
 
 export const Initial = () => {
-  const { getCurrentUser } = useUser(false);
+  const { getCurrentUser } = useGoogleAuthentication();
 
   const init = async () => {
     await getCurrentUser();

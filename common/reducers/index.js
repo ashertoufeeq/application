@@ -1,5 +1,7 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
+import { createLogger } from 'redux-logger'
+
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
 import createEncryptor from 'redux-persist-transform-encrypt';
 
@@ -7,6 +9,8 @@ import thunk from 'redux-thunk';
 
 import { demo } from './demo';
 import { auth } from './auth';
+
+const logger = createLogger({});
 
 const reducers = combineReducers({
   demo,
@@ -26,7 +30,7 @@ export const getStore = (storage) => {
   };
   const persistedReducer = persistReducer(persistConfig, reducers);
 
-  const store = createStore(persistedReducer, applyMiddleware(thunk));
+  const store = createStore(persistedReducer, applyMiddleware(thunk, logger));
   const persistor = persistStore(store);
   return { store, persistor };
 };

@@ -1,9 +1,10 @@
 import React from 'react';
-import { useUser } from 'hooks/auth';
+import { useGoogleAuthentication } from 'hooks/auth';
+import { useUser } from 'common/hooks/auth';
 
-export const Auth = () => {
-
-  const { signIn, user, signOut, inProgress, isAuthenticated } = useUser();
+export const GoogleAuthenticate = () => {
+  const { user, isAuthenticated } = useUser();
+  const { signIn, signOut, inProgress } = useGoogleAuthentication();
 
   return (
     <div>

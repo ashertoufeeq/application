@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Auth } from 'components/Auth';
+import { GoogleAuthenticate } from 'components/GoogleAuthenticate';
 import { Tailwind } from 'components/Tailwind';
 import { PushNotification } from 'components/PushNotification';
 import { ResetState } from 'components/ResetState';
@@ -21,7 +21,7 @@ export const MonorepoIntro = () => (
 
     <HelloButton />
     <ResetState />
-    <Auth />
+    <GoogleAuthenticate />
     <PushNotification />
     <Tailwind />
   </main>

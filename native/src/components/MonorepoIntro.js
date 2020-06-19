@@ -4,7 +4,7 @@ import openURLInBrowser from 'react-native/Libraries/Core/Devtools/openURLInBrow
 
 import { styles } from 'styles/default';
 
-import { Auth } from 'components/Auth';
+import { GoogleAuthenticate } from 'components/GoogleAuthenticate';
 import { Tailwind } from 'components/Tailwind';
 import { PushNotification } from 'components/PushNotification';
 import { CodePush } from 'components/CodePush';
@@ -12,6 +12,7 @@ import { ResetState } from 'components/ResetState';
 import { HelloButton } from './HelloButton';
 
 const repoLink = 'https://github.com/Faisal-Manzer/react-and-react-native-monorepo';
+
 
 export const MonorepoIntro = () => (
   <>
@@ -34,7 +35,7 @@ export const MonorepoIntro = () => (
 
           <HelloButton />
           <ResetState />
-          <Auth />
+          <GoogleAuthenticate />
           <PushNotification />
           <CodePush />
           <Tailwind />

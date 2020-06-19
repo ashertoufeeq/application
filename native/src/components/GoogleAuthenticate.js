@@ -2,10 +2,13 @@ import React from 'react';
 
 import { Text, TouchableOpacity, View } from 'react-native';
 import { styles } from 'styles/default';
-import { useUser } from 'hooks/auth';
 
-export const Auth = () => {
-  const { user, signIn, signOut, inProgress, isAuthenticated } = useUser();
+import { useGoogleAuthentication, useUser } from 'hooks/auth';
+// import { useUser } from 'common/hooks/auth';
+
+export const GoogleAuthenticate = () => {
+  const { user, isAuthenticated } = useUser();
+  const { signIn, signOut, inProgress } = useGoogleAuthentication();
 
   return (
     <>
