@@ -1,4 +1,4 @@
-import { USER_AUTHENTICATED, USER_LOGOUT, RESET_STATE } from 'common/actions';
+import { USER_AUTHENTICATED, USER_LOGOUT, RESET_STATE } from '../actions';
 
 const initialState = {
   user: {

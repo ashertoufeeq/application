@@ -7,7 +7,7 @@ export const Initial = () => {
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer hideProgressBar />
     </>
   );
 };
