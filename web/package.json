@@ -17,9 +17,9 @@
   },
   "scripts": {
     "sync": "../sync.js web",
-    "start": "concurrently \"yarn sync\" \"react-app-rewired start\"",
+    "start": "react-app-rewired start",
     "start:production": "yarn sync && yarn build && serve -s build",
-    "build": "yarn sync false && react-app-rewired build",
+    "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },

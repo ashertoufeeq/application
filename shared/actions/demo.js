@@ -1,4 +1,4 @@
-import { Persistor } from '../helpers/shared';
+import { Persistor, Storage, Notify } from '../helpers/shared';
 
 import { HELLO_BUTTON_CLICKED, RESET_STATE } from './index';
 
@@ -9,4 +9,6 @@ export const demoButtonClicked = () => ({
 export const resetState = () => async (dispatch) => {
   dispatch({ type: RESET_STATE });
   await Persistor().purge();
+  await Storage().clearMap();
+  Notify()('App reset success', { type: 'success' })
 };

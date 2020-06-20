@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import OneSignal from 'react-native-onesignal';
+import Notification from 'react-native-onesignal';
 
 import { styles } from 'styles/default';
 
@@ -9,7 +9,7 @@ export const PushNotification = () => {
   const [state, setState] = useState(undefined);
 
   const getState = () => {
-    OneSignal.getPermissionSubscriptionState((status) => {
+    Notification.getPermissionSubscriptionState((status) => {
       setState(status);
     });
   };
@@ -42,7 +42,7 @@ export const PushNotification = () => {
             {state.hasPrompted? null : (
               <TouchableOpacity
                 onPress={() => 
-                  OneSignal.promptForPushNotificationsWithUserResponse(myiOSPromptCallback)}
+                  Notification.promptForPushNotificationsWithUserResponse(myiOSPromptCallback)}
                 type='primary'>
                 <Text>
                   Click to enable push

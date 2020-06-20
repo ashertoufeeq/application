@@ -15,7 +15,7 @@
     "pwa"
   ],
   "scripts": {
-    "start": "concurrently \"yarn web\" \"yarn native\"",
+    "start": "concurrently -n W,N \"yarn web\" \"yarn native\"",
     "web": "yarn workspace web start",
     "build:web": "yarn workspace web build",
     "native": "yarn workspace native start",

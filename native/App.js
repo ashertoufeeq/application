@@ -14,11 +14,11 @@ import { getStorage } from 'common/storage';
 
 import { notify } from 'helpers/notify';
 import { css } from 'styles';
-import { Initial } from 'components/Initial';
 
-import { useOnesignal } from './src/hooks/onesignal';
-import { GettingStarted } from './src/components/GettingStarted';
-import { MonorepoIntro } from './src/components/MonorepoIntro';
+import { Initial } from 'components/Initial';
+import { GettingStarted } from 'components/GettingStarted';
+import { MonorepoIntro } from 'components/MonorepoIntro';
+import { useNotification } from 'hooks/notification';
 
 const Stack = createStackNavigator();
 const { store, persistor } = getStore(AsyncStorage);
@@ -29,8 +29,8 @@ global.notify = notify;
 global.css = css;
 
 const App = () => {
-  useOnesignal();
-
+  useNotification();
+  
   return (
     <Provider store={store}>
       <StatusBar barStyle='dark-content' />

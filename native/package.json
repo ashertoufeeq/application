@@ -13,7 +13,7 @@
   },
   "scripts": {
     "sync": "../sync.js native",
-    "start": "concurrently \"yarn sync\" \"react-native start\"",
+    "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "studio": "studio android",
@@ -36,6 +36,7 @@
     "react-native": "0.62.2",
     "react-native-bootsplash": "^2.2.4",
     "react-native-code-push": "^6.2.1",
+    "react-native-device-info": "^5.6.1",
     "react-native-flash-message": "^0.1.15",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-onesignal": "^3.7.3",

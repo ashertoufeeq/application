@@ -10,7 +10,12 @@ import thunk from 'redux-thunk';
 import { demo } from './demo';
 import { auth } from './auth';
 
-const logger = createLogger({});
+const middlewares = [thunk];
+
+if (process.env.NODE_ENV === 'developer') {
+  const logger = createLogger({});
+  middlewares.push(logger);
+}
 
 const reducers = combineReducers({
   demo,
@@ -30,7 +35,7 @@ export const getStore = (storage) => {
   };
   const persistedReducer = persistReducer(persistConfig, reducers);
 
-  const store = createStore(persistedReducer, applyMiddleware(thunk, logger));
+  const store = createStore(persistedReducer, applyMiddleware(...middlewares));
   const persistor = persistStore(store);
   return { store, persistor };
 };

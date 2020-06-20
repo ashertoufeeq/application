@@ -9,11 +9,15 @@ const blacklist = require('metro-config/src/defaults/blacklist');
 const getWorkspaces = require('get-yarn-workspaces');
 const path = require('path');
 const { readdirSync } = require('fs');
+const sync = require('../sync');
 
 const getDirectories = (source) =>
   readdirSync(source, { withFileTypes: true })
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name);
+
+
+sync('native');
 
 function getConfig(appDir) {
   const workspaces = getWorkspaces(appDir);
@@ -44,7 +48,7 @@ function getConfig(appDir) {
          */
         'react-redux': path.resolve(appDir, 'node_modules', 'react-redux'),
         'react-native': path.resolve(appDir, 'node_modules', 'react-native'),
-        react: path.resolve(appDir, 'node_modules', 'react'),
+        'react': path.resolve(appDir, 'node_modules', 'react'),
         'react-native-svg': path.resolve(appDir, 'node_modules', 'react-native-svg'),
         'core-js': path.resolve(appDir, 'node_modules', 'core-js'),
       },
