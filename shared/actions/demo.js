@@ -1,4 +1,5 @@
 import { Persistor } from '../helpers/shared';
+
 import { HELLO_BUTTON_CLICKED, RESET_STATE } from './index';
 
 export const demoButtonClicked = () => ({

@@ -1,10 +1,10 @@
 import realAxios from 'axios';
 import decode from 'jwt-decode';
 
-import { API_BASE_URL } from 'common/secrets';
+import { API_BASE_URL } from '../secrets.json';
 
-import { snakeCaseObject, camelCaseObject } from 'common/helpers/funcs';
-import { Storage } from 'common/helpers/shared';
+import { snakeCaseObject, camelCaseObject } from '../helpers/funcs';
+import { Storage } from '../helpers/shared';
 
 const axios = realAxios.create({ baseURL: API_BASE_URL });
 

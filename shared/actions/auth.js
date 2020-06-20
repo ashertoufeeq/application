@@ -1,7 +1,7 @@
-import { USER_AUTHENTICATED, USER_LOGOUT } from 'common/actions/index';
+import api from '../api';
+import { Storage } from '../helpers/shared';
 
-import api from 'common/api';
-import { Storage } from 'common/helpers/shared';
+import { USER_AUTHENTICATED, USER_LOGOUT } from './index';
 
 export const getUserMeta = () => async (dispatch) => {
   const { data: user } = await api.get('/auth/meta/');
