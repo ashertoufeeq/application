@@ -11,9 +11,11 @@ const sync = (target, watch = true) => {
     exclude: ['node_modules', 'package.json'],
   });
 
-  if(watcher)
+  if (watcher)
     watcher
-      .on('ready', () => console.log(`Initial scan complete for ${target}. Ready for changes...`));
+      .on('ready', () =>
+        console.log(`Initial scan complete for ${target}. Ready for changes...`),
+      );
 };
 
 module.exports = sync;
