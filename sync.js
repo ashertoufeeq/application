@@ -10,15 +10,21 @@ const sync = (target, watch = true) => {
     watch,
     exclude: ['node_modules', 'package.json'],
   });
-
+  
+  const { log } = console;
+  
   if (watcher)
     watcher
-      .on('ready', () =>
-        console.log(`Initial scan complete for ${target}. Ready for changes...`),
-      );
+      .on('ready', () => log(`Initial scan complete for ${target}. Ready for changes...`))
+      .on('change', path => log(`File ${path} has been changed`))
+      .on('unlink', path => log(`File ${path} has been removed`))
+      .on('unlinkDir', path => log(`Directory ${path} has been removed`))
+      .on('error', error => log(`Watcher error: ${error}`));
+  else
+    console.log(`Done copping files for ${target}...`);
 };
 
 module.exports = sync;
 
 const args = process.argv.slice(2);
-if (args.length > 0) sync(args[0], args[1] !== 'false');
+if (args[0] === 'web' || args[0] === 'native') sync(args[0]);

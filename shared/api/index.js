@@ -23,23 +23,28 @@ const requestDataToSnakeCase = (url, options) => {
 const responseDataToCamelCase = (data) => camelCaseObject(data);
 
 const getAccessToken = async () => {
-  const access = await Storage().load({ key: 'apiTokens', id: 'access' });
-  const accessPayload = decode(access);
-  if (new Date(parseInt(accessPayload.exp, 10) * 1000) > new Date()) return access;
+  try {
+    const access = await Storage().load({ key: 'apiTokens', id: 'access' });
+    const accessPayload = decode(access);
+    if (new Date(parseInt(accessPayload.exp, 10) * 1000) > new Date()) return access;
 
-  const refresh = await Storage().load({ key: 'apiTokens', id: 'refresh' });
-  const {
-    data: { access: newAccessToken },
-  } = await axios.post('/api/token/refresh/', { refresh });
-  await Storage().save({ key: 'apiTokens', id: 'access', data: access });
+    const refresh = await Storage().load({ key: 'apiTokens', id: 'refresh' });
+    const {
+      data: { access: newAccessToken },
+    } = await axios.post('/api/token/refresh/', { refresh });
+    await Storage().save({ key: 'apiTokens', id: 'access', data: access });
 
-  return newAccessToken;
+    return newAccessToken;
+  } catch (error) {
+    if (error.name === 'NotFoundError') throw new Error('NoUserFound');
+    throw new Error('ErrorGettingAccessToken');
+  }
 };
 
 const load = async (url, opts = {}) => {
   const {
     onSuccess = (data) => data,
-    onFailure = (error) => error,
+    onFailure = console.log,
     secure = true,
     defaultData,
     headers,
