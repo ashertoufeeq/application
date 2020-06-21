@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const syncDirectory = require('sync-directory');
-const { join } = require('path');
+const {join} = require('path');
 
 const mainDir = join(__dirname, 'common');
 const sync = (target, watch = true) => {
@@ -10,18 +10,17 @@ const sync = (target, watch = true) => {
     watch,
     exclude: ['node_modules', 'package.json'],
   });
-  
-  const { log } = console;
-  
+
+  const {log} = console;
+
   if (watcher)
     watcher
       .on('ready', () => log(`Initial scan complete for ${target}. Ready for changes...`))
-      .on('change', path => log(`File ${path} has been changed`))
-      .on('unlink', path => log(`File ${path} has been removed`))
-      .on('unlinkDir', path => log(`Directory ${path} has been removed`))
-      .on('error', error => log(`Watcher error: ${error}`));
-  else
-    console.log(`Done copping files for ${target}...`);
+      .on('change', (path) => log(`File ${path} has been changed`))
+      .on('unlink', (path) => log(`File ${path} has been removed`))
+      .on('unlinkDir', (path) => log(`Directory ${path} has been removed`))
+      .on('error', (error) => log(`Watcher error: ${error}`));
+  else console.log(`Done copping files for ${target}...`);
 };
 
 module.exports = sync;
