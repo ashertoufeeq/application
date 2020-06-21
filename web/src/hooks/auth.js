@@ -14,13 +14,13 @@ export const useGoogleAuthentication = (autoLoad = true) => {
 
   const onLoginSuccess = async (info) => {
     if (!isAuthenticated)
-      await googleAuthenticate({ googleId: info.googleId, token: info.tokenId })(dispatch);
+      dispatch(googleAuthenticate({ googleId: info.googleId, token: info.tokenId }));
 
     setInProgress(false);
   };
 
   const onLoginFail = async (reason) => {
-    await logoutAction()(dispatch);
+    dispatch(logoutAction());
     setInProgress(false);
   };
 
@@ -66,15 +66,15 @@ export const useGoogleAuthentication = (autoLoad = true) => {
 
   const signOut = async () => {
     setInProgress(true);
-    await logoutAction()(dispatch);
-    await googleSignOut();
+    dispatch(logoutAction(googleSignOut));
   };
 
-  const getCurrentUser = async () => {
-  };
+  const getCurrentUser = async () => {};
 
   return {
-    signIn, signOut, getCurrentUser,
+    signIn,
+    signOut,
+    getCurrentUser,
     inProgress: inProgress || !signInLoaded || !signOutLoaded,
   };
 };

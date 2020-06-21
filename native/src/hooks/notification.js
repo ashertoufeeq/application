@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import Notification from 'react-native-onesignal';
+
+import { fullDeviceInfo, deviceInfo } from 'helpers/device';
+
 import secrets from 'common/secrets';
-import { deviceInfo } from 'helpers/device';
 import { Storage } from 'common/helpers/shared';
-import { registerNativeDevice } from 'common/api/device';
+import { registerDeviceAPI } from 'common/api/device';
 
 const onReceived = async (notification) => {
   console.log('Notification received: ', notification);
@@ -17,15 +19,16 @@ const onOpened = async (openResult) => {
 };
 
 const register = async ({ userId, pushToken }) => {
-  const info = await deviceInfo();
+  const info = await fullDeviceInfo();
   console.log('register device...', info);
-  const { error } = await registerNativeDevice(userId, { pushToken, ...info });
-  if (!error)
-    await Storage().save({ key: 'device', id: 'userId', data: userId });
+  const { error } = await registerDeviceAPI(userId, { pushToken, info });
+  if (!error) await Storage().save({ key: 'device', id: 'userId', data: userId });
 };
 
 const onIds = async (device) => {
   console.log('Push info: ', device);
+  global.device = { ...deviceInfo(), id: device.userId };
+
   try {
     const id = await Storage().load({ key: 'device', id: 'userId' });
     if (id === device.userId) return;

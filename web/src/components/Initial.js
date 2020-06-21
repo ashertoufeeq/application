@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { ToastContainer } from 'react-toastify';
+import { useNotification } from 'hooks/notification';
 
 export const Initial = () => {
-  useEffect(() => {}, []);
+  useNotification();
 
   return (
     <>

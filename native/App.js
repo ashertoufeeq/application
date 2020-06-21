@@ -8,6 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Provider } from 'react-redux';
+import { encode as btoa } from 'base-64';
 
 import { getStore } from 'common/reducers';
 import { getStorage } from 'common/storage';
@@ -27,10 +28,11 @@ global.persistor = persistor;
 global.storage = getStorage(AsyncStorage);
 global.notify = notify;
 global.css = css;
+global.btoa = btoa;
 
 const App = () => {
   useNotification();
-  
+
   return (
     <Provider store={store}>
       <StatusBar barStyle='dark-content' />
