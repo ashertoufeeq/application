@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-const { promisify } = require('util');
+const {promisify} = require('util');
 
 const rimrafSync = require('rimraf');
-const { exec: execSync } = require('child_process');
+const {exec: execSync} = require('child_process');
 
 const exec = promisify(execSync);
 const rimraf = promisify(rimrafSync);
@@ -21,7 +21,6 @@ const main = async () => {
   console.log('clean node_modules');
   await rimraf('{*/,}node_modules');
 };
-
 
 main().finally(() => {
   console.log('Done...');

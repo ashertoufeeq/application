@@ -16,7 +16,6 @@ const getDirectories = (source) =>
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name);
 
-
 sync('native');
 
 function getConfig(appDir) {
@@ -48,7 +47,7 @@ function getConfig(appDir) {
          */
         'react-redux': path.resolve(appDir, 'node_modules', 'react-redux'),
         'react-native': path.resolve(appDir, 'node_modules', 'react-native'),
-        'react': path.resolve(appDir, 'node_modules', 'react'),
+        react: path.resolve(appDir, 'node_modules', 'react'),
         'react-native-svg': path.resolve(appDir, 'node_modules', 'react-native-svg'),
         'core-js': path.resolve(appDir, 'node_modules', 'core-js'),
       },

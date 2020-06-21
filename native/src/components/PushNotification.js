@@ -5,7 +5,6 @@ import Notification from 'react-native-onesignal';
 import { styles } from 'styles/default';
 
 export const PushNotification = () => {
-
   const [state, setState] = useState(undefined);
 
   const getState = () => {
@@ -13,7 +12,7 @@ export const PushNotification = () => {
       setState(status);
     });
   };
-  
+
   const myiOSPromptCallback = (permission) => {
     console.log(permission);
     getState();
@@ -25,38 +24,28 @@ export const PushNotification = () => {
 
   return (
     <View style={styles.sectionContainer}>
-      <Text style={styles.sectionTitle}>
-        With Push Notification
-      </Text>
-      {
-        state ? (
-          <View>
-            <Text style={styles.sectionDescription}>
-              Notification
-              {' '}
-              {/* eslint-disable-next-line no-nested-ternary */}
-              {state.notificationsEnabled ? 'Enabled' :
-                (state.hasPrompted ? 'Declined' : 'Not Asked')}
-            </Text>
-            
-            {state.hasPrompted? null : (
-              <TouchableOpacity
-                onPress={() => 
-                  Notification.promptForPushNotificationsWithUserResponse(myiOSPromptCallback)}
-                type='primary'>
-                <Text>
-                  Click to enable push
-                </Text>
-              </TouchableOpacity>
-            )}
-            
-          </View>
-        ) : (
+      <Text style={styles.sectionTitle}>With Push Notification</Text>
+      {state ? (
+        <View>
           <Text style={styles.sectionDescription}>
-            Loading...
+            Notification 
+            {' '}
+            {/* eslint-disable-next-line no-nested-ternary */}
+            {state.notificationsEnabled ? 'Enabled' : state.hasPrompted ? 'Declined' : 'Not Asked'}
           </Text>
-        )
-      }
+
+          {state.hasPrompted ? null : (
+            <TouchableOpacity
+              onPress={() =>
+                Notification.promptForPushNotificationsWithUserResponse(myiOSPromptCallback)}
+              type='primary'>
+              <Text>Click to enable push</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+      ) : (
+        <Text style={styles.sectionDescription}>Loading...</Text>
+      )}
     </View>
   );
 };
