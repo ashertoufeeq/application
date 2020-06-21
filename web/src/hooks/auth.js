@@ -1,10 +1,10 @@
-import { useGoogleLogin, useGoogleLogout } from 'react-google-login';
-import { useState } from 'react';
+import {useGoogleLogin, useGoogleLogout} from 'react-google-login';
+import {useState} from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { googleAuthenticate, logout as logoutAction } from 'common/actions/auth';
+import {useDispatch, useSelector} from 'react-redux';
+import {googleAuthenticate, logout as logoutAction} from 'common/actions/auth';
 
-import { GOOGLE_SIGNIN_WEB_CLIENT_ID } from 'common/secrets';
+import {GOOGLE_SIGNIN_WEB_CLIENT_ID} from 'common/secrets';
 
 export const useGoogleAuthentication = (autoLoad = true) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
@@ -14,7 +14,7 @@ export const useGoogleAuthentication = (autoLoad = true) => {
 
   const onLoginSuccess = async (info) => {
     if (!isAuthenticated)
-      dispatch(googleAuthenticate({ googleId: info.googleId, token: info.tokenId }));
+      dispatch(googleAuthenticate({googleId: info.googleId, token: info.tokenId}));
 
     setInProgress(false);
   };
@@ -28,7 +28,7 @@ export const useGoogleAuthentication = (autoLoad = true) => {
     setInProgress(false);
   };
 
-  const { signIn: googleSignIn, loaded: signInLoaded } = useGoogleLogin({
+  const {signIn: googleSignIn, loaded: signInLoaded} = useGoogleLogin({
     clientId: GOOGLE_SIGNIN_WEB_CLIENT_ID,
     responseType: 'id_token',
     accessType: 'offline',
@@ -48,7 +48,7 @@ export const useGoogleAuthentication = (autoLoad = true) => {
     setInProgress(false);
   };
 
-  const { signOut: googleSignOut, loaded: signOutLoaded } = useGoogleLogout({
+  const {signOut: googleSignOut, loaded: signOutLoaded} = useGoogleLogout({
     clientId: GOOGLE_SIGNIN_WEB_CLIENT_ID,
     responseType: 'id_token',
     accessType: 'offline',
