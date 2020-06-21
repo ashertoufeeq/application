@@ -1,4 +1,4 @@
-import {version as appVersion} from '../../package.json';
+import { version as appVersion } from '../../package.json';
 
 const navigatorInfo = {
   options: [],
@@ -10,33 +10,33 @@ const navigatorInfo = {
     window.opera,
   ],
   dataos: [
-    {name: 'Windows Phone', value: 'Windows Phone', version: 'OS'},
-    {name: 'Windows', value: 'Win', version: 'NT'},
-    {name: 'iPhone', value: 'iPhone', version: 'OS'},
-    {name: 'iPad', value: 'iPad', version: 'OS'},
-    {name: 'Kindle', value: 'Silk', version: 'Silk'},
-    {name: 'Android', value: 'Android', version: 'Android'},
-    {name: 'PlayBook', value: 'PlayBook', version: 'OS'},
-    {name: 'BlackBerry', value: 'BlackBerry', version: '/'},
-    {name: 'Macintosh', value: 'Mac', version: 'OS X'},
-    {name: 'Linux', value: 'Linux', version: 'rv'},
-    {name: 'Palm', value: 'Palm', version: 'PalmOS'},
+    { name: 'Windows Phone', value: 'Windows Phone', version: 'OS' },
+    { name: 'Windows', value: 'Win', version: 'NT' },
+    { name: 'iPhone', value: 'iPhone', version: 'OS' },
+    { name: 'iPad', value: 'iPad', version: 'OS' },
+    { name: 'Kindle', value: 'Silk', version: 'Silk' },
+    { name: 'Android', value: 'Android', version: 'Android' },
+    { name: 'PlayBook', value: 'PlayBook', version: 'OS' },
+    { name: 'BlackBerry', value: 'BlackBerry', version: '/' },
+    { name: 'Macintosh', value: 'Mac', version: 'OS X' },
+    { name: 'Linux', value: 'Linux', version: 'rv' },
+    { name: 'Palm', value: 'Palm', version: 'PalmOS' },
   ],
   databrowser: [
-    {name: 'Chrome', value: 'Chrome', version: 'Chrome'},
-    {name: 'Firefox', value: 'Firefox', version: 'Firefox'},
-    {name: 'Safari', value: 'Safari', version: 'Version'},
-    {name: 'Internet Explorer', value: 'MSIE', version: 'MSIE'},
-    {name: 'Opera', value: 'Opera', version: 'Opera'},
-    {name: 'BlackBerry', value: 'CLDC', version: 'CLDC'},
-    {name: 'Mozilla', value: 'Mozilla', version: 'Mozilla'},
+    { name: 'Chrome', value: 'Chrome', version: 'Chrome' },
+    { name: 'Firefox', value: 'Firefox', version: 'Firefox' },
+    { name: 'Safari', value: 'Safari', version: 'Version' },
+    { name: 'Internet Explorer', value: 'MSIE', version: 'MSIE' },
+    { name: 'Opera', value: 'Opera', version: 'Opera' },
+    { name: 'BlackBerry', value: 'CLDC', version: 'CLDC' },
+    { name: 'Mozilla', value: 'Mozilla', version: 'Mozilla' },
   ],
   init() {
     const agent = this.header.join(' ');
     const os = this.matchItem(agent, this.dataos);
     const browser = this.matchItem(agent, this.databrowser);
 
-    return {os, browser};
+    return { os, browser };
   },
   matchItem(string, data) {
     let i = 0;
@@ -77,14 +77,14 @@ const navigatorInfo = {
         };
       }
     }
-    return {name: 'unknown', version: 0};
+    return { name: 'unknown', version: 0 };
   },
 };
 
 export const deviceInfo = () => {
   const {
-    browser: {name: browser, version: browserVersion},
-    os: {name: os, version: osVersion},
+    browser: { name: browser, version: browserVersion },
+    os: { name: os, version: osVersion },
   } = navigatorInfo.init();
 
   return {

@@ -1,14 +1,14 @@
-import {combineReducers, createStore, applyMiddleware} from 'redux';
-import {persistStore, persistReducer} from 'redux-persist';
-import {createLogger} from 'redux-logger';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import { createLogger } from 'redux-logger';
 
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
 import createEncryptor from 'redux-persist-transform-encrypt';
 
 import thunk from 'redux-thunk';
 
-import {demo} from './demo';
-import {auth} from './auth';
+import { demo } from './demo';
+import { auth } from './auth';
 
 const middlewares = [thunk];
 
@@ -37,5 +37,5 @@ export const getStore = (storage) => {
 
   const store = createStore(persistedReducer, applyMiddleware(...middlewares));
   const persistor = persistStore(store);
-  return {store, persistor};
+  return { store, persistor };
 };

@@ -1,8 +1,8 @@
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 
 import DeviceInfo from 'react-native-device-info';
 
-import {mapObjectAsync} from 'common/helpers/funcs';
+import { mapObjectAsync } from 'common/helpers/funcs';
 
 export const extraDeviceInfo = (obj) =>
   mapObjectAsync(obj, async (key, value) => [key, await DeviceInfo[value]()]);

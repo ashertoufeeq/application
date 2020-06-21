@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const syncDirectory = require('sync-directory');
-const {join} = require('path');
+const { join } = require('path');
 
 const mainDir = join(__dirname, 'common');
 const sync = (target, watch = true) => {
@@ -11,7 +11,7 @@ const sync = (target, watch = true) => {
     exclude: ['node_modules', 'package.json'],
   });
 
-  const {log} = console;
+  const { log } = console;
 
   if (watcher)
     watcher
