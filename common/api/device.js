@@ -1,4 +1,4 @@
 import api from './index';
 
-export const registerDeviceAPI = (id, {pushToken = null, info = {}}) =>
-  api.patch(`/device/register/native/${id}/`, {pushToken, info}, {secure: false});
+export const registerDeviceAPI = (id, { pushToken = null, info = {} }) =>
+  api.patch(`/device/register/native/${id}/`, { pushToken, info }, { secure: false });

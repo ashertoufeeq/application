@@ -1,15 +1,15 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 
 import RNBootSplash from 'react-native-bootsplash';
 
 import Analytics from 'appcenter-analytics';
 import FlashMessage from 'react-native-flash-message';
 
-import {useGoogleAuthentication} from 'hooks/auth';
-import {deviceInfo} from 'helpers/device';
+import { useGoogleAuthentication } from 'hooks/auth';
+import { deviceInfo } from 'helpers/device';
 
 export const Initial = () => {
-  const {getCurrentUser} = useGoogleAuthentication();
+  const { getCurrentUser } = useGoogleAuthentication();
 
   const init = async () => {
     global.device = deviceInfo();

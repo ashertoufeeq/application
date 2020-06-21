@@ -1,8 +1,8 @@
-import {useEffect, useState} from 'react';
-import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
-import {GOOGLE_SIGNIN_WEB_CLIENT_ID} from 'common/secrets';
-import {useDispatch, useSelector} from 'react-redux';
-import {googleAuthenticate, logout as logoutAction} from 'common/actions/auth';
+import { useEffect, useState } from 'react';
+import { GoogleSignin, statusCodes } from '@react-native-community/google-signin';
+import { GOOGLE_SIGNIN_WEB_CLIENT_ID } from 'common/secrets';
+import { useDispatch, useSelector } from 'react-redux';
+import { googleAuthenticate, logout as logoutAction } from 'common/actions/auth';
 
 GoogleSignin.configure({
   webClientId: GOOGLE_SIGNIN_WEB_CLIENT_ID,
@@ -16,14 +16,14 @@ export const useGoogleAuthentication = (autoLoad = true) => {
   const dispatch = useDispatch();
 
   const authenticate = async (info) => {
-    dispatch(googleAuthenticate({googleId: info.user.id, token: info.idToken}));
+    dispatch(googleAuthenticate({ googleId: info.user.id, token: info.idToken }));
   };
 
   const signIn = async () => {
     if (!isAuthenticated)
       try {
         setInProgress(true);
-        await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
+        await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
         const info = await GoogleSignin.signIn();
 
         await authenticate(info);

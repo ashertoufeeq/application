@@ -1,7 +1,7 @@
-import {useEffect} from 'react';
-import {deviceInfo} from 'native/src/helpers/device';
-import {registerDeviceAPI} from 'shared/api/device';
-import {Storage} from 'common/helpers/shared';
+import { useEffect } from 'react';
+import { deviceInfo } from 'native/src/helpers/device';
+import { registerDeviceAPI } from 'shared/api/device';
+import { Storage } from 'common/helpers/shared';
 
 export const useNotification = () => {
   useEffect(() => {
@@ -9,17 +9,17 @@ export const useNotification = () => {
     window.device = device;
     window.OneSignal.push(async () => {
       const userId = window.OneSignal.getUserId();
-      window.device = {...device, id: userId};
+      window.device = { ...device, id: userId };
 
       try {
-        const id = await Storage().load({key: 'device', id: 'userId'});
+        const id = await Storage().load({ key: 'device', id: 'userId' });
         if (id === device.userId) return;
       } catch (error) {
         // pass
       }
 
-      const {error} = await registerDeviceAPI(userId, {});
-      if (!error) await Storage().save({key: 'device', id: 'userId', data: userId});
+      const { error } = await registerDeviceAPI(userId, {});
+      if (!error) await Storage().save({ key: 'device', id: 'userId', data: userId });
     });
   }, []);
 
