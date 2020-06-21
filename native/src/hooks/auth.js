@@ -16,7 +16,7 @@ export const useGoogleAuthentication = (autoLoad = true) => {
   const dispatch = useDispatch();
 
   const authenticate = async (info) => {
-    await googleAuthenticate({ googleId: info.user.id, token: info.idToken })(dispatch);
+    dispatch(googleAuthenticate({ googleId: info.user.id, token: info.idToken }));
   };
 
   const signIn = async () => {
@@ -41,8 +41,7 @@ export const useGoogleAuthentication = (autoLoad = true) => {
 
   const signOut = async () => {
     setInProgress(true);
-    await GoogleSignin.signOut();
-    await logoutAction()(dispatch);
+    dispatch(logoutAction(GoogleSignin.signOut));
     setInProgress(false);
   };
 
@@ -53,7 +52,7 @@ export const useGoogleAuthentication = (autoLoad = true) => {
     } catch (error) {
       switch (error.code) {
         case statusCodes.SIGN_IN_REQUIRED:
-          await signOut();
+          if (isAuthenticated) await signOut();
           break;
         default:
         // pass

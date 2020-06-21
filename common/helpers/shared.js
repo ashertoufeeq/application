@@ -1,10 +1,10 @@
 export const WindowOrGlobal = (property) => () => {
-  let func;
-  if (window) func = window[property];
-  else func = global[property];
-  return func;
+  if (window) return window[property];
+  return global[property];
 };
 
 export const Notify = WindowOrGlobal('notify');
 export const Storage = WindowOrGlobal('storage');
 export const Persistor = WindowOrGlobal('persistor');
+export const Device = WindowOrGlobal('device');
+export const Btoa = WindowOrGlobal('btoa');

@@ -4,7 +4,7 @@ import decode from 'jwt-decode';
 import { API_BASE_URL } from '../secrets.json';
 
 import { snakeCaseObject, camelCaseObject } from '../helpers/funcs';
-import { Storage } from '../helpers/shared';
+import { Storage, Device, Btoa } from '../helpers/shared';
 
 const axios = realAxios.create({ baseURL: API_BASE_URL });
 
@@ -22,7 +22,7 @@ const requestDataToSnakeCase = (url, options) => {
 
 const responseDataToCamelCase = (data) => camelCaseObject(data);
 
-const getAccessToken = async () => {
+const getAccessToken = async (url, opts) => {
   try {
     const access = await Storage().load({ key: 'apiTokens', id: 'access' });
     const accessPayload = decode(access);
@@ -36,15 +36,17 @@ const getAccessToken = async () => {
 
     return newAccessToken;
   } catch (error) {
-    if (error.name === 'NotFoundError') throw new Error('NoUserFound');
-    throw new Error('ErrorGettingAccessToken');
+    console.log('UserAccessError', url, opts);
+    throw new Error('UserAccessError');
   }
 };
+
+const getDeviceInfo = () => Btoa()(JSON.stringify(snakeCaseObject(Device() || {})));
 
 const load = async (url, opts = {}) => {
   const {
     onSuccess = (data) => data,
-    onFailure = console.log,
+    onFailure = (error) => console.log(url, opts, error),
     secure = true,
     defaultData,
     headers,
@@ -56,8 +58,9 @@ const load = async (url, opts = {}) => {
   try {
     let finalOptions = {
       headers: {
-        ...(secure ? { Authorization: `Bearer ${await getAccessToken()}` } : {}),
+        ...(secure ? { Authorization: `Bearer ${await getAccessToken(url, opts)}` } : {}),
         ...headers,
+        'X-Requested-With': getDeviceInfo(),
       },
       ...options,
     };

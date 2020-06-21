@@ -3,7 +3,7 @@
 const syncDirectory = require('sync-directory');
 const { join } = require('path');
 
-const mainDir = join(__dirname, 'shared');
+const mainDir = join(__dirname, 'common');
 const sync = (target, watch = true) => {
   const absoluteTarget = join(__dirname, target, 'src', 'common');
   const watcher = syncDirectory(mainDir, absoluteTarget, {
