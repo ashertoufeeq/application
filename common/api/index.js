@@ -37,7 +37,7 @@ const getAccessToken = async (url, opts) => {
     return newAccessToken;
   } catch (error) {
     console.log('UserAccessError', url, opts);
-    throw new Error('UserAccessError');
+    throw Error('UserAccessError');
   }
 };
 
@@ -93,7 +93,10 @@ const load = async (url, opts = {}) => {
       return { data: undefined, status: 0, error: e, loading: false };
     }
 
-    throw Error(error);
+    if (error.message === 'UserAccessError')
+      return { data: undefined, status: 0, error, loading: false };
+
+    throw error;
   }
 };
 

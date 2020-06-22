@@ -99,3 +99,5 @@ export const deviceInfo = () => {
     browserVersion,
   };
 };
+
+export const fullDeviceInfo = async () => ({});

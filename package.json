@@ -25,6 +25,7 @@
     "pod": "cd ./native/ios && pod install",
     "start": "concurrently -n W,N \"yarn web\" \"yarn native\"",
     "studio": "yarn workspace native studio",
+    "sync": "concurrently -n W,N \"yarn workspace web sync\" \"yarn workspace native sync\"",
     "web": "yarn workspace web start",
     "xcode": "yarn workspace native xcode"
   },
