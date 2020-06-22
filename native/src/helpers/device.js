@@ -1,14 +1,24 @@
 import { Platform } from 'react-native';
+import _reverse from 'lodash/reverse';
+import _split from 'lodash/split';
+import _join from 'lodash/join';
 
 import DeviceInfo from 'react-native-device-info';
 
 import { mapObjectAsync } from 'common/helpers/funcs';
 
-export const extraDeviceInfo = (obj) =>
+const extraDeviceInfo = (obj) =>
   mapObjectAsync(obj, async (key, value) => [key, await DeviceInfo[value]()]);
 
+
+export const domain = () => _join(
+  _reverse(
+    _split(DeviceInfo.getBundleId(), '.'),
+  ),
+  '.');
+
 export const deviceInfo = () => ({
-  app: DeviceInfo.getBundleId(),
+  app: domain(),
   appVersion: DeviceInfo.getReadableVersion(),
 
   os: Platform.OS,

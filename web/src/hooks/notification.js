@@ -1,25 +1,17 @@
 import { useEffect } from 'react';
-import { deviceInfo } from 'native/src/helpers/device';
-import { registerDeviceAPI } from 'shared/api/device';
-import { Storage } from 'common/helpers/shared';
+import { deviceInfo, fullDeviceInfo } from 'helpers/device';
+import { register } from 'common/helpers/device';
+
 
 export const useNotification = () => {
   useEffect(() => {
     const device = deviceInfo();
     window.device = device;
+
     window.OneSignal.push(async () => {
-      const userId = window.OneSignal.getUserId();
+      const userId = await window.OneSignal.getUserId();
       window.device = { ...device, id: userId };
-
-      try {
-        const id = await Storage().load({ key: 'device', id: 'userId' });
-        if (id === device.userId) return;
-      } catch (error) {
-        // pass
-      }
-
-      const { error } = await registerDeviceAPI(userId, {});
-      if (!error) await Storage().save({ key: 'device', id: 'userId', data: userId });
+      await register({ userId, fullDeviceInfo, pushToken: '' })
     });
   }, []);
 

@@ -1,6 +1,5 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import { createLogger } from 'redux-logger';
 
 import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
 import createEncryptor from 'redux-persist-transform-encrypt';
@@ -13,6 +12,8 @@ import { auth } from './auth';
 const middlewares = [thunk];
 
 if (process.env.NODE_ENV === 'developer') {
+  // eslint-disable-next-line global-require
+  const { createLogger } = require('redux-logger');
   const logger = createLogger({});
   middlewares.push(logger);
 }

@@ -3,8 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "analyze": "yarn build && source-map-explorer 'build/static/js/*.js'",
     "build": "react-app-rewired build",
     "eject": "react-scripts eject",
+    "postbuild": "react-snap",
+    "serve": "yarn build && serve -s build -l 3000",
     "start": "react-app-rewired start",
     "start:production": "yarn sync && yarn build && serve -s build",
     "sync": "../sync.js web",
@@ -29,6 +32,7 @@
     "react-google-login": "^5.1.20",
     "react-native-storage": "^1.0.1",
     "react-redux": "^7.2.0",
+    "react-scripts": "^3.4.1",
     "react-toastify": "^6.0.5",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
@@ -47,6 +51,10 @@
     "customize-cra": "^1.0.0",
     "react-app-rewire-postcss": "^3.0.2",
     "react-app-rewired": "^2.1.6",
-    "serve": "^11.3.2"
+    "serve": "^11.3.2",
+    "source-map-explorer": "^2.4.2"
+  },
+  "reactSnap": {
+    "inlineCss": true
   }
 }
