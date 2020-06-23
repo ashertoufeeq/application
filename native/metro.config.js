@@ -6,6 +6,8 @@
  */
 
 const blacklist = require('metro-config/src/defaults/blacklist');
+const { getDefaultConfig } = require('metro-config');
+
 const getWorkspaces = require('get-yarn-workspaces');
 const path = require('path');
 const { readdirSync } = require('fs');
@@ -18,7 +20,11 @@ const getDirectories = (source) =>
 
 sync('native');
 
-function getConfig(appDir) {
+async function getConfig(appDir) {
+  const {
+    resolver: { sourceExts, assetExts }
+  } = await getDefaultConfig();
+
   const workspaces = getWorkspaces(appDir);
   const absoluteImports = {};
   getDirectories(path.join(__dirname, 'src')).map((name) => {
@@ -33,11 +39,16 @@ function getConfig(appDir) {
 
   return {
     watchFolders,
+    transformer: {
+      babelTransformerPath: require.resolve("react-native-svg-transformer")
+    },
     resolver: {
       blacklistRE: blacklist([
         /^((?!native).)+[/\\]node_modules[/\\]react-native[/\\].*/,
         /common[/\\]node_modules[/\\]react-native-svg[/\\].*/,
       ]),
+      assetExts: assetExts.filter(ext => ext !== "svg"),
+      sourceExts: [...sourceExts, "svg"],
       extraNodeModules: {
         ...absoluteImports,
 

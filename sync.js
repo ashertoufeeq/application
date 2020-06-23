@@ -2,10 +2,13 @@
 
 const syncDirectory = require('sync-directory');
 const { join } = require('path');
+const rimraf = require('rimraf');
 
 const mainDir = join(__dirname, 'common');
 const sync = (target, watch = true) => {
   const absoluteTarget = join(__dirname, target, 'src', 'common');
+  rimraf.sync(absoluteTarget);
+
   const watcher = syncDirectory(mainDir, absoluteTarget, {
     watch,
     exclude: ['node_modules', 'package.json'],

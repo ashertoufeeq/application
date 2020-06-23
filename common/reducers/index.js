@@ -8,6 +8,7 @@ import thunk from 'redux-thunk';
 
 import { demo } from './demo';
 import { auth } from './auth';
+import { theme } from './theme';
 
 const middlewares = [thunk];
 
@@ -21,6 +22,7 @@ if (process.env.NODE_ENV === 'developer') {
 const reducers = combineReducers({
   demo,
   auth,
+  theme
 });
 
 const encryptor = createEncryptor({
