@@ -13,6 +13,9 @@ import { getStorage } from 'common/storage';
 import { notify } from 'helpers/alert';
 import { css } from 'styles';
 
+import { GettingStarted } from 'components/examples/GettingStarted';
+import { MonorepoIntro } from 'components/examples/MonorepoIntro';
+
 const { store, persistor } = getStore(storage);
 
 window.persistor = persistor;
@@ -26,7 +29,8 @@ const App = () => (
       <>
         <Initial />
         <Router>
-          {/*  pass */}
+          <GettingStarted path='/example/' />
+          <MonorepoIntro path='/example/intro/' />
         </Router>
       </>
     </PersistGate>
