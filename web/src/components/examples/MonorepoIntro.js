@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { GoogleAuthenticate } from 'components/GoogleAuthenticate';
-import { Tailwind } from 'components/Tailwind';
-import { PushNotification } from 'components/PushNotification';
-import { ResetState } from 'components/ResetState';
-import { HelloButton } from 'components/HelloButton';
+import { GoogleAuthenticate } from './GoogleAuthenticate';
+import { Tailwind } from './Tailwind';
+import { PushNotification } from './PushNotification';
+import { ResetState } from './ResetState';
+import { HelloButton } from './HelloButton';
 
 export const MonorepoIntro = () => (
   <main style={{ padding: 20 }}>

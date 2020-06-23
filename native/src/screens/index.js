@@ -4,7 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useThemeColors } from 'common/hooks/theme';
 
@@ -13,10 +13,15 @@ import { StoreScreen } from 'screens/Store.screen.native';
 import { WishlistScreen } from 'screens/Wishlist.screen.native';
 import { LiveOrdersScreen } from 'screens/LiveOrders.screen.native';
 import { CartScreen } from 'screens/Cart.screen.native';
+import { MonorepoIntro } from 'components/examples/MonorepoIntro';
 
 const Tab = createMaterialBottomTabNavigator();
 
 const tabs = [{
+  name: 'Test',
+  component: MonorepoIntro,
+  icon: 'test-tube',
+}, {
   name: 'Settings',
   component: SettingsScreen,
   icon: 'face',
@@ -65,7 +70,7 @@ export const Navigator = () => {
             <Tab.Screen
               key={name}
               options={{
-                tabBarIcon: ({ color }) => <MaterialIcons color={color} size={25} name={icon} />,
+                tabBarIcon: ({ color }) => <Icon color={color} size={25} name={icon} />,
               }}
               name={name}
               component={component}

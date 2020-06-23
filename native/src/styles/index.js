@@ -2,17 +2,7 @@ import { create } from 'tailwind-rn';
 import { iOSUIKit } from 'react-native-typography';
 import { Platform } from 'react-native';
 
-import _map from 'lodash/map';
-import _split from 'lodash/split';
-import _has from 'lodash/has';
-import _flatten from 'lodash/flatten';
-import _join from 'lodash/join';
-import _slice from 'lodash/slice';
-import _isString from 'lodash/isString';
-import _isArray from 'lodash/isArray';
-import _isObject from 'lodash/isObject';
-
-
+import _ from 'lodash-es';
 import tailwindStyles from '../../styles.json';
 
 const { tailwind, getColor: GetColor } = create(tailwindStyles);
@@ -57,28 +47,28 @@ const extraClasses = {
   'title-emphasized': fontFactory('title3Emphasized', 800, 'Montserrat'),
   'title': fontFactory('title3', 700, 'Montserrat'),
   'body': fontFactory('body', 400, 'Nunito'),
-  'sub-header-emphasized': fontFactory('subhead', 600, 'Nunito'),
+  'sub-header-emphasized': fontFactory('subhead', 700, 'Nunito'),
   'sub-header': fontFactory('subheadShort', 400, 'Nunito'),
-  'foot-note-emphasized': fontFactory('footnoteEmphasized', 600, 'Nunito'),
+  'foot-note-emphasized': fontFactory('footnoteEmphasized', 700, 'Nunito'),
   'foot-note': fontFactory('footnote', 400, 'Nunito'),
 };
 
 const getPseudoClass = (cn='') => {
-  const c = _split(cn, ':');
-  const hasPseudoClass = _has(pseudoClass, c[0]);
-  const match = _join(_slice(c, 1), ':');
+  const c = _.split(cn, ':');
+  const hasPseudoClass = _.has(pseudoClass, c[0]);
+  const match = _.join(_.slice(c, 1), ':');
   return { hasPseudoClass, match, pseudo: c[0] }
 };
 
-export const cnToStyles = (cn='') => _flatten(
-  _map(
-    _split(cn, ' ', ),
+export const cnToStyles = (cn='') => _.flatten(
+  _.map(
+    _.split(cn, ' ', ),
     (className) => {
       let styles;
       const { hasPseudoClass, match, pseudo } = getPseudoClass(className);
       
       if (hasPseudoClass) styles = pseudoClass[pseudo](match, cnToStyles);
-      else if (_has(extraClasses, className)) styles = extraClasses[className];
+      else if (_.has(extraClasses, className)) styles = extraClasses[className];
       else styles = tailwind(className);
       return styles;
     })
@@ -86,11 +76,11 @@ export const cnToStyles = (cn='') => _flatten(
 
 export const css = (...args) => {
   const styles = [];
-  _map(args, (arg) => {
-    if (_isString(arg)) styles.push(cnToStyles(arg));
-    else if (_isArray(arg)) styles.push(css(...arg));
-    else if (_isObject(arg)) styles.push(arg);
+  _.map(args, (arg) => {
+    if (_.isString(arg)) styles.push(cnToStyles(arg));
+    else if (_.isArray(arg)) styles.push(css(...arg));
+    else if (_.isObject(arg)) styles.push(arg);
   });
 
-  return _flatten(styles);
+  return _.flatten(styles);
 };

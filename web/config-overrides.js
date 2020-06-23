@@ -1,4 +1,4 @@
-const { override, addWebpackResolve } = require('customize-cra');
+const { override, addWebpackResolve, fixBabelImports } = require('customize-cra');
 const postcss = require('react-app-rewire-postcss');
 const path = require('path');
 
@@ -6,6 +6,12 @@ require('../sync')('web', process.env.NODE_ENV === 'development');
 
 module.exports = (config) => {
   override(
+    fixBabelImports('import', {
+      libraryName: 'lodash-es',
+      libraryDirectory: '',
+      'camel2DashComponentName': false,
+    }),
+
     /**
      * Resolve all dependency
      * which can clash
@@ -18,7 +24,8 @@ module.exports = (config) => {
         'react-redux': path.resolve(__dirname, '../', 'node_modules', 'react-redux'),
       },
     }),
-  )(config);
+  )
+  (config);
   postcss(config, true);
 
   return config;

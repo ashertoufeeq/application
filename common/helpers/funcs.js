@@ -1,5 +1,4 @@
-import _camelCase from 'lodash/camelCase';
-import _snakeCase from 'lodash/snakeCase';
+import _ from 'lodash-es';
 
 export const mapObjectAsync = async (obj, func, onError = () => null) => {
   const newObj = {};
@@ -35,14 +34,14 @@ export const mapObject = (obj, func) => {
 
 export const camelCaseObject = (obj) => {
   if (typeof obj === 'object' && obj !== null)
-    return mapObject(obj, (key, value) => [_camelCase(key), camelCaseObject(value)]);
+    return mapObject(obj, (key, value) => [_.camelCase(key), camelCaseObject(value)]);
 
   return obj;
 };
 
 export const snakeCaseObject = (obj) => {
   if (typeof obj === 'object' && obj !== null)
-    return mapObject(obj, (key, value) => [_snakeCase(key), snakeCaseObject(value)]);
+    return mapObject(obj, (key, value) => [_.snakeCase(key), snakeCaseObject(value)]);
 
   return obj;
 };
