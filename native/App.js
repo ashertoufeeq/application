@@ -3,9 +3,8 @@ import 'react-native-gesture-handler';
 
 import codePush from 'react-native-code-push';
 import { StatusBar } from 'react-native';
+import { setCustomText } from 'react-native-global-props';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Provider } from 'react-redux';
 import { encode as btoa } from 'base-64';
@@ -14,14 +13,14 @@ import { getStore } from 'common/reducers';
 import { getStorage } from 'common/storage';
 
 import { notify } from 'helpers/notify';
-import { css } from 'styles';
+import { css, getFontStyleForWeight } from 'styles';
 
 import { Initial } from 'components/Initial';
-import { GettingStarted } from 'components/GettingStarted';
-import { MonorepoIntro } from 'components/MonorepoIntro';
 import { useNotification } from 'hooks/notification';
 
-const Stack = createStackNavigator();
+import { Navigator } from 'screens';
+
+
 const { store, persistor } = getStore(AsyncStorage);
 
 global.persistor = persistor;
@@ -30,18 +29,15 @@ global.notify = notify;
 global.css = css;
 global.btoa = btoa;
 
+setCustomText({ style: { ...getFontStyleForWeight('Nunito', 400) } });
+
 const App = () => {
   useNotification();
 
   return (
     <Provider store={store}>
       <StatusBar barStyle='dark-content' />
-      <NavigationContainer screenOptions={{ headerShown: false }}>
-        <Stack.Navigator initialRouteName='Home'>
-          <Stack.Screen name='Home' component={GettingStarted} />
-          <Stack.Screen name='Intro' component={MonorepoIntro} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Navigator />
       <Initial />
     </Provider>
   );

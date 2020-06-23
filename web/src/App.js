@@ -8,8 +8,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { getStore } from 'common/reducers';
 
-import { GettingStarted } from 'components/GettingStarted';
-import { MonorepoIntro } from 'components/MonorepoIntro';
 import { Initial } from 'components/Initial';
 import { getStorage } from 'common/storage';
 import { notify } from 'helpers/alert';
@@ -28,8 +26,7 @@ const App = () => (
       <>
         <Initial />
         <Router>
-          <GettingStarted path='/' />
-          <MonorepoIntro path='/intro/' />
+          {/*  pass */}
         </Router>
       </>
     </PersistGate>
