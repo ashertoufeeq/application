@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "242419208720",
+    "firebase_url": "https://keeperspot-dev.firebaseio.com",
+    "project_id": "keeperspot-dev",
+    "storage_bucket": "keeperspot-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:242419208720:android:50275f2768870bd2103095",
+        "android_client_info": {
+          "package_name": "com.keeperspot.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "242419208720-16q14v3rdiiibedrie64k1e2deq0ljq3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.keeperspot.app",
+            "certificate_hash": "49a628dbe2416cd29c33f49d2220f228cafdca8e"
+          }
+        },
+        {
+          "client_id": "242419208720-mdpg41a608kbqg3g4nlfhl7nkk6hl5ne.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTu8xJ_AhtcXEI6YTfr8nz3YQJRSSzF08"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "242419208720-dnj0cc3fc9d1p3rg3umhblu2kkefkrvb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "242419208720-pige2u1it77k9e90s9f8sor2i43ilc37.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.keeperspot.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
