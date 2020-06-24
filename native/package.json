@@ -47,6 +47,7 @@
     "appcenter-crashes": "3.0.3",
     "axios": "^0.19.2",
     "babel-plugin-module-resolver": "^4.0.0",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
     "base-64": "^0.1.0",
     "jwt-decode": "^2.2.0",
     "react": "^16.13.1",
