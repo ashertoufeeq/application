@@ -18,6 +18,7 @@
   },
   "scripts": {
     "android": "react-native run-android",
+    "build:android": "cd android && ./gradlew bundleRelease",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "pod": "cd ios && pod install",
