@@ -1,10 +1,16 @@
 import React from 'react';
 
-import { ScreenWrapper } from 'components/ScreenWrapper';
+import { Dimensions } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { resetState } from 'shared/actions/demo';
 import { useDispatch } from 'react-redux';
+import { min } from 'lodash-es';
 
+import { resetState } from 'common/actions/demo';
+import { changePrimaryColor } from 'common/actions/theme';
+
+import { getColor } from 'styles';
+
+import { ScreenWrapper } from 'components/ScreenWrapper';
 import { SearchBar } from 'components/SearchBar.native';
 import { StoreHomeImage } from 'components/image/StoreHomeImage';
 import { Text, Title, LargeTitle } from 'components/text';
@@ -18,9 +24,12 @@ export const StoreScreen = () => {
       <View scroll className='flex-1'>
         <View className='bg-grey-fa'>
           <View style={{ height: getStatusBarHeight() }} />
-          <View className='p-4'>
-            <View className='p-8'>
-              <StoreHomeImage className='self-center' height={200}  />
+          <View className='px-4'>
+            <View className='py-4'>
+              <StoreHomeImage
+                className='self-center'
+                height={min([150, Dimensions.get('window').height / 3])}
+              />
             </View>
             <LargeTitle>
               Khan store.
@@ -33,6 +42,21 @@ export const StoreScreen = () => {
         </Title>
 
         <View className='p-2'>
+          <View>
+            {['gray', 'red', 'green', 'blue']
+              .map(color => (
+                <View className='flex-row flex-wrap'>
+                  {['500', '600', '700', '800', '900']
+                    .map(weight => (
+                      <View
+                        onClick={() => dispatch(changePrimaryColor(getColor(`${color}-${weight}`)))}
+                        className={`bg-${color}-${weight} h-10 w-10 m-2 rounded-lg`}
+                      />
+                    ))}
+                </View>
+              ))}
+          </View>
+
           <View onClick={() => dispatch(resetState())}>
             <Text className='text-red-500'>
               Click reset the state.

@@ -21,7 +21,7 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "pod": "cd ios && pod install",
-    "start": "react-native start",
+    "start": "NODE_ENV=development react-native start",
     "studio": "studio android",
     "sync": "../sync.js native",
     "test": "jest",

@@ -11,14 +11,13 @@ const { getDefaultConfig } = require('metro-config');
 const getWorkspaces = require('get-yarn-workspaces');
 const path = require('path');
 const { readdirSync } = require('fs');
-const sync = require('../sync');
 
 const getDirectories = (source) =>
   readdirSync(source, { withFileTypes: true })
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name);
 
-sync('native');
+require('../sync')('native', process.env.NODE_ENV === 'development');
 
 async function getConfig(appDir) {
   const {
