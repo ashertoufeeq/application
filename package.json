@@ -16,6 +16,7 @@
   ],
   "scripts": {
     "android": "yarn workspace native android",
+    "build:android": "yarn workspace native build:android",
     "build:web": "yarn workspace web build",
     "clean": "./clean.js",
     "ios": "yarn workspace native ios",
