@@ -2,7 +2,8 @@ import { create } from 'tailwind-rn';
 import { iOSUIKit } from 'react-native-typography';
 import { Platform } from 'react-native';
 
-import _ from 'lodash-es';
+// import _ from 'lodash-es';
+import { map, split, join, has, flatten, slice, isArray, isObject, isString } from 'lodash-es';
 import tailwindStyles from '../../styles.json';
 
 const { tailwind, getColor: GetColor } = create(tailwindStyles);
@@ -54,21 +55,21 @@ const extraClasses = {
 };
 
 const getPseudoClass = (cn='') => {
-  const c = _.split(cn, ':');
-  const hasPseudoClass = _.has(pseudoClass, c[0]);
-  const match = _.join(_.slice(c, 1), ':');
+  const c = split(cn, ':');
+  const hasPseudoClass = has(pseudoClass, c[0]);
+  const match = join(slice(c, 1), ':');
   return { hasPseudoClass, match, pseudo: c[0] }
 };
 
-export const cnToStyles = (cn='') => _.flatten(
-  _.map(
-    _.split(cn, ' ', ),
+export const cnToStyles = (cn='') => flatten(
+  map(
+    split(cn, ' ', ),
     (className) => {
       let styles;
       const { hasPseudoClass, match, pseudo } = getPseudoClass(className);
       
       if (hasPseudoClass) styles = pseudoClass[pseudo](match, cnToStyles);
-      else if (_.has(extraClasses, className)) styles = extraClasses[className];
+      else if (has(extraClasses, className)) styles = extraClasses[className];
       else styles = tailwind(className);
       return styles;
     })
@@ -76,11 +77,11 @@ export const cnToStyles = (cn='') => _.flatten(
 
 export const css = (...args) => {
   const styles = [];
-  _.map(args, (arg) => {
-    if (_.isString(arg)) styles.push(cnToStyles(arg));
-    else if (_.isArray(arg)) styles.push(css(...arg));
-    else if (_.isObject(arg)) styles.push(arg);
+  map(args, (arg) => {
+    if (isString(arg)) styles.push(cnToStyles(arg));
+    else if (isArray(arg)) styles.push(css(...arg));
+    else if (isObject(arg)) styles.push(arg);
   });
 
-  return _.flatten(styles);
+  return flatten(styles);
 };
