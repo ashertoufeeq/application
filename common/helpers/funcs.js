@@ -45,3 +45,36 @@ export const snakeCaseObject = (obj) => {
 
   return obj;
 };
+
+export const mergeArrayObject = (arr) => {
+  let newObj = {};
+  arr.map(ar => {
+    newObj = _.merge(newObj, ar);
+    return null;
+  });
+  return newObj;
+};
+
+
+export const rgbaToHex = (rgba) => {
+  const inParts = rgba.substring(rgba.indexOf('(')).split(',');
+  const r = parseInt(_.trim(inParts[0].substring(1)), 10);
+  const g = parseInt(_.trim(inParts[1]), 10);
+  const b = parseInt(_.trim(inParts[2]), 10);
+  const a = parseFloat(_.trim(inParts[3].substring(0, inParts[3].length - 1))).toFixed(2);
+  const outParts = [
+    r.toString(16),
+    g.toString(16),
+    b.toString(16),
+    Math.round(a * 255).toString(16).substring(0, 2),
+  ];
+
+  // Pad single-digit output values
+  outParts.forEach((part, i) => {
+    if (part.length === 1) {
+      outParts[i] = `0${part}`;
+    }
+  });
+
+  return (`#${outParts.join('')}`);
+}

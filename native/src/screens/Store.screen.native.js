@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Dimensions } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
@@ -15,6 +15,22 @@ import { SearchBar } from 'components/SearchBar.native';
 import { StoreHomeImage } from 'components/image/StoreHomeImage';
 import { Text, Title, LargeTitle } from 'components/text';
 import { View, Touchable } from 'components/surface';
+import { ProductCard } from 'components/ProductCard';
+
+
+const AnimationTest = () => {
+  const [base, toggle] = useState(false);
+
+  return (
+    <Touchable onPress={() => toggle(!base)}>
+      <View duration={5000} animation='zoomOut' className={`w-48 h-48 ${base ? 'bg-red-600' : 'bg-black'}`}>
+        <Text>
+          Hello...
+        </Text>
+      </View>
+    </Touchable>
+  );
+};
 
 export const StoreScreen = () => {
   const dispatch = useDispatch();
@@ -31,37 +47,18 @@ export const StoreScreen = () => {
                 height={min([150, Dimensions.get('window').height / 3])}
               />
             </View>
-            <LargeTitle>
+            <LargeTitle animation='fadeInLeft'>
               Khan store.
             </LargeTitle>
           </View>
         </View>
 
-        <Title className='p-4 text-grey-66 uppercase'>
+        <Text animation='fadeInLeft' className='body-emphasized p-4 text-grey-66 uppercase'>
           Daily Essentials
-        </Title>
+        </Text>
 
         <View className='p-2'>
-          <View>
-            {['gray', 'red', 'green', 'blue']
-              .map(color => (
-                <View className='flex-row flex-wrap'>
-                  {['500', '600', '700', '800', '900']
-                    .map(weight => (
-                      <Touchable
-                        onPress={() => dispatch(changePrimaryColor(getColor(`${color}-${weight}`)))}
-                        className={`bg-${color}-${weight} h-10 w-10 m-2 rounded-lg hover:h-24 hover:w-24`}
-                      />
-                    ))}
-                </View>
-              ))}
-          </View>
-
-          <View onClick={() => dispatch(resetState())}>
-            <Text className='text-red-500'>
-              Click reset the state.
-            </Text>
-          </View>
+          <ProductCard />
         </View>
       </View>
       <SearchBar />
