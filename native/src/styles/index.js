@@ -1,46 +1,40 @@
 import { create } from 'tailwind-rn';
-import { iOSUIKit } from 'react-native-typography';
-import { Platform } from 'react-native';
 
-// import _ from 'lodash-es';
-import { map, split, join, has, flatten, slice, isArray, isObject, isString } from 'lodash-es';
+import _ from 'lodash-es';
+import { iOSUIKit } from 'react-native-typography';
+
+import { isAndroid } from 'helpers/device';
 import tailwindStyles from '../../styles.json';
 
 const { tailwind, getColor: GetColor } = create(tailwindStyles);
 
 export const getColor = GetColor;
-
-const pseudoClass = {
-  'hover': (cn, css) => ({ hover: css(cn) })
+const mergeArrayObject = (arr) => {
+  let newObj = {};
+  arr.map(ar => { newObj = _.merge(newObj, ar); return null; });
+  return newObj;
 };
 
-export const getFontStyleForWeight = (fontFamily, fontWeight) => {
-  fontWeight = fontWeight.toString();
-  if (Platform.OS === 'ios') { return { fontFamily, fontWeight }; }
-  switch (fontWeight) {
-    case "normal": return { fontFamily: `${fontFamily}-Regular`, fontWeight: undefined };
-    case "bold": return { fontFamily: `${fontFamily}-Bold`, fontWeight: undefined };
-    case "100": return { fontFamily: `${fontFamily}-Thin`, fontWeight: undefined };
-    case "200": return { fontFamily: `${fontFamily}-ExtraLight`, fontWeight: undefined };
-    case "300": return { fontFamily: `${fontFamily}-Light`, fontWeight: undefined };
-    case "400": return { fontFamily: `${fontFamily}-Regular`, fontWeight: undefined };
-    case "500": return { fontFamily: `${fontFamily}-Medium`, fontWeight: undefined };
-    case "600": return { fontFamily: `${fontFamily}-SemiBold`, fontWeight: undefined };
-    case "700": return { fontFamily: `${fontFamily}-Bold`, fontWeight: undefined };
-    case "800": return { fontFamily: `${fontFamily}-ExtraBold`, fontWeight: undefined };
-    case "900": return { fontFamily: `${fontFamily}-Black`, fontWeight: undefined };
-    default: {
-      return fontFamily
-        ? { fontFamily: `${fontFamily}-Regular`, fontWeight: undefined }
-        : {};
-    }
-  }
+const fontTypeMap = {
+  'normal': 'Regular',
+  'bold': 'Bold',
+  '100': 'Thin',
+  '200': 'ExtraLight',
+  '300': 'Light',
+  '400': 'Regular',
+  '500': 'Medium',
+  '600': 'SemiBold',
+  '700': 'Bold',
+  '800': 'ExtraBold',
+  '900': 'Black',
 };
 
-
-const fontFactory = (type, fontWeight='400', fontFamily='Nunito') => ({
-  ...iOSUIKit[type],
-  ...getFontStyleForWeight(fontFamily, fontWeight),
+export const fontFactory = (type, fontWeight, fontFamily) => ({
+  ..._.omit(iOSUIKit[type], ['color']), ...(
+    isAndroid ?
+      { fontFamily: `${fontFamily}-${fontTypeMap[fontWeight.toString()]}`, fontWeight: undefined } :
+      { fontFamily, fontWeight: fontWeight.toString() }
+  ),
 });
 
 const extraClasses = {
@@ -54,34 +48,36 @@ const extraClasses = {
   'foot-note': fontFactory('footnote', 400, 'Nunito'),
 };
 
-const getPseudoClass = (cn='') => {
-  const c = split(cn, ':');
-  const hasPseudoClass = has(pseudoClass, c[0]);
-  const match = join(slice(c, 1), ':');
+const pseudoClass = {
+  'hover': (cn, css) => ({ hover: css(cn) })
+};
+
+export const getPseudoClass = (cn='') => {
+  const c = cn.split(':');
+  const hasPseudoClass = _.has(pseudoClass, c[0]);
+  const match = _.join(_.slice(c, 1), ':');
   return { hasPseudoClass, match, pseudo: c[0] }
 };
 
-export const cnToStyles = (cn='') => flatten(
-  map(
-    split(cn, ' ', ),
+const cnToStyle = (cn = '') => mergeArrayObject(
+  _.map(
+    _.split(cn, ' ', ),
     (className) => {
-      let styles;
       const { hasPseudoClass, match, pseudo } = getPseudoClass(className);
-      
-      if (hasPseudoClass) styles = pseudoClass[pseudo](match, cnToStyles);
-      else if (has(extraClasses, className)) styles = extraClasses[className];
-      else styles = tailwind(className);
-      return styles;
-    })
-);
 
-export const css = (...args) => {
-  const styles = [];
-  map(args, (arg) => {
-    if (isString(arg)) styles.push(cnToStyles(arg));
-    else if (isArray(arg)) styles.push(css(...arg));
-    else if (isObject(arg)) styles.push(arg);
-  });
+      if (!className) return {};
+      if (hasPseudoClass) return pseudoClass[pseudo](match, cnToStyle);
+      if (_.has(extraClasses, className)) return  extraClasses[className];
+      return  tailwind(className);
+    }));
 
-  return flatten(styles);
-};
+
+export const css = (...args) =>
+  mergeArrayObject(
+    _.map(args, (arg) => {
+      if (_.isString(arg)) return cnToStyle(arg);
+      if (_.isArray(arg)) return css(...arg);
+      if (_.isObject(arg)) return arg;
+      return {}
+    }));
+

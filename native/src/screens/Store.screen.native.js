@@ -14,7 +14,7 @@ import { ScreenWrapper } from 'components/ScreenWrapper';
 import { SearchBar } from 'components/SearchBar.native';
 import { StoreHomeImage } from 'components/image/StoreHomeImage';
 import { Text, Title, LargeTitle } from 'components/text';
-import { View } from 'components/surface';
+import { View, Touchable } from 'components/surface';
 
 export const StoreScreen = () => {
   const dispatch = useDispatch();
@@ -48,9 +48,9 @@ export const StoreScreen = () => {
                 <View className='flex-row flex-wrap'>
                   {['500', '600', '700', '800', '900']
                     .map(weight => (
-                      <View
-                        onClick={() => dispatch(changePrimaryColor(getColor(`${color}-${weight}`)))}
-                        className={`bg-${color}-${weight} h-10 w-10 m-2 rounded-lg`}
+                      <Touchable
+                        onPress={() => dispatch(changePrimaryColor(getColor(`${color}-${weight}`)))}
+                        className={`bg-${color}-${weight} h-10 w-10 m-2 rounded-lg hover:h-24 hover:w-24`}
                       />
                     ))}
                 </View>
