@@ -1,3 +1,4 @@
-export { View } from './View';
-export { TextInput } from './TextInput';
 export { BaseSurface } from './BaseSurface';
+export { TextInput } from './TextInput';
+export { Touchable } from './Touchable';
+export { View } from './View';

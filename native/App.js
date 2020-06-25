@@ -13,7 +13,7 @@ import { getStore } from 'common/reducers';
 import { getStorage } from 'common/storage';
 
 import { notify } from 'helpers/notify';
-import { css, getFontStyleForWeight } from 'styles';
+import { css, fontFactory } from 'styles';
 
 import { Initial } from 'components/Initial';
 import { useNotification } from 'hooks/notification';
@@ -29,7 +29,7 @@ global.notify = notify;
 global.css = css;
 global.btoa = btoa;
 
-setCustomText({ style: { ...getFontStyleForWeight('Nunito', 400) } });
+setCustomText({ style: { ...fontFactory('body', 400, 'Nunito') } });
 
 const App = () => {
   useNotification();

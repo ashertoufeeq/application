@@ -1,12 +1,9 @@
 import React from 'react';
-import { View as RNView, TouchableOpacity, ScrollView } from 'react-native';
+import { View as RNView, ScrollView } from 'react-native';
 
 import { BaseSurface } from 'components/surface/BaseSurface';
 
-export const View = ({ onClick, onPress, scroll, ...props }) => {
-  if (onClick || onPress)
-    return <BaseSurface onPress={onClick || onPress} component={TouchableOpacity} {...props} />;
-
+export const View = ({ scroll, ...props }) => {
   if (scroll)
     return <BaseSurface component={ScrollView} {...props} />;
 
