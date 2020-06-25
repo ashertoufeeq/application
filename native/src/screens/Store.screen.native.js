@@ -45,19 +45,20 @@ export const StoreScreen = () => {
           <View>
             {['gray', 'red', 'green', 'blue']
               .map(color => (
-                <View className='flex-row flex-wrap'>
+                <View className='flex-row flex-wrap' key={color}>
                   {['500', '600', '700', '800', '900']
                     .map(weight => (
                       <View
-                        onClick={() => dispatch(changePrimaryColor(getColor(`${color}-${weight}`)))}
-                        className={`bg-${color}-${weight} h-10 w-10 m-2 rounded-lg`}
+                        key={`${color}-${weight}`}
+                        onPress={() => dispatch(changePrimaryColor(getColor(`${color}-${weight}`)))}
+                        className={`bg-${color}-${weight} h-10 w-10 m-2 rounded-lg hover:h-24 hover:w-24`}
                       />
                     ))}
                 </View>
               ))}
           </View>
 
-          <View onClick={() => dispatch(resetState())}>
+          <View onPress={() => dispatch(resetState())}>
             <Text className='text-red-500'>
               Click reset the state.
             </Text>

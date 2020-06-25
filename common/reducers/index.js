@@ -1,7 +1,7 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 
-import hardSet from 'redux-persist/lib/stateReconciler/hardSet';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import createEncryptor from 'redux-persist-transform-encrypt';
 
 import thunk from 'redux-thunk';
@@ -33,7 +33,8 @@ export const getStore = (storage) => {
   const persistConfig = {
     key: 'root-store',
     storage,
-    stateReconciler: hardSet,
+    stateReconciler: autoMergeLevel2,
+    blacklist: ['theme'],
     transforms: [encryptor],
   };
   const persistedReducer = persistReducer(persistConfig, reducers);
