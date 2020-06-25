@@ -13,7 +13,8 @@ import { getStore } from 'common/reducers';
 import { getStorage } from 'common/storage';
 
 import { notify } from 'helpers/notify';
-import { css, fontFactory } from 'styles';
+import { css } from 'styles';
+import { fontFactory } from 'styles/fonts';
 
 import { Initial } from 'components/Initial';
 import { useNotification } from 'hooks/notification';
