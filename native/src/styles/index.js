@@ -5,6 +5,7 @@ import _ from 'lodash-es';
 import { mergeArrayObject } from 'shared/helpers/funcs';
 
 import { fontStyles } from './fonts';
+import { hexMiddleware } from './middlewares';
 
 import tailwindStyles from '../../styles.json';
 
@@ -39,7 +40,7 @@ const cnToStyle = (cn = '') => mergeArrayObject(
       else if (_.has(extraClasses, className)) style = extraClasses[className];
       else style = tailwind(className);
       
-      [].map((func) => style = func(style));
+      [hexMiddleware].map((func) => style = func(style));
       return style;
     }));
 
