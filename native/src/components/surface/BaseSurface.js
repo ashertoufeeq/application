@@ -1,12 +1,4 @@
-import React from 'react';
-import { css } from 'styles';
+import React  from 'react';
+import { BaseStyler } from 'components/BaseStyler';
 
-export const BaseSurface = ({ component: Comp, children, className, style, ...props }) => {
-  if (!className) className = '';
-
-  return (
-    <Comp style={css(className, style)} {...props}>
-      {children}
-    </Comp>
-  );
-};
+export const BaseSurface = (props) => <BaseStyler {...props} />;

@@ -1,88 +1,54 @@
 import { create } from 'tailwind-rn';
-import { iOSUIKit } from 'react-native-typography';
-import { Platform } from 'react-native';
 
 import _ from 'lodash-es';
+
+import { mergeArrayObject } from 'shared/helpers/funcs';
+
+import { fontStyles } from './fonts';
+import { hexMiddleware } from './middlewares';
+
 import tailwindStyles from '../../styles.json';
 
 const { tailwind, getColor: GetColor } = create(tailwindStyles);
 
 export const getColor = GetColor;
 
-const pseudoClass = {
-  'hover': (cn, css) => ({ hover: css(cn) })
-};
-
-export const getFontStyleForWeight = (fontFamily, fontWeight) => {
-  fontWeight = fontWeight.toString();
-  if (Platform.OS === 'ios') { return { fontFamily, fontWeight }; }
-  switch (fontWeight) {
-    case "normal": return { fontFamily: `${fontFamily}-Regular`, fontWeight: undefined };
-    case "bold": return { fontFamily: `${fontFamily}-Bold`, fontWeight: undefined };
-    case "100": return { fontFamily: `${fontFamily}-Thin`, fontWeight: undefined };
-    case "200": return { fontFamily: `${fontFamily}-ExtraLight`, fontWeight: undefined };
-    case "300": return { fontFamily: `${fontFamily}-Light`, fontWeight: undefined };
-    case "400": return { fontFamily: `${fontFamily}-Regular`, fontWeight: undefined };
-    case "500": return { fontFamily: `${fontFamily}-Medium`, fontWeight: undefined };
-    case "600": return { fontFamily: `${fontFamily}-SemiBold`, fontWeight: undefined };
-    case "700": return { fontFamily: `${fontFamily}-Bold`, fontWeight: undefined };
-    case "800": return { fontFamily: `${fontFamily}-ExtraBold`, fontWeight: undefined };
-    case "900": return { fontFamily: `${fontFamily}-Black`, fontWeight: undefined };
-    default: {
-      return fontFamily
-        ? { fontFamily: `${fontFamily}-Regular`, fontWeight: undefined }
-        : {};
-    }
-  }
-};
-
-
-export const fontFactory = (type, fontWeight='400', fontFamily='Nunito') => ({
-  ...iOSUIKit[type],
-  ...getFontStyleForWeight(fontFamily, fontWeight),
-});
-
 const extraClasses = {
-  'title-large': fontFactory('largeTitleEmphasized', 900, 'Montserrat'),
-  'title-emphasized': fontFactory('title3Emphasized', 800, 'Montserrat'),
-  'title': fontFactory('title3', 700, 'Montserrat'),
-  'body': fontFactory('body', 400, 'Nunito'),
-  'sub-header-emphasized': fontFactory('subhead', 700, 'Nunito'),
-  'sub-header': fontFactory('subheadShort', 400, 'Nunito'),
-  'foot-note-emphasized': fontFactory('footnoteEmphasized', 700, 'Nunito'),
-  'foot-note': fontFactory('footnote', 400, 'Nunito'),
+  ...fontStyles
 };
 
-export const getPseudoClass = (cn='') => {
-  const c = _.split(cn, ':');
+const pseudoClass = {
+  'hover': (cn, css, context) => ({ hover: css(`${context} ${cn}`) }),
+};
+
+export const getPseudoClass = (cn = '') => {
+  const c = cn.split(':');
   const hasPseudoClass = _.has(pseudoClass, c[0]);
   const match = _.join(_.slice(c, 1), ':');
-  return { hasPseudoClass, match, pseudo: c[0] }
+  return { hasPseudoClass, match, pseudo: c[0] };
 };
 
-export const cnToStyles = (cn='') => _.flatten(
+const cnToStyle = (cn = '') => mergeArrayObject(
   _.map(
-    _.split(cn, ' ', ),
+    _.split(cn, ' '),
     (className) => {
-      let styles;
+      let style;
       const { hasPseudoClass, match, pseudo } = getPseudoClass(className);
 
-      if (!className) styles = {};
-      else if (hasPseudoClass) styles = pseudoClass[pseudo](match, cnToStyles);
-      else if (_.has(extraClasses, className)) styles = extraClasses[className];
-      else styles = tailwind(className);
-      return styles;
-    })
-);
+      if (!className) style = {};
+      else if (hasPseudoClass) style = pseudoClass[pseudo](match, cnToStyle, cn);
+      else if (_.has(extraClasses, className)) style = extraClasses[className];
+      else style = tailwind(className);
+      
+      [hexMiddleware].map((func) => style = func(style));
+      return style;
+    }));
 
-export const css = (...args) => {
-  const styles = [];
-  _.map(args, (arg) => {
-    // eslint-disable-next-line no-use-before-define
-    if (_.isString(arg)) styles.push(cnToStyles(arg));
-    else if (_.isArray(arg)) styles.push(css(...arg));
-    else if (_.isObject(arg)) styles.push(arg);
-  });
-
-  return _.flatten(styles);
-};
+export const css = (...args) =>
+  mergeArrayObject(
+    _.map(args, (arg) => {
+      if (_.isString(arg)) return cnToStyle(arg);
+      if (_.isArray(arg)) return css(...arg);
+      if (_.isObject(arg)) return arg;
+      return {};
+    }));

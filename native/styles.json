@@ -1,4 +1,13 @@
 {
+	"bg-fixed": {
+		"backgroundAttachment": "fixed"
+	},
+	"bg-local": {
+		"backgroundAttachment": "local"
+	},
+	"bg-scroll": {
+		"backgroundAttachment": "scroll"
+	},
 	"bg-transparent": {
 		"backgroundColor": "transparent"
 	},
@@ -388,6 +397,75 @@
 	"bg-grey-fa": {
 		"--bg-opacity": 1,
 		"backgroundColor": "rgba(250, 250, 250, var(--bg-opacity))"
+	},
+	"bg-opacity-0": {
+		"--bg-opacity": 0
+	},
+	"bg-opacity-25": {
+		"--bg-opacity": 0.25
+	},
+	"bg-opacity-50": {
+		"--bg-opacity": 0.5
+	},
+	"bg-opacity-75": {
+		"--bg-opacity": 0.75
+	},
+	"bg-opacity-100": {
+		"--bg-opacity": 1
+	},
+	"bg-bottom": {
+		"backgroundPosition": "bottom"
+	},
+	"bg-center": {
+		"backgroundPosition": "center"
+	},
+	"bg-left": {
+		"backgroundPosition": "left"
+	},
+	"bg-left-bottom": {
+		"backgroundPosition": "left bottom"
+	},
+	"bg-left-top": {
+		"backgroundPosition": "left top"
+	},
+	"bg-right": {
+		"backgroundPosition": "right"
+	},
+	"bg-right-bottom": {
+		"backgroundPosition": "right bottom"
+	},
+	"bg-right-top": {
+		"backgroundPosition": "right top"
+	},
+	"bg-top": {
+		"backgroundPosition": "top"
+	},
+	"bg-repeat": {
+		"backgroundRepeat": "repeat"
+	},
+	"bg-no-repeat": {
+		"backgroundRepeat": "no-repeat"
+	},
+	"bg-repeat-x": {
+		"backgroundRepeat": "repeat-x"
+	},
+	"bg-repeat-y": {
+		"backgroundRepeat": "repeat-y"
+	},
+	"bg-repeat-round": {
+		"backgroundRepeat": "round"
+	},
+	"bg-repeat-space": {
+		"backgroundRepeat": "space"
+	},
+	"bg-auto": {
+		"backgroundSize": "auto"
+	},
+	"bg-cover": {
+		"backgroundSize": "cover"
+	},
+	"bg-contain": {
+		"backgroundSize": "contain"
 	},
 	"border-collapse": {
 		"borderCollapse": "collapse"

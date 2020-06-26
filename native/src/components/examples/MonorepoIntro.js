@@ -10,6 +10,7 @@ import { PushNotification } from './PushNotification';
 import { CodePush } from './CodePush';
 import { ResetState } from './ResetState';
 import { HelloButton } from './HelloButton';
+import { Theme } from './Theme';
 
 const repoLink = 'https://github.com/Faisal-Manzer/react-and-react-native-monorepo';
 
@@ -39,6 +40,7 @@ export const MonorepoIntro = () => (
           <PushNotification />
           <CodePush />
           <Tailwind />
+          <Theme />
         </View>
       </ScrollView>
     </SafeAreaView>
