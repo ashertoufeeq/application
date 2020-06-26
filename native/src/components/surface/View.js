@@ -1,13 +1,12 @@
 import React from 'react';
 import { View as RNView, ScrollView } from 'react-native';
 
-import { createAnimatableComponent } from 'react-native-animatable';
-
+import { animated } from 'react-spring/native';
 import { BaseSurface } from './BaseSurface';
 
 
-const AnimatedView = createAnimatableComponent(RNView);
-const AnimatedScrollView = createAnimatableComponent(ScrollView);
+const AnimatedView = animated(RNView);
+const AnimatedScrollView = animated(ScrollView);
 
 export const View = ({ scroll, ...props }) => {
   if (scroll)
