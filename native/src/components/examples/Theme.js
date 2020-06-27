@@ -6,8 +6,8 @@ import { styles } from 'styles/default';
 import { changePrimaryColor } from 'shared/actions/theme';
 import { getColor } from 'styles';
 
-import { View } from '../surface';
-import { Title } from '../text';
+import { View, Touchable } from 'framework/surface';
+import { Title } from 'framework/text';
 
 export const Theme = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export const Theme = () => {
             <View className='flex-row flex-wrap'>
               {['500', '600', '700', '800', '900']
                 .map(weight => (
-                  <View
+                  <Touchable
                     key={weight}
                     onPress={() => dispatch(changePrimaryColor(getColor(`${color}-${weight}`)))}
                     className={`bg-${color}-${weight} h-10 w-10 m-2 rounded-lg`}

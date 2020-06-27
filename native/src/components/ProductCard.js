@@ -1,52 +1,85 @@
 import React from 'react';
 
-import { View, Touchable } from 'components/surface';
-import { Text, Title, LargeTitle } from 'components/text';
+import { View, Touchable } from 'framework/surface';
+import { Text, Title, Headline, Title1 } from 'framework/text';
 
-export const ProductCard = () => (
-  <View
-    className='p-2 border-gray-100 rounded-lg bg-white'
-    style={{
-      shadowColor: '#0007',
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-      shadowOpacity: 0.29,
-      shadowRadius: 4.65,
+const CardHeader = ({ title, placeholder }) => placeholder? (
+  <View className='h-6 bg-gray-200 rounded-lg' />
+) : (
+  <Title>
+    {title}
+  </Title>
+);
 
-      elevation: 7,
-    }}>
-    <View className='flex-row'>
-      <View style={{ width: 125, height: 125 }} className='bg-gray-400 rounded-lg' />
+const ProductShortDescription = ({ description = [], placeholder }) => placeholder ? (
+  <View className='h-6 w-1/2 bg-gray-200 my-1 rounded-lg' />
+) : (
+  <View className='flex-row py-1'>
+    {description.map((detail, index) => (
+      <Text className='text-gray-600 px-1' key={index.toString()}>
+        {detail}
+      </Text>
+    ))}
+  </View>
+);
 
-      <View className='flex-1 ml-4'>
+const PriceLabel = ({ price, unit, placeholder }) => placeholder? null : (
+  <View className='mx-2'>
+    <Title1 primary className='text-right'>
+      {unit}
+      {price}
+    </Title1>
+  </View>
+);
 
-        <View>
-          <Title className='text-gray-800'>
-            Mr White Detergent powder
-          </Title>
+const BuyNowAction = ({ productId }) => (
+  <Touchable className='justify-center mx-2'>
+    <Headline className='text-gray-600'>
+      Buy Now
+    </Headline>
+  </Touchable>
+);
 
-          <View className=''>
-            <Text className='text-gray-600'>
-              🇮🇳 3 kg
-            </Text>
-          </View>
-        </View>
+const AddToCartAction = ({ productId }) => (
+  <Touchable className='bg-primary justify-center p-2 rounded mx-2'>
+    <Headline className='text-white'>
+      Add to cart
+    </Headline>
+  </Touchable>
+);
 
-        <View className='pt-4'>
-          <Title className='text-gray-900' style={{ fontSize: 24 }}>
-            ₹195
-          </Title>
+const Actions = ({ productId, placeholder }) => placeholder? null : (
+  <View className='flex-row'>
+    <View className='flex-1' />
+    <BuyNowAction productId={productId} />
+    <AddToCartAction productId={productId} />
+  </View>
+);
 
-          <Touchable className='bg-primary rounded-lg'>
-            <Title className='text-white p-2 text-center'>
-              Add to Cart
-            </Title>
-          </Touchable>
-        </View>
+const ProductImage = ({ image, loading }) => (
+  <View className='h-32 w-32 bg-gray-200 rounded-lg' />
+);
 
-      </View>
+export const ProductCard = ({ productId, title, price, unit='₹', shortDetails, image, placeholder=false }) => (
+  <View className='p-2 border-gray-100 rounded-lg bg-white shadow-md flex-row'>
+    <ProductImage placeholder={placeholder} />
+    <View className='flex-1 px-2'>
+      <CardHeader title={title} placeholder={placeholder} />
+      <ProductShortDescription description={shortDetails} placeholder={placeholder} />
+      <PriceLabel price={price} unit={unit} placeholder={placeholder} />
+      <Actions productId={productId} placeholder={placeholder} />
     </View>
   </View>
 );
+
+// export const ProductCard = ({ productId, title, price, unit }) => (
+//   <View className='p-2 border-gray-100 rounded-lg bg-white shadow-md flex-row'>
+//     <ProductImage />
+//     <View className='flex-1 px-2'>
+//       <CardHeader title='Mr White Detergent powder' />
+//       <ProductShortDescription description={['🇮🇳', '3kg']} />
+//       <PriceLabel price={195} unit='₹' />
+//       <Actions />
+//     </View>
+//   </View>
+// );

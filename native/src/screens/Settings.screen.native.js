@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { ScreenWrapper } from 'components/ScreenWrapper';
 
-import { View, Touchable } from 'components/surface';
-import { Text } from 'components/text';
+import { View, Touchable } from 'framework/surface';
+import { Text } from 'framework/text';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 export const SettingsScreen = () => {
@@ -11,14 +11,14 @@ export const SettingsScreen = () => {
   return (
     <ScreenWrapper>
       <View style={{ height: getStatusBarHeight() }} />
-      <Touchable onPress={() => setHmmm(!hmmm)}>
+      <Touchable feedback={false} onPress={() => setHmmm(!hmmm)}>
         <View
           animated={['width', 'backgroundColor', 'height']}
           className={hmmm ? 'p-4 bg-red-200 h-24' : 'p-4 bg-green-200 h-48'}
         >
           <Text
             animated={['fontSize', 'color']}
-            className={hmmm ? 'title text-red-900' : 'text-green-900 title-large'}>
+            className={hmmm ? 'font-display-bold text-base text-red-900' : 'font-display-bold text-4xl text-green-900'}>
             Hi React Native
           </Text>
           <Text>

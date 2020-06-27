@@ -1,4 +1,4 @@
 import React  from 'react';
-import { BaseStyler } from 'components/BaseStyler';
+import { BaseStyler } from 'framework/BaseStyler';
 
 export const BaseSurface = (props) => <BaseStyler {...props} />;

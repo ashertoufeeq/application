@@ -5,16 +5,11 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { useDispatch } from 'react-redux';
 import { min } from 'lodash-es';
 
-import { resetState } from 'common/actions/demo';
-import { changePrimaryColor } from 'common/actions/theme';
-
-import { getColor } from 'styles';
-
 import { ScreenWrapper } from 'components/ScreenWrapper';
 import { SearchBar } from 'components/SearchBar.native';
-import { StoreHomeImage } from 'components/image/StoreHomeImage';
-import { Text, Title, LargeTitle } from 'components/text';
-import { View, Touchable } from 'components/surface';
+import { StoreHomeImage } from 'components/svg/StoreHomeImage';
+import { Text, Title, LargeTitle } from 'framework/text';
+import { View, Touchable } from 'framework/surface';
 import { ProductCard } from 'components/ProductCard';
 
 
@@ -38,27 +33,31 @@ export const StoreScreen = () => {
   return (
     <ScreenWrapper>
       <View scroll className='flex-1'>
-        <View className='bg-grey-fa'>
+        <View className='bg-grey-100'>
           <View style={{ height: getStatusBarHeight() }} />
           <View className='px-4'>
+            <LargeTitle animation='fadeInLeft'>
+              Khan store.
+            </LargeTitle>
             <View className='py-4'>
               <StoreHomeImage
                 className='self-center'
                 height={min([150, Dimensions.get('window').height / 3])}
               />
             </View>
-            <LargeTitle animation='fadeInLeft'>
-              Khan store.
-            </LargeTitle>
           </View>
         </View>
-
         <Text animation='fadeInLeft' className='body-emphasized p-4 text-grey-66 uppercase'>
           Daily Essentials
         </Text>
 
         <View className='p-2'>
-          <ProductCard />
+          <ProductCard
+            productId='xyz'
+            title='Mr White Detergent powder'
+            shortDetails={['🇮🇳', '3kg']}
+            price={195}
+          />
         </View>
       </View>
       <SearchBar />

@@ -1,7 +1,8 @@
 import React from 'react';
+import { Image } from 'react-native';
+
 import 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -14,9 +15,11 @@ import { StoreScreen } from 'screens/Store.screen.native';
 import { WishlistScreen } from 'screens/Wishlist.screen.native';
 import { LiveOrdersScreen } from 'screens/LiveOrders.screen.native';
 import { CartScreen } from 'screens/Cart.screen.native';
+
 import { MonorepoIntro } from 'components/examples/MonorepoIntro';
-import { css } from 'styles';
-import { Image } from 'react-native';
+
+import { css, getColor } from 'styles';
+
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -76,8 +79,8 @@ export const Navigator = () => {
         <Tab.Navigator
           initialRouteName='Store'
           activeColor={primary}
-          inactiveColor='#999999'
-          barStyle={{ backgroundColor: '#FAFAFA', borderRadius: 20, elevation: 0 }}
+          inactiveColor={getColor('gray-500')}
+          barStyle={{ backgroundColor: getColor('gray-100'), borderRadius: 20, elevation: 0 }}
         >
           {tabs.map(({ name, icon, component, customIcon }) => (
             <Tab.Screen
