@@ -13,8 +13,8 @@ export const SettingsScreen = () => {
       <View style={{ height: getStatusBarHeight() }} />
       <Touchable feedback={false} onPress={() => setHmmm(!hmmm)}>
         <View
-          animated={['width', 'backgroundColor', 'height']}
-          className={hmmm ? 'p-4 bg-red-200 h-24' : 'p-4 bg-green-200 h-48'}
+          animated={['width', 'backgroundColor']}
+          className={hmmm ? 'p-4 bg-red-200' : 'p-4 bg-green-200'}
         >
           <Text
             animated={['fontSize', 'color']}

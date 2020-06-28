@@ -18,7 +18,7 @@ export const Theme = () => {
       <View>
         {['gray', 'red', 'green', 'blue']
           .map(color => (
-            <View className='flex-row flex-wrap'>
+            <View className='flex-row flex-wrap' key={color.toString()}>
               {['500', '600', '700', '800', '900']
                 .map(weight => (
                   <Touchable

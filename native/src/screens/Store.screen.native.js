@@ -1,35 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState }  from 'react';
 
 import { Dimensions } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
-import { useDispatch } from 'react-redux';
 import { min } from 'lodash-es';
+
+import { Text, LargeTitle, Title1 } from 'framework/text';
+import { View, Touchable } from 'framework/surface';
 
 import { ScreenWrapper } from 'components/ScreenWrapper';
 import { SearchBar } from 'components/SearchBar.native';
 import { StoreHomeImage } from 'components/svg/StoreHomeImage';
-import { Text, Title, LargeTitle } from 'framework/text';
-import { View, Touchable } from 'framework/surface';
 import { ProductCard } from 'components/ProductCard';
 
 
-const AnimationTest = () => {
-  const [base, toggle] = useState(false);
-
-  return (
-    <Touchable onPress={() => toggle(!base)}>
-      <View duration={5000} animation='zoomOut' className={`w-48 h-48 ${base ? 'bg-red-600' : 'bg-black'}`}>
-        <Text>
-          Hello...
-        </Text>
-      </View>
-    </Touchable>
-  );
-};
-
 export const StoreScreen = () => {
-  const dispatch = useDispatch();
-
+  const [loading, setLoading] = useState(true);
+  
   return (
     <ScreenWrapper>
       <View scroll className='flex-1'>
@@ -47,18 +33,42 @@ export const StoreScreen = () => {
             </View>
           </View>
         </View>
-        <Text animation='fadeInLeft' className='body-emphasized p-4 text-grey-66 uppercase'>
+        <Title1 primary={false} animation='fadeInLeft' className='p-4 text-gray-600 uppercase'>
           Daily Essentials
-        </Text>
+        </Title1>
 
-        <View className='p-2'>
+        <View className='px-2'>
           <ProductCard
-            productId='xyz'
+            productId={loading? null : 'xyz'}
             title='Mr White Detergent powder'
             shortDetails={['🇮🇳', '3kg']}
             price={195}
+            size='sm'
+          />
+          <ProductCard
+            productId={loading? null : 'xyz'}
+            title='Mr White Detergent powder'
+            shortDetails={['🇮🇳', '3kg']}
+            price={195}
+            size='md'
+          />
+          <ProductCard
+            productId={loading? null : 'xyz'}
+            title='Mr White Detergent powder'
+            shortDetails={['🇮🇳', '3kg']}
+            price={195}
+            size='lg'
           />
         </View>
+
+        <View className='p-4'>
+          <Touchable feedback={false} className='bg-primary p-4 rounded-lg' onPress={() => setLoading(!loading)}>
+            <Text className='text-white font-bold'>
+              Change loading
+            </Text>
+          </Touchable>
+        </View>
+
       </View>
       <SearchBar />
     </ScreenWrapper>
