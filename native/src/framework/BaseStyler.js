@@ -11,22 +11,15 @@ export const BaseStyler = ({
   className = '', style = {}, ...props
 }) => {
 
-  const a = _.isString(animated) ? [animated] : animated;
   const c = css(className, style);
-  const baseStyle = _.omit(c, a);
-  const animatedStyle = _.pick(c, a);
-  const jsonAnimatedStyle = JSON.stringify(animatedStyle);
-  const [s, set, stop] = useSpring(() => ({ ...animatedStyle, ...springConfig }));
+  const [s, set, stop] = useSpring(() => ({ ..._.pick(c, animated), ...springConfig }));
 
   useEffect(() => {
+    set(_.pick(c, animated));
     return () => {
       stop();
-    }
-  }, []);
+    };
+  }, [c]);
 
-  useEffect(() => {
-    set(animatedStyle);
-  }, [jsonAnimatedStyle]);
-
-  return <Comp style={{ ...baseStyle, ...s }} {...props} />;
+  return <Comp style={[c, s]} {...props} />;
 };
