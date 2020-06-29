@@ -3,7 +3,6 @@ import 'react-native-gesture-handler';
 
 import codePush from 'react-native-code-push';
 import { StatusBar } from 'react-native';
-import { setCustomText } from 'react-native-global-props';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import { Provider } from 'react-redux';
@@ -14,7 +13,6 @@ import { getStorage } from 'common/storage';
 
 import { notify } from 'helpers/notify';
 import { css } from 'styles';
-import { fontFactory } from 'styles/fonts';
 
 import { Initial } from 'components/Initial';
 import { useNotification } from 'hooks/notification';

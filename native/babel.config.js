@@ -4,6 +4,7 @@ module.exports = {
     'transform-inline-environment-variables',
     'react-native-paper/babel',
     'lodash',
+    'react-native-reanimated/plugin'
   ],
   env: {
     production: {

@@ -14,7 +14,7 @@ export const SettingsScreen = () => {
       <Touchable feedback={false} onPress={() => setHmmm(!hmmm)}>
         <View
           animated={['width', 'backgroundColor', 'height']}
-          className={hmmm ? 'p-4 h-20 bg-red-200' : 'p-4 h-32 bg-green-200'}
+          className={hmmm ? 'p-4 h-32 bg-red-200' : 'p-4 h-56 bg-green-200'}
         >
           <Text
             animated={['fontSize', 'color']}
