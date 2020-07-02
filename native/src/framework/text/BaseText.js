@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text as RNText } from 'react-native';
+
 import { css } from 'styles';
 import { useThemeColors } from 'common/hooks/theme';
 import { animated } from 'react-spring/native';

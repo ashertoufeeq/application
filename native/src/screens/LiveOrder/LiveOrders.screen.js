@@ -56,9 +56,9 @@ const RandomAnimatedView = ({ id }) => {
   return (
     <View className='border-green-900 border-b'>
       <Touchable onPress={() => animate()}>
-        <View animated={['backgroundColor']} className={`bg-${bgColor}-${bgWeight} p-4`}>
-          <View animated={['width', 'height']} className={`w-${width} h-${height} bg-black`} />
-          <Text animated={['color']} className={`text-${fontColor}-${fontWeight}`}>
+        <View animate={`bg-${bgColor}-${bgWeight} p-4`}>
+          <View animate={`w-${width} h-${height} bg-black`} />
+          <Text animate={`text-${fontColor}-${fontWeight}`}>
             {id}
           </Text>
         </View>

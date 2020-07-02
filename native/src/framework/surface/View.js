@@ -10,7 +10,14 @@ const AnimatedScrollView = animated(ScrollView);
 
 export const View = ({ scroll, ...props }) => {
   if (scroll)
-    return <BaseSurface component={AnimatedScrollView} {...props} />;
+    return (
+      <BaseSurface
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        component={AnimatedScrollView}
+        {...props}
+      />
+    );
 
   return (
     <BaseSurface component={AnimatedView} {...props} />

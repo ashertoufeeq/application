@@ -13,12 +13,11 @@ export const SettingsScreen = () => {
       <View style={{ height: getStatusBarHeight() }} />
       <Touchable feedback={false} onPress={() => setHmmm(!hmmm)}>
         <View
-          animated={['width', 'backgroundColor', 'height']}
-          className={hmmm ? 'p-4 h-32 bg-red-200' : 'p-4 h-56 bg-green-200'}
+          animate={hmmm ? 'p-4 h-32 bg-red-200' : 'p-4 h-56 bg-green-200'}
         >
           <Text
             animated={['fontSize', 'color']}
-            className={hmmm ? 'font-display-bold text-base text-red-900' : 'font-display-bold text-4xl text-green-900'}>
+            animate={hmmm ? 'font-display-bold text-base text-red-900' : 'font-display-bold text-4xl text-green-900'}>
             Hi React Native
           </Text>
           <Text>

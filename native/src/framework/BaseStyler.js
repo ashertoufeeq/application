@@ -2,24 +2,23 @@ import React, { useEffect } from 'react';
 import { css } from 'styles';
 
 import { useSpring } from 'react-spring/native';
-import _ from 'lodash-es';
-
 
 export const BaseStyler = ({
   component: Comp,
-  animated = [], springConfig = {},
+  animateConfig = {},
+  animate = '', animateStyle = {},
   className = '', style = {}, ...props
 }) => {
-
-  const c = css(className, style);
-  const [s, set, stop] = useSpring(() => ({ ..._.pick(c, animated), ...springConfig }));
+  const baseStyle = css(className, style);
+  const [animatedStyle, animateTo, stopAnimation] =
+    useSpring(() => ({ ...css(animate, animateStyle), ...animateConfig }));
 
   useEffect(() => {
-    set(_.pick(c, animated));
+    animateTo(css(animate, animateStyle));
     return () => {
-      stop();
+      stopAnimation();
     };
-  }, [c]);
+  }, [animate, animateStyle]);
 
-  return <Comp style={[c, s]} {...props} />;
+  return <Comp style={[baseStyle, animatedStyle]} {...props} />;
 };

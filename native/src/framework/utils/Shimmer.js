@@ -17,15 +17,15 @@ const MainShimmer = ({ className }) => {
   return (
     <View className={`rounded h-6 m-1 ${className} flex-row`}>
       <View
-        springConfig={{ config: { friction: 0, clamp: true } }}
-        animated={['width', 'backgroundColor']}
-        className={`rounded ${color ? 'bg-gray-100' : 'bg-gray-200'}`}
-        style={{ width: color ? '0%' : '100%' }} />
+        animateConfig={{ config: { friction: 0, clamp: true } }}
+        animate={color ? 'bg-gray-100' : 'bg-gray-200'}
+        className='rounded'
+        animateStyle={{ width: color ? '0%' : '100%' }} />
       <View
-        springConfig={{ config: { friction: 0, clamp: true } }}
-        animated={['width', 'backgroundColor']}
-        className={`rounded ${color ? 'bg-gray-200' : 'bg-gray-100'}`}
-        style={{ width: color ? '100%' : '0%' }} />
+        animateConfig={{ config: { friction: 0, clamp: true } }}
+        animate={color ? 'bg-gray-200' : 'bg-gray-100'}
+        className='rounded'
+        animateStyle={{ width: color ? '100%' : '0%' }} />
     </View>
   );
 };

@@ -6,7 +6,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import { useThemeColors } from 'common/hooks/theme';
-import { useUser } from 'common/hooks/auth';
 
 import { getColor } from 'styles';
 
@@ -22,7 +21,6 @@ const Tab = createMaterialBottomTabNavigator();
 
 export const Navigator = () => {
   const { primary } = useThemeColors();
-  const { user: { image: dp } } = useUser();
 
   const theme = {
     dark: false,
