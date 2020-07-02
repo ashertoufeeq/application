@@ -1,7 +1,7 @@
 import api from './index';
 
 export const signInAPI = ({ googleId, token }) =>
-  api.post(`/auth/sign-in/google/`, { googleId, token }, { secure: false });
+  api.post(`/app/sign-in/google/`, { googleId, token }, { secure: false });
 
 export const getUserMetaAPI = () => api.get(`/auth/meta/`);
 

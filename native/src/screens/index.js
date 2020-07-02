@@ -1,24 +1,21 @@
 import React from 'react';
-import { Image } from 'react-native';
 
 import 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { useThemeColors } from 'common/hooks/theme';
 import { useUser } from 'common/hooks/auth';
 
-import { SettingsScreen } from 'screens/Settings.screen.native';
-import { StoreScreen } from 'screens/Store.screen.native';
-import { WishlistScreen } from 'screens/Wishlist.screen.native';
-import { LiveOrdersScreen } from 'screens/LiveOrders.screen.native';
-import { CartScreen } from 'screens/Cart.screen.native';
+import { getColor } from 'styles';
 
-import { MonorepoIntro } from 'components/examples/MonorepoIntro';
-
-import { css, getColor } from 'styles';
+import { TestTab } from 'screens/Test';
+import { SettingsTab } from 'screens/Settings';
+import { StoreTab } from 'screens/Store';
+import { LiveOrderTab } from 'screens/LiveOrder';
+import { CartTab } from 'screens/Cart';
+import { WishlistTab } from 'screens/Wishlist';
 
 
 const Tab = createMaterialBottomTabNavigator();
@@ -26,42 +23,7 @@ const Tab = createMaterialBottomTabNavigator();
 export const Navigator = () => {
   const { primary } = useThemeColors();
   const { user: { image: dp } } = useUser();
-  
-  const tabs = [{
-    name: 'Test',
-    component: MonorepoIntro,
-    icon: 'test-tube',
-  }, {
-    name: 'Settings',
-    component: SettingsScreen,
-    icon: 'face',
-    customIcon: dp?  (
-      <Image
-        style={css('rounded-full self-center h-6 w-6')}
-        source={{
-          uri: dp
-        }}
-        alt="Woman's Face"
-      />
-    ) : null
-  }, {
-    name: 'Store',
-    component: StoreScreen,
-    icon: 'store',
-  }, {
-    name: 'Wishlist',
-    component: WishlistScreen,
-    icon: 'heart',
-  }, {
-    name: 'Live Orders',
-    component: LiveOrdersScreen,
-    icon: 'bike',
-  }, {
-    name: 'Cart',
-    component: CartScreen,
-    icon: 'cart-outline',
-  }];
-  
+
   const theme = {
     dark: false,
     colors: {
@@ -82,16 +44,14 @@ export const Navigator = () => {
           inactiveColor={getColor('gray-500')}
           barStyle={{ backgroundColor: getColor('gray-100'), borderRadius: 20, elevation: 0 }}
         >
-          {tabs.map(({ name, icon, component, customIcon }) => (
-            <Tab.Screen
-              key={name}
-              options={{
-                tabBarIcon: ({ color }) => customIcon || <Icon color={color} size={25} name={icon} />,
-              }}
-              name={name}
-              component={component}
-            />
-          ))}
+          
+          {TestTab({ tab: Tab })}
+          {SettingsTab({ tab: Tab })}
+          {WishlistTab({ tab: Tab })}
+          {StoreTab({ tab: Tab })}
+          {LiveOrderTab({ tab: Tab })}
+          {CartTab({ tab: Tab })}
+
         </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

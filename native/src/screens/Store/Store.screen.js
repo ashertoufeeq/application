@@ -1,10 +1,10 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 
 import { Dimensions } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { min } from 'lodash-es';
 
-import { Text, LargeTitle, Title1 } from 'framework/text';
+import { Text, LargeTitle, Title2 } from 'framework/text';
 import { View, Touchable } from 'framework/surface';
 
 import { ScreenWrapper } from 'components/ScreenWrapper';
@@ -13,9 +13,9 @@ import { StoreHomeImage } from 'components/svg/StoreHomeImage';
 import { ProductCard } from 'components/ProductCard';
 
 
-export const StoreScreen = () => {
-  const [loading, setLoading] = useState(true);
-  
+export const StoreScreen = ({ navigation }) => {
+  const [loading, setLoading] = useState(false);
+
   return (
     <ScreenWrapper>
       <View scroll className='flex-1'>
@@ -33,27 +33,30 @@ export const StoreScreen = () => {
             </View>
           </View>
         </View>
-        <Title1 primary={false} animation='fadeInLeft' className='p-4 text-gray-600 uppercase'>
+        <Title2 primary={false} animation='fadeInLeft' className='p-4 text-gray-600 uppercase'>
           Daily Essentials
-        </Title1>
+        </Title2>
 
         <View className='px-2'>
           <ProductCard
-            productId={loading? null : 'xyz'}
+            navigation={navigation}
+            productId={loading ? null : 'xyz'}
             title='Mr White Detergent powder'
             shortDetails={['🇮🇳', '3kg']}
             price={195}
             size='sm'
           />
           <ProductCard
-            productId={loading? null : 'xyz'}
+            navigation={navigation}
+            productId={loading ? null : 'xyz2'}
             title='Mr White Detergent powder'
             shortDetails={['🇮🇳', '3kg']}
             price={195}
             size='md'
           />
           <ProductCard
-            productId={loading? null : 'xyz'}
+            navigation={navigation}
+            productId={loading ? null : 'xyz3'}
             title='Mr White Detergent powder'
             shortDetails={['🇮🇳', '3kg']}
             price={195}
@@ -62,7 +65,11 @@ export const StoreScreen = () => {
         </View>
 
         <View className='p-4'>
-          <Touchable feedback={false} className='bg-primary p-4 rounded-lg' onPress={() => setLoading(!loading)}>
+          <Touchable
+            feedback={false}
+            className='bg-primary p-4 rounded-lg'
+            onPress={() => setLoading(!loading)}
+          >
             <Text className='text-white font-bold'>
               Change loading
             </Text>

@@ -1,15 +1,15 @@
 import React from 'react';
 
 import { View, Touchable } from 'framework/surface';
-import { Text, Title, Headline, Title1 } from 'framework/text';
+import { Text, Title1, Headline, Title } from 'framework/text';
 import { Shimmer } from 'framework/utils';
 
-const CardHeader = ({ title, loading, size }) => {
-  const TitleComp = size === 'sm' ? Headline : Title;
+const CardHeader = ({ title, loading, size, productId }) => {
+  const TitleComp = size === 'sm' ? Title : Title1;
 
   return (
     <Shimmer active={loading} className={`${size === 'sm' ? 'h-6' : 'h-12'}`}>
-      <TitleComp>
+      <TitleComp className={`${size === 'sm' ? 'font-display' : 'text-display-bold'}`}>
         {title}
       </TitleComp>
     </Shimmer>
@@ -17,7 +17,7 @@ const CardHeader = ({ title, loading, size }) => {
 };
 
 const PriceLabel = ({ price, unit, loading, description, size }) => {
-  const TitleComp = size === 'sm'? Title : Title1;
+  const TitleComp = size === 'sm' ? Title : Title1;
 
   return (
     <Shimmer active={loading} className='w-1/2'>
@@ -32,7 +32,7 @@ const PriceLabel = ({ price, unit, loading, description, size }) => {
           </View>
         )}
         <View>
-          <TitleComp primary className={`${size === 'sm'? '' : 'mx-2'}`}>
+          <TitleComp primary className={`${size === 'sm' ? '' : 'mx-2'} font-display`}>
             {unit}
             {price}
           </TitleComp>
@@ -60,7 +60,7 @@ const AddToCartAction = ({ productId }) => (
 
 const Actions = ({ productId, loading }) => (
   <Shimmer active={loading} className='h-8'>
-    <View className='flex-row'>
+    <View className='flex-row flex-wrap'>
       <View className='flex-1' />
       <BuyNowAction productId={productId} />
       <AddToCartAction productId={productId} />
@@ -81,18 +81,33 @@ const ProductImage = ({ image, loading, size }) => {
   );
 };
 
-export const ProductCard = ({ productId, title, price, unit = '₹', shortDetails, image, size = 'md' }) => {
+export const ProductCard = (props) => {
+  const {
+    productId, title, price, unit = '₹',
+    shortDetails, image, size = 'md', navigation,
+  } = props;
   const loading = !productId;
+  const navigate = () => {
+    if (!loading) {
+      navigation.navigate(
+        'ProductDetail',
+        { productId, title, price, unit, shortDetails, image },
+      );
+    }
+  };
+
   return (
-    <View className={`p-2 ${size === 'lg' ? 'rounded-lg bg-white shadow-lg my-4' : ''} ${size === 'md'? 'my-1' : ''}`}>
-      <View className='flex-row'>
-        <ProductImage image={image} loading={loading} size={size} />
-        <View className='flex-1 px-2'>
-          <CardHeader title={title} loading={loading} size={size} />
-          <PriceLabel description={shortDetails} price={price} unit={unit} loading={loading} size={size} />
+    <View className={`p-2 bg-white rounded-lg ${size === 'lg' ? 'shadow-lg my-4' : ''} ${size === 'md' ? 'my-1' : ''}`}>
+      <Touchable feedback={false} onPress={navigate}>
+        <View className='flex-row'>
+          <ProductImage {...{ image, loading, size }} />
+          <View className='flex-1 px-2'>
+            <CardHeader {...{ title, loading, size, productId }} />
+            <PriceLabel {...{ description: shortDetails, price, unit, loading, size }} />
+          </View>
         </View>
-      </View>
-      {size === 'lg' ? <Actions productId={productId} loading={loading} /> : null}
+      </Touchable>
+      {size === 'lg' ? <Actions {...{ productId, loading }} /> : null}
     </View>
   );
 };

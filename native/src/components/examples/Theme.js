@@ -7,14 +7,14 @@ import { changePrimaryColor } from 'shared/actions/theme';
 import { getColor } from 'styles';
 
 import { View, Touchable } from 'framework/surface';
-import { Title } from 'framework/text';
+import { Title1 } from 'framework/text';
 
 export const Theme = () => {
   const dispatch = useDispatch();
 
   return (
     <View style={styles.sectionContainer}>
-      <Title>Theme</Title>
+      <Title1>Theme</Title1>
       <View>
         {['gray', 'red', 'green', 'blue']
           .map(color => (
