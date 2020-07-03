@@ -59,6 +59,7 @@
     "react-native-flash-message": "^0.1.15",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-global-props": "^1.1.5",
+    "react-native-invertible-scroll-view": "^2.0.0",
     "react-native-keyboard-spacer": "^0.4.1",
     "react-native-onesignal": "^3.7.3",
     "react-native-paper": "^3.10.1",
