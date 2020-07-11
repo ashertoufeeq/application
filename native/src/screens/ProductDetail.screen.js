@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getStatusBarHeight } from "react-native-status-bar-height";
+import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 import { ScreenWrapper } from 'components/ScreenWrapper';
 import { Title2 } from 'framework/text';
