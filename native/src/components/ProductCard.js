@@ -6,7 +6,6 @@ import { Shimmer } from 'framework/utils';
 
 const CardHeader = ({ title, loading, size, productId }) => {
   const TitleComp = size === 'sm' ? Title : Title1;
-
   return (
     <Shimmer active={loading} className={`${size === 'sm' ? 'h-6' : 'h-12'}`}>
       <TitleComp className={`${size === 'sm' ? 'font-display' : 'text-display-bold'}`}>
@@ -50,20 +49,20 @@ const BuyNowAction = ({ productId }) => (
   </Touchable>
 );
 
-const AddToCartAction = ({ productId }) => (
-  <Touchable className='bg-primary justify-center p-2 rounded mx-2'>
+const AddToCartAction = ({ productId,status,onAddCart }) => (
+  <Touchable className='bg-gray-400 justify-center p-2 rounded mx-2' onPress={onAddCart}>
     <Headline className='text-white'>
       Add to cart
     </Headline>
   </Touchable>
 );
 
-const Actions = ({ productId, loading }) => (
+const Actions = ({ productId, loading ,onAddCart}) => (
   <Shimmer active={loading} className='h-8'>
     <View className='flex-row flex-wrap'>
       <View className='flex-1' />
       <BuyNowAction productId={productId} />
-      <AddToCartAction productId={productId} />
+      <AddToCartAction productId={productId}  onAddCart={onAddCart}  />
     </View>
   </Shimmer>
 );
@@ -82,9 +81,10 @@ const ProductImage = ({ image, loading, size }) => {
 };
 
 export const ProductCard = (props) => {
+
   const {
     productId, title, price, unit = '₹',
-    shortDetails, image, size = 'md', navigation,
+    shortDetails, image, size = 'md', navigation,onAddCart
   } = props;
   const loading = !productId;
   const navigate = () => {
@@ -107,7 +107,7 @@ export const ProductCard = (props) => {
           </View>
         </View>
       </Touchable>
-      {size === 'lg' ? <Actions {...{ productId, loading }} /> : null}
+      {size === 'lg' ? <Actions {...{ productId, loading,onAddCart }} /> : null}
     </View>
   );
 };

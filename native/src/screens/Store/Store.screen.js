@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+
+import {Modal} from 'react-native';
 
 import { Dimensions } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
@@ -15,7 +17,7 @@ import { ProductCard } from 'components/ProductCard';
 
 export const StoreScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
-
+  const [visible, setVisible] = useState(false);
   return (
     <ScreenWrapper>
       <View scroll className='flex-1'>
@@ -61,23 +63,32 @@ export const StoreScreen = ({ navigation }) => {
             shortDetails={['🇮🇳', '3kg']}
             price={195}
             size='lg'
+            onAddCart={()=>{navigation.navigate('Modal')}}
           />
         </View>
-
         <View className='p-4'>
           <Touchable
             feedback={false}
             className='bg-primary p-4 rounded-lg'
-            onPress={() => setLoading(!loading)}
+            onPress={() => setVisible(true)}
           >
             <Text className='text-white font-bold'>
               Change loading
             </Text>
           </Touchable>
         </View>
-
+        <Touchable
+          feedback={false}
+          className='bg-primary p-4 rounded-lg'
+          onPress={() => navigation.navigate('modal')}>
+          <Text className='text-white font-bold'>
+            Modal
+          </Text>
+        </Touchable>
       </View>
+
       <SearchBar />
+
     </ScreenWrapper>
   );
 };

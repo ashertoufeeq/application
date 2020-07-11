@@ -5,17 +5,38 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { ProductDetailScreen } from 'screens/ProductDetail.screen';
 import { StoreScreen } from './Store.screen';
+import {ModaTest} from '../modaTest';
+import {modalConfigs} from '../../helpers/modalConfig';
 
 
+
+
+const RootStack = createStackNavigator();
 const Stack = createStackNavigator();
 
-const StoreStack = () => (
+
+const MainStack = () => (
   <Stack.Navigator initialRouteName='StoreHome' headerMode={null}>
     <Stack.Screen name='StoreHome' component={StoreScreen} />
     <Stack.Screen name='ProductDetail' component={ProductDetailScreen} />
   </Stack.Navigator>
 );
 
+
+const StoreStack=()=>(
+  <RootStack.Navigator mode="modal" screenOptions={modalConfigs}>
+    <RootStack.Screen
+      name="Main"
+      component={MainStack}
+      headerMode={null}
+    />
+    <RootStack.Screen
+      name="modal"
+      component={ModaTest}
+      headerMode={null}
+    />
+  </RootStack.Navigator>
+)
 
 export const StoreTab = ({ tab: Tab }) => (
   <Tab.Screen
