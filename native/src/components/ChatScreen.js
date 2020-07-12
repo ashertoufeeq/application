@@ -12,7 +12,7 @@ export const ChatScreen = () => {
   return (
     <View style={{ height: isKeyboardVisible ? screenHeight : 0 }}>
       <View animateStyle={{ height: isKeyboardVisible ? getStatusBarHeight() : 0 }} />
-      <View scroll inverted keyboardShouldPersistTaps='always'>
+      <View scroll inverted keyboardShouldPersistTaps='always' className='p-4'>
         <Title>
           Hmmm... 🤔
         </Title>

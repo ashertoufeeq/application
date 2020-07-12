@@ -78,6 +78,11 @@ target 'keeperspot' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
   pod 'GoogleSignIn', '~> 5.0.2'
 
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
+  pod 'GoogleMaps'
+  pod 'Google-Maps-iOS-Utils'
+
   target 'keeperspotTests' do
     inherit! :complete
     # Pods for testing
