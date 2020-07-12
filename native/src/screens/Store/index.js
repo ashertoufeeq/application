@@ -5,7 +5,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { ProductDetailScreen } from 'screens/ProductDetail.screen';
 import { StoreScreen } from './Store.screen';
-import {ModaTest} from '../modaTest';
+import {VarientsModal} from '../varientsModal';
 import {modalConfigs} from '../../helpers/modalConfig';
 
 
@@ -31,8 +31,8 @@ const StoreStack=()=>(
       headerMode={null}
     />
     <RootStack.Screen
-      name="modal"
-      component={ModaTest}
+      name="varients"
+      component={VarientsModal}
       headerMode={null}
     />
   </RootStack.Navigator>

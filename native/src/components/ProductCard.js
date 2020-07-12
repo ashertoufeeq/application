@@ -50,7 +50,7 @@ const BuyNowAction = ({ productId }) => (
 );
 
 const AddToCartAction = ({ productId,status,onAddCart }) => (
-  <Touchable className='bg-gray-400 justify-center p-2 rounded mx-2' onPress={onAddCart}>
+  <Touchable className='bg-primary justify-center p-2 rounded mx-2' onPress={onAddCart}>
     <Headline className='text-white'>
       Add to cart
     </Headline>
@@ -81,7 +81,6 @@ const ProductImage = ({ image, loading, size }) => {
 };
 
 export const ProductCard = (props) => {
-
   const {
     productId, title, price, unit = '₹',
     shortDetails, image, size = 'md', navigation,onAddCart

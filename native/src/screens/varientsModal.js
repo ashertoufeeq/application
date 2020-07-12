@@ -1,13 +1,11 @@
 import React,{useState} from 'react';
-import { View, Touchable } from 'framework/surface';
-import { Text, LargeTitle, Title2 } from 'framework/text';
+import { View} from 'framework/surface';
+import { Title2 } from 'framework/text';
 import { ProductCard } from 'components/ProductCard';
-import { ScreenWrapper } from 'components/ScreenWrapper';
-import { styles } from 'styles/default';
 import {Dimensions, ScrollView} from 'react-native';
 
 
-export const ModaTest = ({navigation}) => {
+export const VarientsModal = ({navigation}) => {
   const [loading,setLoading] =useState(false)
   return (
     <View className={'absolute insetX0 bottom0 borderPrimary borderSolid borderT4 bgWhite'} style={{maxHeight:(Dimensions.get('window').height/2)}}>
@@ -15,7 +13,6 @@ export const ModaTest = ({navigation}) => {
         Product Varients
       </Title2>
       <ScrollView contentInsetAdjustmentBehavior='automatic'>
-
       <View className='px-2'>
         <ProductCard
           navigation={navigation}
