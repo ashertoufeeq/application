@@ -3,6 +3,8 @@ import React from 'react';
 import { View, Touchable } from 'framework/surface';
 import { Text, Title1, Headline, Title } from 'framework/text';
 import { Shimmer } from 'framework/utils';
+import {useDispatch} from 'react-redux';
+import {ADD_TO_CART} from 'shared/actions';
 
 const CardHeader = ({ title, loading, size, productId }) => {
   const TitleComp = size === 'sm' ? Title : Title1;
@@ -49,20 +51,31 @@ const BuyNowAction = ({ productId }) => (
   </Touchable>
 );
 
-const AddToCartAction = ({ productId,status,onAddCart }) => (
-  <Touchable className='bg-primary justify-center p-2 rounded mx-2' onPress={onAddCart}>
-    <Headline className='text-white'>
-      Add to cart
-    </Headline>
-  </Touchable>
-);
+const AddToCartAction = ({ productId, status, onAddCart }) => {
 
-const Actions = ({ productId, loading ,onAddCart}) => (
+  const dispatch = useDispatch();
+  const addToCart = () => {
+    dispatch({
+      type: ADD_TO_CART,
+      productId
+    })
+  };
+
+  return (
+    <Touchable className='bg-primary justify-center p-2 rounded mx-2' onPress={addToCart}>
+      <Headline className='text-white'>
+        Add to cart
+      </Headline>
+    </Touchable>
+  );
+};
+
+const Actions = ({ productId, loading, onAddCart }) => (
   <Shimmer active={loading} className='h-8'>
     <View className='flex-row flex-wrap'>
       <View className='flex-1' />
       <BuyNowAction productId={productId} />
-      <AddToCartAction productId={productId}  onAddCart={onAddCart}  />
+      <AddToCartAction productId={productId} onAddCart={onAddCart} />
     </View>
   </Shimmer>
 );
@@ -83,7 +96,7 @@ const ProductImage = ({ image, loading, size }) => {
 export const ProductCard = (props) => {
   const {
     productId, title, price, unit = '₹',
-    shortDetails, image, size = 'md', navigation,onAddCart
+    shortDetails, image, size = 'md', navigation, onAddCart,
   } = props;
   const loading = !productId;
   const navigate = () => {
@@ -106,7 +119,7 @@ export const ProductCard = (props) => {
           </View>
         </View>
       </Touchable>
-      {size === 'lg' ? <Actions {...{ productId, loading,onAddCart }} /> : null}
+      {size === 'lg' ? <Actions {...{ productId, loading, onAddCart }} /> : null}
     </View>
   );
 };

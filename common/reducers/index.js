@@ -9,10 +9,11 @@ import thunk from 'redux-thunk';
 import { demo } from './demo';
 import { auth } from './auth';
 import { theme } from './theme';
+import { product } from './product';
 
 const middlewares = [thunk];
 
-if (process.env.NODE_ENV === 'developer') {
+if (process.env.NODE_ENV === 'kkk') {
   // eslint-disable-next-line global-require
   const { createLogger } = require('redux-logger');
   const logger = createLogger({});
@@ -22,7 +23,8 @@ if (process.env.NODE_ENV === 'developer') {
 const reducers = combineReducers({
   demo,
   auth,
-  theme
+  theme,
+  product
 });
 
 const encryptor = createEncryptor({
@@ -33,6 +35,7 @@ export const getStore = (storage) => {
   const persistConfig = {
     key: 'root-store',
     storage,
+    debug: true,
     stateReconciler: autoMergeLevel2,
     blacklist: ['theme'],
     transforms: [encryptor],

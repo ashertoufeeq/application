@@ -5,10 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { ProductDetailScreen } from 'screens/ProductDetail.screen';
 import { StoreScreen } from './Store.screen';
-import {VarientsModal} from '../varientsModal';
-import {modalConfigs} from '../../helpers/modalConfig';
-
-
+import { VarientsModal } from '../varientsModal';
+import { modalConfigs } from '../../helpers/modalConfig';
 
 
 const RootStack = createStackNavigator();
@@ -23,20 +21,20 @@ const MainStack = () => (
 );
 
 
-const StoreStack=()=>(
-  <RootStack.Navigator mode="modal" screenOptions={modalConfigs}>
+const StoreStack = () => (
+  <RootStack.Navigator mode='modal' screenOptions={modalConfigs}>
     <RootStack.Screen
-      name="Main"
+      name='Main'
       component={MainStack}
       headerMode={null}
     />
     <RootStack.Screen
-      name="varients"
+      name='varients'
       component={VarientsModal}
       headerMode={null}
     />
   </RootStack.Navigator>
-)
+);
 
 export const StoreTab = ({ tab: Tab }) => (
   <Tab.Screen
