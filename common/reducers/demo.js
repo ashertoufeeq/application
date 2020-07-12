@@ -18,7 +18,7 @@ export const demo = (state = initialState, action) => {
       return initialState;
 
     default:
-      return $();
+      return state;
   }
 };
 

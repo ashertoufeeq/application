@@ -37,7 +37,7 @@ export const getStore = (storage) => {
     storage,
     debug: true,
     stateReconciler: autoMergeLevel2,
-    blacklist: ['theme'],
+    whitelist: ['auth', 'demo', 'product'],
     transforms: [encryptor],
   };
   const persistedReducer = persistReducer(persistConfig, reducers);

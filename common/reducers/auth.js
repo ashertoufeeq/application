@@ -28,6 +28,6 @@ export const auth = (state = initialState, action) => {
       return initialState;
 
     default:
-      return $();
+      return state;
   }
 };

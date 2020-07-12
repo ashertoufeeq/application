@@ -6,12 +6,16 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { useSelector } from 'react-redux';
 
 const Cart = () => {
-  const cart = useSelector(state => state.product.cart);
+  const { cart } = useSelector(state => state.product);
+  const keys = Object.keys(cart);
+
   return (
     <View>
-      {cart.map(product => (
-        <Title>
+      {keys.map(product => (
+        <Title key={product}>
           {product}
+          {' -> '}
+          {cart[product]}
         </Title>
       ))}
     </View>
