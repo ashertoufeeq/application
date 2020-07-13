@@ -1,5 +1,6 @@
 export { Text } from './BaseText';
 export { Callout } from './Callout';
+export { Emoji } from './Emoji';
 export { Footnote } from './Footnote';
 export { Headline } from './Headline';
 export { LargeTitle } from './LargeTitle';
