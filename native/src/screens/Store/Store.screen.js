@@ -6,11 +6,11 @@ import {min} from 'lodash-es';
 
 import {Text, LargeTitle, Title2} from 'framework/text';
 import {View, Touchable} from 'framework/surface';
-
 import {ScreenWrapper} from 'components/ScreenWrapper';
 import {SearchBar} from 'components/SearchBar.native';
 import {StoreHomeImage} from 'components/svg/StoreHomeImage';
 import {ProductCard} from 'components/ProductCard';
+import { VerticalCard } from "../../components/VerticalCard";
 
 const LoadingComp = ({loading}) => {
   if (loading)
@@ -142,7 +142,16 @@ export const StoreScreen = ({navigation}) => {
       <Title2 primary={false} animation='fadeInLeft' className='p-4 text-gray-600 uppercase'>
         Daily Essentials
       </Title2>
-    </View>);
+      <VerticalCard
+        navigation={navigation}
+        productId={loading ? null : 'xyz3'}
+        title='Mr White Detergent powder'
+        shortDetails={['🇮🇳', '3kg']}
+        price={195}
+        size='lg'
+        />
+    </View>
+  );
 
   return (
     <ScreenWrapper>
@@ -154,22 +163,8 @@ export const StoreScreen = ({navigation}) => {
         initialNumToRender={2}
         initialScrollIndex={0}
         refreshing={refresh}
-        showsVerticalScrollIndicator={false}
-        onRefresh={() => {
-          setRefresh(true);
-          // console.log('refresh')
-          // setTimeout(()=>{
-          //   setData([{
-          //     navigation,
-          //     productId:loading ? null : 'xyz',
-          //     title:'Mr White Detergent powder',
-          //     shortDetails:['🇮🇳', '3kg',],
-          //     price:195,
-          //     size:'lg',
-          //   },])
-          //   setRefresh(false)
-          // },1000)
-        }}
+        onRefresh={() => { setRefresh(true); }}
+        ListFooterComponent={() => (<LoadingComp loading={refresh} />)}
         onEndReached={(info) => {
           // setRefresh(true);
           setLoading(true);
@@ -178,7 +173,8 @@ export const StoreScreen = ({navigation}) => {
           }, 1000);
         }}
       />
-      <SearchBar/>
+
+      <SearchBar />
     </ScreenWrapper>
   );
 };

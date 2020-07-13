@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-
-import {View, Touchable} from 'framework/surface';
 import {Text, Title1, Headline, Title} from 'framework/text';
 import {Shimmer} from 'framework/utils';
 import {Picker} from '@react-native-community/picker';
 import {useDispatch} from 'react-redux';
 import {ADD_TO_CART} from 'shared/actions';
+import { View, Touchable } from 'framework/surface';
 
 const CardHeader = ({title, loading, size, productId}) => {
   const TitleComp = size === 'sm' ? Title : Title1;
@@ -78,13 +77,16 @@ const BuyNowAction = ({productId}) => (
   </Touchable>
 );
 
-const AddToCartAction = ({ productId, status, onAddCart }) => {
-
+const AddToCartAction = ({ title,image,productId, status, onAddCart }) => {
   const dispatch = useDispatch();
   const addToCart = () => {
     dispatch({
       type: ADD_TO_CART,
-      productId
+      payload:{
+        title,
+        image,
+        productId,
+      }
     })
   };
 

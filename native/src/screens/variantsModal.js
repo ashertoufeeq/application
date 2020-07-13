@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {View, Touchable} from 'framework/surface';
+import {View, Touchable,ScrollView} from 'framework/surface';
 import {Text, Title2, Title, Headline} from 'framework/text';
-import {Dimensions, ScrollView} from 'react-native';
+import {Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Shimmer} from 'framework/utils';
 import {ScreenWrapper} from 'components/ScreenWrapper';
@@ -52,7 +52,7 @@ export const VariantsModal = ({navigation, route}) => {
       </Title2>
      </View>
       <ScreenWrapper title='Product Details'>
-      <View scroll className={'flex-1'}>
+      <ScrollView scroll className={'flex-1'}>
         <View className={'flex-row flex-1 align-center justify-center'}>
           <ProductImage {...{loading,navigation}}/>
         </View>
@@ -97,7 +97,7 @@ export const VariantsModal = ({navigation, route}) => {
             route.params.variants.map((item) => (<VarientsTag {...{loading, setProduct, item}}/>)) : null
           }
         </View>
-      </View>
+      </ScrollView>
       </ScreenWrapper>
       <Touchable
         feedback={false}
