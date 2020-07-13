@@ -14,6 +14,7 @@ const ProductImage = ({image, loading}) => {
     </Shimmer>
   );
 };
+
 const VarientsTag = ({loading, navigation}) => (
   <Shimmer active={loading} className={'h-6 absolute right0 bottom0'}>
     <Touchable feedback={false}
