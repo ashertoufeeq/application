@@ -3,8 +3,8 @@ import React from 'react';
 import { View, Touchable } from 'framework/surface';
 import { Text, Title1, Headline, Title } from 'framework/text';
 import { Shimmer } from 'framework/utils';
-import {useDispatch} from 'react-redux';
-import {ADD_TO_CART} from 'shared/actions';
+import { useDispatch } from 'react-redux';
+import { ADD_TO_CART } from 'shared/actions';
 
 const CardHeader = ({ title, loading, size, productId }) => {
   const TitleComp = size === 'sm' ? Title : Title1;
@@ -51,13 +51,16 @@ const BuyNowAction = ({ productId }) => (
   </Touchable>
 );
 
-const AddToCartAction = ({ productId, status, onAddCart }) => {
-
+const AddToCartAction = ({ title,image,productId, status, onAddCart }) => {
   const dispatch = useDispatch();
   const addToCart = () => {
     dispatch({
       type: ADD_TO_CART,
-      productId
+      payload:{
+        title,
+        image,
+        productId,
+      }
     })
   };
 
@@ -70,12 +73,12 @@ const AddToCartAction = ({ productId, status, onAddCart }) => {
   );
 };
 
-const Actions = ({ productId, loading, onAddCart }) => (
+const Actions = ({ title,image,productId, loading, onAddCart }) => (
   <Shimmer active={loading} className='h-8'>
     <View className='flex-row flex-wrap'>
       <View className='flex-1' />
       <BuyNowAction productId={productId} />
-      <AddToCartAction productId={productId} onAddCart={onAddCart} />
+      <AddToCartAction {...{ title,image,productId,onAddCart }} />
     </View>
   </Shimmer>
 );
@@ -119,7 +122,7 @@ export const ProductCard = (props) => {
           </View>
         </View>
       </Touchable>
-      {size === 'lg' ? <Actions {...{ productId, loading, onAddCart }} /> : null}
+      {size === 'lg' ? <Actions {...{ title,image,productId, loading, onAddCart }} /> : null}
     </View>
   );
 };

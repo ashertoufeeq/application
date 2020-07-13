@@ -11,6 +11,7 @@ import { ScreenWrapper } from 'components/ScreenWrapper';
 import { SearchBar } from 'components/SearchBar.native';
 import { StoreHomeImage } from 'components/svg/StoreHomeImage';
 import { ProductCard } from 'components/ProductCard';
+import { VerticalCard } from "../../components/VerticalCard";
 
 const LoadingComp = ({ loading }) => {
   if (loading)
@@ -80,6 +81,14 @@ export const StoreScreen = ({ navigation }) => {
       <Title2 primary={false} animation='fadeInLeft' className='p-4 text-gray-600 uppercase'>
         Daily Essentials
       </Title2>
+      <VerticalCard
+        navigation={navigation}
+        productId={loading ? null : 'xyz3'}
+        title='Mr White Detergent powder'
+        shortDetails={['🇮🇳', '3kg']}
+        price={195}
+        size='lg'
+        />
     </View>
   );
 
@@ -108,6 +117,7 @@ export const StoreScreen = ({ navigation }) => {
           //   setRefresh(false)
           // },1000)
         }}
+
         ListFooterComponent={() => (<LoadingComp loading={refresh} />)}
         onEndReached={(info) => {
           // setRefresh(true);
@@ -118,6 +128,7 @@ export const StoreScreen = ({ navigation }) => {
           }, 1000);
         }}
       />
+
       <View className='p-4'>
         <Touchable
           feedback={false}
