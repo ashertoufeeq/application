@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Dimensions, FlatList, ActivityIndicator, RefreshControl } from 'react-native';
+import { Dimensions, ActivityIndicator } from 'react-native';
 
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { min } from 'lodash-es';
 
 import { Text, LargeTitle, Title2 } from 'framework/text';
-import { View, Touchable } from 'framework/surface';
+import { View, Touchable, FlatList } from 'framework/surface';
 
 import { ScreenWrapper } from 'components/ScreenWrapper';
 import { SearchBar } from 'components/SearchBar.native';
@@ -93,21 +93,7 @@ export const StoreScreen = ({ navigation }) => {
         initialNumToRender={2}
         initialScrollIndex={0}
         refreshing={refresh}
-        onRefresh={() => {
-          setRefresh(true);
-          // console.log('refresh')
-          // setTimeout(()=>{
-          //   setData([{
-          //     navigation,
-          //     productId:loading ? null : 'xyz',
-          //     title:'Mr White Detergent powder',
-          //     shortDetails:['🇮🇳', '3kg',],
-          //     price:195,
-          //     size:'lg',
-          //   },])
-          //   setRefresh(false)
-          // },1000)
-        }}
+        onRefresh={() => { setRefresh(true); }}
         ListFooterComponent={() => (<LoadingComp loading={refresh} />)}
         onEndReached={(info) => {
           // setRefresh(true);
