@@ -1,5 +1,3 @@
-import { TransitionPresets } from '@react-navigation/stack';
-
 export const modalConfigs={
   gestureEnabled:true,
   gestureResponseDistance:'vertical',

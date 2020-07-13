@@ -10,7 +10,8 @@
     "start": "react-app-rewired start",
     "start:production": "yarn sync && yarn build && serve -s build",
     "sync": "../sync.js web",
-    "test": "react-app-rewired test"
+    "test": "react-app-rewired test",
+    "web": "yarn start"
   },
   "browserslist": {
     "production": [

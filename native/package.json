@@ -21,6 +21,7 @@
     "build:android": "cd android && ./gradlew bundleRelease",
     "ios": "react-native run-ios",
     "lint": "eslint .",
+    "native": "yarn start",
     "pod": "cd ios && pod install",
     "start": "NODE_ENV=development react-native start",
     "studio": "studio android",

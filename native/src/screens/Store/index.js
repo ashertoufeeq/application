@@ -10,7 +10,6 @@ import {modalConfigs} from '../../helpers/modalConfig';
 
 
 
-
 const RootStack = createStackNavigator();
 const Stack = createStackNavigator();
 
@@ -23,10 +22,10 @@ const MainStack = () => (
 );
 
 
-const StoreStack=()=>(
-  <RootStack.Navigator mode="modal" screenOptions={modalConfigs}>
+const StoreStack = () => (
+  <RootStack.Navigator mode='modal' screenOptions={modalConfigs}>
     <RootStack.Screen
-      name="Main"
+      name='Main'
       component={MainStack}
       headerMode={null}
     />
@@ -36,7 +35,7 @@ const StoreStack=()=>(
       headerMode={null}
     />
   </RootStack.Navigator>
-)
+);
 
 export const StoreTab = ({ tab: Tab }) => (
   <Tab.Screen

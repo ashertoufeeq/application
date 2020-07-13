@@ -42,14 +42,13 @@ export const Navigator = () => {
           inactiveColor={getColor('gray-500')}
           barStyle={{ backgroundColor: getColor('gray-100'), borderRadius: 20, elevation: 0 }}
         >
-          
+
           {TestTab({ tab: Tab })}
           {SettingsTab({ tab: Tab })}
           {WishlistTab({ tab: Tab })}
           {StoreTab({ tab: Tab })}
           {LiveOrderTab({ tab: Tab })}
           {CartTab({ tab: Tab })}
-
         </Tab.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

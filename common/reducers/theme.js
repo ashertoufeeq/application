@@ -24,6 +24,6 @@ export const theme = (state = initialState, action) => {
       return initialState;
 
     default:
-      return $();
+      return state;
   }
 };

@@ -1,15 +1,12 @@
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import React from 'react';
+import { Image } from 'react-native';
 
 import { useUser } from 'common/hooks/auth';
-
 import { SettingsScreen } from './Settings.screen';
 
-import { Image } from 'react-native';
-import { css } from 'web/src/styles';
-
 export const SettingsTab = ({ tab: Tab }) => {
-  const { user: { image: dp } } = useUser();
+  const { user: { image: dp }, isAuthenticated } = useUser();
 
   return (
     <Tab.Screen
@@ -17,9 +14,9 @@ export const SettingsTab = ({ tab: Tab }) => {
       component={SettingsScreen}
       name='Settings'
       options={{
-        tabBarIcon: ({ color }) => dp ? (
+        tabBarIcon: ({ color }) => isAuthenticated ? (
           <Image
-            style={css('rounded-full self-center h-6 w-6')}
+            style={{ width: 25, height: 25, borderRadius: 12.5 }}
             source={{ uri: dp }}
             alt="Woman's Face"
           />

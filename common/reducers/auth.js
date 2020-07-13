@@ -26,7 +26,8 @@ export const auth = (state = initialState, action) => {
 
     case RESET_STATE:
       return initialState;
+
     default:
-      return $();
+      return state;
   }
 };

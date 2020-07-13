@@ -28,8 +28,7 @@ const LoadingComp = ({loading}) => {
         Change loading
       </Text>
     </Touchable>
-  </View>);
-};
+  </View>);}
 
 export const StoreScreen = ({navigation}) => {
   const [loading, setLoading] = useState(false);
@@ -71,6 +70,14 @@ export const StoreScreen = ({navigation}) => {
       title: 'Mr White Detergent powder',
       shortDetails: ['🇮🇳', '3kg'],
       price: 195,
+      size: 'sm',
+    },
+    {
+      navigation,
+      productId: loading ? null : 'xyz',
+      title: 'Mr White Detergent powder',
+      shortDetails: ['🇮🇳', '3kg'],
+      price: 195,
       size: 'md',
     }, {
       navigation,
@@ -99,6 +106,11 @@ export const StoreScreen = ({navigation}) => {
           leaderFeature: '10kg',
         },
       ],
+      productId: loading ? null : 'xyz',
+      title: 'Mr White Detergent powder',
+      shortDetails: ['🇮🇳', '3kg'],
+      price: 195,
+      size: 'lg',
     },
   ];
 
@@ -110,10 +122,11 @@ export const StoreScreen = ({navigation}) => {
         key={index.toString()}
         {...item}/>
     </View>);
+
   const HeaderComp = () => (
-    <View className={'flex-1'}>
+    <View className='flex-1'>
       <View className='bg-grey-100'>
-        <View style={{height: getStatusBarHeight()}}/>
+        <View style={{ height: getStatusBarHeight() }} />
         <View className='px-4'>
           <LargeTitle animation='fadeInLeft'>
             Khan store.
@@ -128,7 +141,8 @@ export const StoreScreen = ({navigation}) => {
       </View>
       <Title2 primary={false} animation='fadeInLeft' className='p-4 text-gray-600 uppercase'>
         Daily Essentials
-      </Title2></View>);
+      </Title2>
+    </View>);
 
   return (
     <ScreenWrapper>
@@ -156,12 +170,10 @@ export const StoreScreen = ({navigation}) => {
           //   setRefresh(false)
           // },1000)
         }}
-        ListFooterComponent={() => (<LoadingComp loading={refresh}/>)}
         onEndReached={(info) => {
           // setRefresh(true);
           setLoading(true);
           setTimeout(() => {
-            // setData([...Data,...Data])
             // setRefresh(false);
           }, 1000);
         }}

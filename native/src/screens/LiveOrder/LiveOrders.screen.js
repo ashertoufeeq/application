@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { VirtualizedList } from 'react-native';
 
 import { ScreenWrapper } from 'components/ScreenWrapper';
-import { Touchable, View } from 'framework/surface';
+import { Touchable, View, ScrollView } from 'framework/surface';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { Text } from 'framework/text';
 import _ from 'lodash-es';
@@ -10,7 +9,7 @@ import _ from 'lodash-es';
 function randomStringGen(len, charSet) {
   charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let randomString = '';
-  for (let i = 0; i < len; i++) {
+  for (let i = 0; i < len; i += 1) {
     const randomPoz = Math.floor(Math.random() * charSet.length);
     randomString += charSet.substring(randomPoz, randomPoz + 1);
   }
@@ -91,9 +90,9 @@ export const LiveOrdersScreen = () => {
           {rands.length}
         </Text>
       </Touchable>
-      <View scroll>
+      <ScrollView>
         {rands.map(({ id }) => <RandomAnimatedView key={id} id={id} />)}
-      </View>
+      </ScrollView>
     </ScreenWrapper>
   );
 };

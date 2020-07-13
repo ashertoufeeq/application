@@ -4,6 +4,8 @@ import {View, Touchable} from 'framework/surface';
 import {Text, Title1, Headline, Title} from 'framework/text';
 import {Shimmer} from 'framework/utils';
 import {Picker} from '@react-native-community/picker';
+import {useDispatch} from 'react-redux';
+import {ADD_TO_CART} from 'shared/actions';
 
 const CardHeader = ({title, loading, size, productId}) => {
   const TitleComp = size === 'sm' ? Title : Title1;
@@ -76,13 +78,24 @@ const BuyNowAction = ({productId}) => (
   </Touchable>
 );
 
-const AddToCartAction = ({productId, status, onAddCart}) => (
-  <Touchable className='bg-primary justify-center p-2 rounded mx-2' onPress={onAddCart}>
-    <Headline className='text-white'>
-      Add to cart
-    </Headline>
-  </Touchable>
-);
+const AddToCartAction = ({ productId, status, onAddCart }) => {
+
+  const dispatch = useDispatch();
+  const addToCart = () => {
+    dispatch({
+      type: ADD_TO_CART,
+      productId
+    })
+  };
+
+  return (
+    <Touchable className='bg-primary justify-center p-2 rounded mx-2' onPress={addToCart}>
+      <Headline className='text-white'>
+        Add to cart
+      </Headline>
+    </Touchable>
+  );
+};
 
 const Actions = ({productId, loading, onAddCart,
                    variant,
@@ -98,8 +111,8 @@ const Actions = ({productId, loading, onAddCart,
       <BuyNowAction productId={productId}/>
       <AddToCartAction productId={productId} onAddCart={onAddCart}/>
     </View>
-  </Shimmer>
-);
+  </Shimmer>)
+
 
 const ProductImage = ({image, loading, size}) => {
   let heightWidth = '';
@@ -124,6 +137,7 @@ export const ProductCard = (props) => {
     shortDetails, image, size = 'md',
     onAddCart,
   } = variant;
+
   const {navigation} = props
   const loading = !productId;
   const navigate = () => {
