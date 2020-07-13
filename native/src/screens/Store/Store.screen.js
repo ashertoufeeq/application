@@ -1,36 +1,39 @@
-import React, {useState} from 'react';
-import {Dimensions, FlatList, ActivityIndicator} from 'react-native';
+import React, { useState } from 'react';
+import { Dimensions, FlatList, ActivityIndicator } from 'react-native';
 
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import {min} from 'lodash-es';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+import { min } from 'lodash-es';
 
-import {Text, LargeTitle, Title2} from 'framework/text';
-import {View, Touchable} from 'framework/surface';
-import {ScreenWrapper} from 'components/ScreenWrapper';
-import {SearchBar} from 'components/SearchBar.native';
-import {StoreHomeImage} from 'components/svg/StoreHomeImage';
-import {ProductCard} from 'components/ProductCard';
+import { Text, LargeTitle, Title2 } from 'framework/text';
+import { View, Touchable } from 'framework/surface';
+import { ScreenWrapper } from 'components/ScreenWrapper';
+import { SearchBar } from 'components/SearchBar.native';
+import { StoreHomeImage } from 'components/svg/StoreHomeImage';
+import { ProductCard } from 'components/ProductCard';
 import { VerticalCard } from "../../components/VerticalCard";
 
-const LoadingComp = ({loading}) => {
+const LoadingComp = ({ loading }) => {
   if (loading)
     return (
-      <View className={'w-full flex-row align-center justify-center'}>
-        <ActivityIndicator color={'#9575cd'} size={30}/>
-      </View>);
-  return (<View className='p-4'>
-    <Touchable
-      feedback={false}
-      className='bg-primary p-4 rounded-lg'
+      <View className='w-full flex-row align-center justify-center'>
+        <ActivityIndicator color='#9575cd' size={30} />
+      </View>
+    );
+  return (
+    <View className='p-4'>
+      <Touchable
+        feedback={false}
+        className='bg-primary p-4 rounded-lg'
       // onPress={() => {setLoading(!loading);}}
     >
-      <Text className='text-white font-bold'>
-        Change loading
-      </Text>
-    </Touchable>
-  </View>);}
+        <Text className='text-white font-bold'>
+          Change loading
+        </Text>
+      </Touchable>
+    </View>
+  );}
 
-export const StoreScreen = ({navigation}) => {
+export const StoreScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
@@ -81,7 +84,7 @@ export const StoreScreen = ({navigation}) => {
       size: 'md',
     }, {
       navigation,
-     multiVariants: true,
+      multiVariants: true,
       variants: [
         {
           productId: loading ? null : 'xyz',
@@ -116,12 +119,13 @@ export const StoreScreen = ({navigation}) => {
 
   const [Data, setData] = useState(initialData);
 
-  const renderItem = ({item, index}) => (
+  const renderItem = ({ item, index }) => (
     <View className='px-2 '>
       <ProductCard
         key={index.toString()}
-        {...item}/>
-    </View>);
+        {...item} />
+    </View>
+  );
 
   const HeaderComp = () => (
     <View className='flex-1'>
@@ -157,7 +161,7 @@ export const StoreScreen = ({navigation}) => {
     <ScreenWrapper>
       <FlatList
         data={Data}
-        ListHeaderComponent={(<HeaderComp/>)}
+        ListHeaderComponent={(<HeaderComp />)}
         renderItem={renderItem}
         keyExtractor={(item, index) => index}
         initialNumToRender={2}
@@ -173,7 +177,6 @@ export const StoreScreen = ({navigation}) => {
           }, 1000);
         }}
       />
-
       <SearchBar />
     </ScreenWrapper>
   );

@@ -6,6 +6,7 @@ import {useDispatch} from 'react-redux';
 import {ADD_TO_CART} from 'shared/actions';
 import { View, Touchable } from 'framework/surface';
 
+
 const CardHeader = ({title, loading, size, productId}) => {
   const TitleComp = size === 'sm' ? Title : Title1;
   return (
@@ -16,32 +17,29 @@ const CardHeader = ({title, loading, size, productId}) => {
     </Shimmer>
   );
 };
-
 const VarientsDropDown = ({variant, setVariant, options, multiVariants}) => {
-  if (multiVariants)
+    if (multiVariants)
     return (
-      <View className={ 'border-solid w-32 border-primary border-b2'}>
+      <View className={ 'border-solid w-32 border-gray-400 mt-1 border rounded'}>
         <Picker
-          mode={'dropdown'}
           selectedValue={variant.leaderFeature}
           onValueChange={(itemValue) => {
-            setVariant(...options.filter(I=>(I.leaderFeature===itemValue)));
+            setVariant(itemValue);
           }}>
           {options.map((Item) => (
             <Picker.Item
-              label={Item.leaderFeature}
-              /* eslint-disable-next-line no-nested-ternary */
-              value={Item.leaderFeature}
+              label={`${Item.leaderFeature}    ₹ ${Item.price}`}
+              value={Item}
               key={Item.leaderFeature}
             />
           ))}
         </Picker>
-      </View>
+       </View>
     );
   return null;
 };
 
-const PriceLabel = ({price, unit, loading, description, size, variant, setVariant, options, multiVariants}) => {
+const PriceLabel = ({price, unit, loading, description, size, variant, setVariant, options, multiVariants,navigate}) => {
   const TitleComp = size === 'sm' ? Title : Title1;
 
   return (
@@ -50,6 +48,9 @@ const PriceLabel = ({price, unit, loading, description, size, variant, setVarian
         {size === 'sm' ?
           <VarientsDropDown {...{variant, setVariant, multiVariants, options}}/>
         : (
+            <Touchable feedback={false} onPress={() => {
+              navigate();
+            }}>
           <View className='flex-1 flex-row py-1'>
             {description.map((detail, index) => (
               <Text className='text-gray-600 px-1' key={index.toString()}>
@@ -57,13 +58,18 @@ const PriceLabel = ({price, unit, loading, description, size, variant, setVarian
               </Text>
             ))}
           </View>
+            </Touchable>
         )}
+        <Touchable feedback={false} onPress={() => {
+          navigate();
+        }}>
         <View>
           <TitleComp primary className={`${size === 'sm' ? '' : 'mx-2'} font-display`}>
             {unit}
             {price}
           </TitleComp>
         </View>
+        </Touchable>
       </View>
     </Shimmer>
   );
@@ -105,7 +111,7 @@ const Actions = ({productId, loading, onAddCart,
                    multiVariants,
                  options}) => (
   <Shimmer active={loading} className='h-8'>
-    <View className='flex-row flex-wrap'>
+    <View className='flex-row flex-wrap z-30'>
       <VarientsDropDown {...{variant, setVariant,
         options,
         multiVariants}}/>
@@ -155,20 +161,24 @@ export const ProductCard = (props) => {
   };
   return (
     <View className={`p-2 bg-white rounded-lg ${size === 'lg' ? 'shadow-lg my-4' : ''} ${size === 'md' ? 'my-1' : ''}`}>
-      <Touchable feedback={false} onPress={() => {
-        navigate();
-      }}>
-        <View className='flex-row'>
+        <View className='flex-row '>
+          <Touchable feedback={false} onPress={() => {
+            navigate();
+          }}>
           <ProductImage {...{image, loading, size}} />
-          <View className='flex-1 px-2'>
+          </Touchable>
+          <View className='flex-1 px-2 '>
+            <Touchable feedback={false} onPress={() => {
+              navigate();
+            }}>
             <CardHeader {...{title, loading, size, productId}} />
+            </Touchable>
             <PriceLabel {...{
               description: shortDetails, price, unit, loading, size, variant, setVariant,
-              options: props.variants, multiVariants: props.multiVariants,
+              options: props.variants, multiVariants: props.multiVariants,navigate
             }} />
           </View>
         </View>
-      </Touchable>
       {size === 'lg' ? <Actions {...{productId, loading, onAddCart, variant, setVariant,
         options: props.variants, multiVariants: props.multiVariants,}} /> : null}
     </View>
