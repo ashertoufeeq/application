@@ -5,7 +5,7 @@ import { MonorepoIntro } from 'components/examples/MonorepoIntro';
 import { GetLocation } from 'components/GetLocation';
 
 export const TestTab = ({ tab: Tab }) => process.env.NODE_ENV === 'development'? (
-  <Tab.Screen
+  <Tab.ScreenScreen
     key='Test'
     component={GetLocation}
     name='Test'

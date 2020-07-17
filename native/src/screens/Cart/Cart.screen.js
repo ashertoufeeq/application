@@ -1,45 +1,110 @@
 import React from 'react';
 import { ScreenWrapper } from 'components/ScreenWrapper';
 import { Title ,Text } from 'framework/text';
-import { View } from 'framework/surface';
+import { View ,Touchable } from 'framework/surface';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { useSelector } from 'react-redux';
-import _ from 'lodash-es';
+import { CartCard } from 'components/CartCard';
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-const Cart = () => {
-  console.log("we enter cart");
+const CalculateTotal = () =>{
   const { cart } = useSelector(state => state.product);
   const keys = Object.keys(cart);
-  console.log({ cart, keys });
+  let total=0;
+  Object.keys(cart).forEach((key,index) => {
+    total+=cart[key].price*cart[key].unit;
+  });
+  return (
+    <View className=' mt-auto flex-row flex-wrap justify-between bg-gray-200 rounded  p-3 '>
+      <Text className='font-bold text-xl  pt-2'>
+        {' $ '}
+        {' '}
+        {total}
+      </Text>
+      <Touchable className=''>
+        <Text className='bg-primary font-sans text-xl p-2 rounded text-white'> PLACE ORDER </Text>
+      </Touchable>
+    </View>
+  );
+}
+
+const PriceDetails = () => {
+  const { cart } = useSelector(state => state.product);
+  const keys = Object.keys(cart);
+  let total=0;
+  Object.keys(cart).forEach((key,index) => {
+    total+=cart[key].price*cart[key].unit;
+  });
 
   return (
-    <View className='h-12 w-auto bg-gray-100'>
-      <Text>
-        Keys Lenght:
-        {keys.length}
-      </Text>
+    <View className='w-auto'>
       {keys.map((key, index) =>(
-        <Title className='bg-red-100' key={index.toString()}>
-
-          {key}
-          {/* {' -> '} */}
-          {/* {cart[key].unit} */}
-        </Title>
+        <View className='flex-row flex-wrap justify-between p-2  bg-gray-100' key={index.toString()}>
+          <Text>
+            {cart[key].name}
+          </Text>
+          <View className='flex-row flex-wrap justify-between'>
+            <Text>
+              {' '}
+              {cart[key].unit}
+              {'     '}
+            </Text>
+            <Text>{cart[key].price*cart[key].unit}</Text>
+          </View>
+        </View>
       ))}
+      <View className='w-auto h-1 bg-gray-700 my-2' />
+      <View className='flex-row flex-wrap justify-between'>
+        <Text className='font-sans font-bold tracking-widest'>TOTAL</Text>
+        <Text>
+          {total}
+        </Text>
+      </View>
+      {/* <CalculateTotal /> */}
+    </View>
+  )
+}
+
+
+
+const Cart = ({ navigation }) => {
+  const { cart } = useSelector(state => state.product);
+  const keys = Object.keys(cart);
+
+  return (
+    <View className='h-12 w-auto mb-1 '>
+
+      {keys.map((key, index) =>(
+        <CartCard
+          key={index.toString()}
+          productId={key}
+          title={cart[key].name}
+          price={cart[key].price}
+          unit={cart[key].unit}
+          image={cart[key].img}
+          navigation={navigation}
+            />
+      ))}
+      <PriceDetails className='border' />
     </View>
   );
 };
 
-export const CartScreen = () => {
+
+export const CartScreen = ({ navigation }) => {
   return (
     <ScreenWrapper title='Cart Screen'>
       <View style={{ height: getStatusBarHeight() }} />
-      <View className='p-4'>
+      <View className='p-4 '>
         <Title>
-          Cart UI
+          Cart
+          {' '}
+          {' '}
+          <Icon color='#000' size={25} name='cart' />
         </Title>
-        <Cart />
+        <Cart {...{ navigation }} />
       </View>
+      <CalculateTotal />
     </ScreenWrapper>
   );
 };

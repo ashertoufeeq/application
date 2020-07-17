@@ -88,12 +88,13 @@ const BuyNowAction = ({ productId }) => (
   </Touchable>
 );
 
-const AddToCartAction = ({ title,image,productId, status, onAddCart }) => {
+const AddToCartAction = ({ title,image,productId, price }) => {
   const dispatch = useDispatch();
   const addToCart = () => {
     dispatch({
       type: ADD_TO_CART,
       payload:{
+        price,
         title,
         image,
         productId,
@@ -152,11 +153,10 @@ export const ProductCard = (props) => {
     onAddCart,
   } = variant;
 
-  const { navigation } = props
   const loading = !productId;
   const navigate = () => {
     if (!loading) {
-      navigation.navigate(
+      props.navigation.navigate(
         'variants',
         props.multiVariants?{
           variants:props.variants,
@@ -166,7 +166,8 @@ export const ProductCard = (props) => {
     }
   };
   return (
-    <View className={`p-2 bg-white rounded-lg ${size === 'lg' ? 'shadow-lg my-4' : ''} ${size === 'md' ? 'my-1' : ''}`}>
+    <View className={`p-2 bg-white rounded-lg ${size === 'lg' ? 'shadow-lg my-4' : ''} 
+    ${size === 'md' ? 'my-1' : ''}`}>
       <View className='flex-row '>
         <Touchable
           feedback={false}
