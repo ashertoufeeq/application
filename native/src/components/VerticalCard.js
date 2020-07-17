@@ -38,7 +38,7 @@ const PriceLabel = ({ loading,description,size }) => {
   );
 }
 
-const AddToCartAction = ({ title,image,productId ,status,onAddCart }) => {
+const AddToCartAction = ({ title,image,productId,price  }) => {
   const dispatch = useDispatch();
   const addToCart = () => {
     console.log(productId);
@@ -46,10 +46,11 @@ const AddToCartAction = ({ title,image,productId ,status,onAddCart }) => {
       type: ADD_TO_CART,
       payload:{
         title,
+        price,
         image,
         productId,
       }
-    })
+    });
   };
   return (
     <Touchable className='bg-primary justify-center p-2 rounded mx-2' onPress={addToCart}>
@@ -60,11 +61,11 @@ const AddToCartAction = ({ title,image,productId ,status,onAddCart }) => {
   );
 }
 
-const Actions = ({ title,image,productId, loading ,unit,price,size,onAddCart }) => (
+const Actions = ({ title,image,productId, loading ,unit,price,size }) => (
   <Shimmer active={loading} className='h-8'>
     <View className='flex-row flex-wrap justify-around'>
       <PriceButton {...{ unit,price,size }} />
-      <AddToCartAction {...{ title,image,productId,onAddCart }} />
+      <AddToCartAction {...{ title,image,productId ,price }} />
     </View>
   </Shimmer>
 );
@@ -115,7 +116,7 @@ export const VerticalCard = (props) => {
           <PriceLabel {...{ description: shortDetails, loading, size }} />
         </View>
       </Touchable>
-      {size === 'lg' ? <Actions {...{ title,image,productId, loading,unit,price,onAddCart }} /> : null}
+      {size === 'lg' ? <Actions {...{ title,image,productId, loading,unit,price }} /> : null}
     </View>
   );
 }

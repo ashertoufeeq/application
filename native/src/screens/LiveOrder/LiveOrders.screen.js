@@ -5,6 +5,7 @@ import { Touchable, View, ScrollView } from 'framework/surface';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { Text } from 'framework/text';
 import _ from 'lodash-es';
+import { SignIn } from "../../components/SignIn";
 
 function randomStringGen(len, charSet) {
   charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -82,17 +83,18 @@ export const LiveOrdersScreen = () => {
 
   return (
     <ScreenWrapper>
-      <View style={{ height: getStatusBarHeight() }} />
-      <Touchable onPress={addRand} scroll>
-        <Text>
-          Rands:
-          {' '}
-          {rands.length}
-        </Text>
-      </Touchable>
-      <ScrollView>
-        {rands.map(({ id }) => <RandomAnimatedView key={id} id={id} />)}
-      </ScrollView>
+      {/* <View style={{ height: getStatusBarHeight() }} /> */}
+      {/* <Touchable onPress={addRand} scroll> */}
+      {/*  <Text> */}
+      {/*    Rands: */}
+      {/*    {' '} */}
+      {/*    {rands.length} */}
+      {/*  </Text> */}
+      {/* </Touchable> */}
+      {/* <ScrollView> */}
+      {/*  {rands.map(({ id }) => <RandomAnimatedView key={id} id={id} />)} */}
+      {/* </ScrollView> */}
+      <SignIn />
     </ScreenWrapper>
   );
 };

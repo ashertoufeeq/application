@@ -51,12 +51,13 @@ const BuyNowAction = ({ productId }) => (
   </Touchable>
 );
 
-const AddToCartAction = ({ title,image,productId, status, onAddCart }) => {
+const AddToCartAction = ({ title,image,productId, price }) => {
   const dispatch = useDispatch();
   const addToCart = () => {
     dispatch({
       type: ADD_TO_CART,
       payload:{
+        price,
         title,
         image,
         productId,
@@ -73,12 +74,12 @@ const AddToCartAction = ({ title,image,productId, status, onAddCart }) => {
   );
 };
 
-const Actions = ({ title,image,productId, loading, onAddCart }) => (
+const Actions = ({ title,image,productId, loading,price }) => (
   <Shimmer active={loading} className='h-8'>
     <View className='flex-row flex-wrap'>
       <View className='flex-1' />
       <BuyNowAction productId={productId} />
-      <AddToCartAction {...{ title,image,productId,onAddCart }} />
+      <AddToCartAction {...{ title,image,productId,price }} />
     </View>
   </Shimmer>
 );
@@ -99,7 +100,7 @@ const ProductImage = ({ image, loading, size }) => {
 export const ProductCard = (props) => {
   const {
     productId, title, price, unit = '₹',
-    shortDetails, image, size = 'md', navigation, onAddCart,
+    shortDetails, image, size = 'md', navigation,
   } = props;
   const loading = !productId;
   const navigate = () => {
@@ -122,7 +123,7 @@ export const ProductCard = (props) => {
           </View>
         </View>
       </Touchable>
-      {size === 'lg' ? <Actions {...{ title,image,productId, loading, onAddCart }} /> : null}
+      {size === 'lg' ? <Actions {...{ title,image,productId, loading,price }} /> : null}
     </View>
   );
 };

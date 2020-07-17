@@ -4,7 +4,7 @@ import React from 'react';
 import { MonorepoIntro } from 'components/examples/MonorepoIntro';
 
 export const TestTab = ({ tab: Tab }) => process.env.NODE_ENV === 'development'? (
-  <Tab.Screen
+  <Tab.ScreenScreen
     key='Test'
     component={MonorepoIntro}
     name='Test'
