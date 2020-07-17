@@ -3,7 +3,21 @@ import React from 'react';
 import { Image } from 'react-native';
 
 import { useUser } from 'common/hooks/auth';
+import { createStackNavigator } from '@react-navigation/stack';
 import { SettingsScreen } from './Settings.screen';
+import { AddressesScreen } from './Addresses.screen';
+
+
+const Stack = createStackNavigator();
+
+
+const MainStack = () => (
+  <Stack.Navigator initialRouteName='Settings' headerMode={null}>
+    <Stack.Screen name='Settings' component={SettingsScreen} />
+    <Stack.Screen name='Addresses' component={AddressesScreen} />
+  </Stack.Navigator>
+);
+
 
 export const SettingsTab = ({ tab: Tab }) => {
   const { user: { image: dp }, isAuthenticated } = useUser();
@@ -11,7 +25,7 @@ export const SettingsTab = ({ tab: Tab }) => {
   return (
     <Tab.Screen
       key='Settings'
-      component={SettingsScreen}
+      component={MainStack}
       name='Settings'
       options={{
         tabBarIcon: ({ color }) => isAuthenticated ? (

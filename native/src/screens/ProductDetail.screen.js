@@ -19,7 +19,8 @@ const VarientsTag = ({ loading, navigation }) => (
   <Shimmer active={loading} className='h-6 absolute right0 bottom0'>
     <Touchable
       feedback={false}
-      className='w-24 bg-white shadow justify-center align-center p-2 rounded-full m-2 absolute right0 bottom0'
+      className='w-24 bg-white
+      shadow justify-center align-center p-2 rounded-full m-2 absolute right0 bottom0'
       onPress={() => navigation.navigate('varients')}>
       <Headline className='text-primary text-center'>
         Varients

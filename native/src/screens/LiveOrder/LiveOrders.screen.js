@@ -5,7 +5,7 @@ import { Touchable, View, ScrollView } from 'framework/surface';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { Text } from 'framework/text';
 import _ from 'lodash-es';
-import {LiveOrderCard} from '../../components/LiveOrderCard';
+import { LiveOrderCard } from '../../components/LiveOrderCard';
 
 function randomStringGen(len, charSet) {
   charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -71,7 +71,7 @@ const getItem = (data, index) => ({
   id: randomStringGen(20),
 });
 
-export const LiveOrdersScreen = () => {
+export const LiveOrdersScreen = ({ navigation }) => {
   const [rands, setRands] = useState([{ id: randomStringGen(20) }]);
   const addRand = () => {
     setRands([...rands, { id: randomStringGen(20) }]);
@@ -92,8 +92,8 @@ export const LiveOrdersScreen = () => {
         </Text>
       </Touchable>
       <ScrollView>
-        <View className={'px-2'}>
-            <LiveOrderCard/>
+        <View className='px-2'>
+          <LiveOrderCard navigation={navigation} />
         </View>
       </ScrollView>
     </ScreenWrapper>

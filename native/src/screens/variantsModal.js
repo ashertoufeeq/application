@@ -43,7 +43,8 @@ const BackButton = ({ navigation }) => (
 
 export const VariantsModal = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
-  const [product, setProduct] = useState(route.params.multiVariants ? { ...route.params.variants[0] } : route.params);
+  const [product, setProduct] = useState(route.params.multiVariants
+    ? { ...route.params.variants[0] } : route.params);
   const { title, unit, price, image, shortDetails } = product;
 
   return (
