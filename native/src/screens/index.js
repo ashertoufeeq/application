@@ -13,14 +13,13 @@ import { StoreTab } from 'screens/Store';
 import { LiveOrderTab } from 'screens/LiveOrder';
 import { CartTab } from 'screens/Cart';
 import { WishlistTab } from 'screens/Wishlist';
-import { useTailwind } from 'hooks/style';
-
+import { useTailwindSetup, TailwindProvider } from 'hooks/style';
 
 const Tab = createMaterialBottomTabNavigator();
 
 export const Navigator = () => {
+  const { t, c, css, getColor } = useTailwindSetup();
   const { primary } = useThemeColors();
-  const { getColor } = useTailwind();
 
   const theme = {
     dark: false,
@@ -35,21 +34,24 @@ export const Navigator = () => {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer theme={theme} screenOptions={{ headerShown: false }}>
-        <Tab.Navigator
-          initialRouteName='Store'
-          activeColor={primary}
-          inactiveColor={getColor('gray-500')}
-          barStyle={{ backgroundColor: getColor('gray-100'), borderRadius: 20, elevation: 0 }}
+      <TailwindProvider value={{ t, c, css, getColor }}>
+        <NavigationContainer theme={theme} screenOptions={{ headerShown: false }}>
+          <Tab.Navigator
+            initialRouteName='Store'
+            activeColor={primary}
+            inactiveColor={getColor('gray-500')}
+            lazy={false}
+            barStyle={{ backgroundColor: getColor('gray-100'), borderRadius: 20, elevation: 0 }}
         >
-          {TestTab({ tab: Tab })}
-          {SettingsTab({ tab: Tab })}
-          {WishlistTab({ tab: Tab })}
-          {StoreTab({ tab: Tab })}
-          {LiveOrderTab({ tab: Tab })}
-          {CartTab({ tab: Tab })}
-        </Tab.Navigator>
-      </NavigationContainer>
+            {TestTab({ tab: Tab })}
+            {SettingsTab({ tab: Tab })}
+            {WishlistTab({ tab: Tab })}
+            {StoreTab({ tab: Tab })}
+            {LiveOrderTab({ tab: Tab })}
+            {CartTab({ tab: Tab })}
+          </Tab.Navigator>
+        </NavigationContainer>
+      </TailwindProvider>
     </SafeAreaProvider>
   );
 };
