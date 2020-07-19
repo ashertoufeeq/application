@@ -6,10 +6,19 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { useSelector } from 'react-redux';
 import { CartCard } from 'components/CartCard';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useUser } from 'common/hooks/auth';
 
-const CalculateTotal = () =>{
+const placeOrder = ( navigation,cart,user,isAuthenticated ) =>{
+  if(isAuthenticated){
+    console.log('Placed order')
+  }
+  else{
+    navigation.push('SignIn',{ cart, user });
+  }
+}
+
+const CalculateTotal = ({ navigation,user,isAuthenticated }) =>{
   const { cart } = useSelector(state => state.product);
-  const keys = Object.keys(cart);
   let total=0;
   Object.keys(cart).forEach((key,index) => {
     total+=cart[key].price*cart[key].unit;
@@ -21,7 +30,10 @@ const CalculateTotal = () =>{
         {' '}
         {total}
       </Text>
-      <Touchable className=''>
+      <Touchable
+        className=''
+        feedback={false}
+        onPress={()=>{placeOrder(navigation,cart,user,isAuthenticated)}}>
         <Text className='bg-primary font-sans text-xl p-2 rounded text-white'> PLACE ORDER </Text>
       </Touchable>
     </View>
@@ -35,11 +47,10 @@ const PriceDetails = () => {
   Object.keys(cart).forEach((key,index) => {
     total+=cart[key].price*cart[key].unit;
   });
-
   return (
     <View className='w-auto'>
       {keys.map((key, index) =>(
-        <View className='flex-row flex-wrap justify-between p-2  bg-gray-100' key={index.toString()}>
+        <View className='flex-row flex-wrap justify-between p-2 bg-gray-100' key={index.toString()}>
           <Text>
             {cart[key].name}
           </Text>
@@ -60,7 +71,6 @@ const PriceDetails = () => {
           {total}
         </Text>
       </View>
-      {/* <CalculateTotal /> */}
     </View>
   )
 }
@@ -73,7 +83,6 @@ const Cart = ({ navigation }) => {
 
   return (
     <View className='h-12 w-auto mb-1 '>
-
       {keys.map((key, index) =>(
         <CartCard
           key={index.toString()}
@@ -92,6 +101,8 @@ const Cart = ({ navigation }) => {
 
 
 export const CartScreen = ({ navigation }) => {
+  const { user, isAuthenticated } = useUser();
+
   return (
     <ScreenWrapper title='Cart Screen'>
       <View style={{ height: getStatusBarHeight() }} />
@@ -104,7 +115,7 @@ export const CartScreen = ({ navigation }) => {
         </Title>
         <Cart {...{ navigation }} />
       </View>
-      <CalculateTotal />
+      <CalculateTotal {...{ navigation,user,isAuthenticated }} />
     </ScreenWrapper>
   );
 };

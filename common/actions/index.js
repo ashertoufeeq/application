@@ -11,3 +11,5 @@ export const KEYBOARD_WILL_HIDE = 'KEYBOARD_WILL_HIDE';
 
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const DECREMENT_CART = 'DECREMENT_CART';
+
+export const MANAGE_ADDRESS = 'MANAGE_ADDRESS';

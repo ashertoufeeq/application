@@ -1,43 +1,78 @@
-import React,{ useState } from 'react';
-import Icon  from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Shimmer } from 'framework/utils';
-import { Touchable, View, TextInput } from '../framework/surface';
-import { Footnote, Headline, Text, Title } from '../framework/text';
+import React, {useState, useEffect} from 'react';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {Shimmer} from 'framework/utils';
+import {Touchable, View, TextInput} from 'framework/surface';
+import {Footnote, Headline, Text, Title} from 'framework/text';
+import {useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {addAddress, editAddress, removeAddress} from 'common/actions/product';
 
-export const AddressCard = ({ address }) => {
-  const [editable,setEditable ] = useState(false);
 
-  const [newAddress,setNewAddress ] = useState(address||{
-    street:'',
-    city:'',
-    state:'',
-    pin:'',
+export const AddressCard = ({address}) => {
+  const {addresses} = useSelector(state => state.product);
+  const dispatch = useDispatch();
+
+  const [editable, setEditable] = useState(!address);
+
+  const [newAddress, setNewAddress] = useState(address || {
+    street: '',
+    city: '',
+    state: '',
+    pin: '',
+    id: addresses.length,
   });
-  if(editable)
-    return(
+  const dispatchChanges = () =>{
+    dispatch(address ? editAddress(newAddress) : addAddress(newAddress));
+    setEditable(!address);
+    if(!address){
+      setNewAddress({street: '',
+        city: '',
+        state: '',
+        pin: '',
+        id: addresses.length,})
+    }
+  }
+  useEffect(() => {
+    return ()=>{console.log('focus out')}
+  }, []);
+  if (editable)
+    return (
       <View className='p-4 bg-white rounded-lg shadow-lg my-4'>
         <View className='mb-4 flex-row justify-between'>
           <Title>
             Active
           </Title>
-          <Touchable onPress={()=>{setEditable(false)}} feedback={false}>
-            <Icon size={30} color='#000' name='close-circle-outline' />
+          <View className={'flex-row items-center justify-between'}>
+          <Touchable feedback={false}>
+            <Icon size={30} color='#000' name='close-circle-outline'/>
           </Touchable>
+          <Touchable onPress={() => {
+            dispatch(removeAddress(newAddress));
+          }} feedback={false}>
+            <Icon size={30} color='#000' name='delete-outline'/>
+          </Touchable>
+          </View>
         </View>
         <View className='w-full'>
           <TextInput
+            onBlur={dispatchChanges}
             value={newAddress.street}
-            onChange={(e)=>{console.log(e);setNewAddress({ ...newAddress,street:e.target.value })}}
+            onChange={(e) => {
+              setNewAddress({...newAddress, street: e.nativeEvent.text});
+            }}
             placeholderTextColor='gray-500'
             placeholder='Hi Faisal, Please enter your street'
             className='flex-1 text-gray-900 text-lg self-center w-full'
-        />
+          />
         </View>
         <View className='flex-row'>
           <View className='flex-1'>
             <TextInput
+              onBlur={dispatchChanges}
               value={newAddress.city}
-              onChange={(e)=>{console.log(e);setNewAddress({ ...newAddress,city:e.target.value })}}
+              onChange={(e) => {
+                setNewAddress({...newAddress, city: e.nativeEvent.text});
+              }}
               placeholder='City'
               className='flex-1 text-gray-900 text-lg self-center w-full'
             />
@@ -49,8 +84,11 @@ export const AddressCard = ({ address }) => {
           </View>
           <View className='flex-1'>
             <TextInput
+              onBlur={dispatchChanges}
               value={newAddress.state}
-              onChange={(e)=>{console.log(e);setNewAddress({ ...newAddress,state:e.target.value })}}
+              onChange={(e) => {
+                setNewAddress({...newAddress, state: e.nativeEvent.text});
+              }}
               placeholder='State'
               className='flex-1 text-gray-900 text-lg self-center w-full'
             />
@@ -59,8 +97,11 @@ export const AddressCard = ({ address }) => {
         <View className='flex-row'>
           <View className='flex-1'>
             <TextInput
+              onBlur={dispatchChanges}
               value={newAddress.pin}
-              onChange={(e)=>{console.log(e);setNewAddress({ ...newAddress,pin:e.target.value })}}
+              onChange={(e) => {
+                setNewAddress({...newAddress, pin: e.nativeEvent.text});
+              }}
               placeholderTextColor='gray-500'
               placeholder='Pin'
               className='flex-1 text-gray-900 text-lg self-center w-full'
@@ -68,52 +109,53 @@ export const AddressCard = ({ address }) => {
           </View>
         </View>
       </View>
-    )
+    );
 
-  return address?(
+  return address ? (
     <View className='p-4 bg-white rounded-lg shadow-lg my-4'>
       <View className='mb-4 flex-row justify-between'>
         <Title>
           Active
         </Title>
-        <Touchable onPress={()=>{setEditable(true)}} feedback={false}>
-          <Icon size={30} color='#000' name='square-edit-outline' />
-        </Touchable>
+        <View className={'flex-row items-center justify-between'}>
+          <Touchable onPress={() => {
+            setEditable(true);
+          }} feedback={false}>
+            <Icon size={30} color='#000' name='square-edit-outline'/>
+          </Touchable>
+          <Touchable onPress={() => {
+            dispatch(removeAddress(address));
+          }} feedback={false}>
+            <Icon size={30} color='#000' name='delete-outline'/>
+          </Touchable>
+        </View>
       </View>
       <Headline>
-        <Shimmer active={!address.street}>
-          {address.street || 'street'}
-        </Shimmer>
+        {address.street || 'street'}
       </Headline>
       <View className='flex-row'>
         <Footnote>
-          <Shimmer active={!address.street}>
-            {address.city || 'city'}
-          </Shimmer>
+          {address.city || 'city'}
         </Footnote>
         <Text>
           {', '}
         </Text>
         <Footnote>
-          <Shimmer active={!address.street}>
-            {address.state || 'state'}
-          </Shimmer>
+          {address.state || 'state'}
         </Footnote>
       </View>
       <View className='flex-row'>
         <Footnote>
-          <Shimmer active={!address.street}>
-            {address.pin || 'pin'}
-          </Shimmer>
+          {address.pin || 'pin'}
         </Footnote>
       </View>
     </View>
-  ):(
+  ) : (
     <View className='p-4 bg-white rounded-lg shadow-lg my-4'>
-      <Shimmer active className='h-4 w-full' />
-      <Shimmer active className='h-4 w-full' />
-      <Shimmer active className='h-4 w-full' />
-      <Shimmer active className='h-4 w-full' />
+      <Shimmer active className='h-4 w-full'/>
+      <Shimmer active className='h-4 w-full'/>
+      <Shimmer active className='h-4 w-full'/>
+      <Shimmer active className='h-4 w-full'/>
     </View>
   );
 };
