@@ -4,12 +4,13 @@ import { useDispatch } from 'react-redux';
 
 import { styles } from 'styles/default';
 import { changePrimaryColor } from 'shared/actions/theme';
-import { getColor } from 'styles';
 
 import { View, Touchable } from 'framework/surface';
 import { Title1 } from 'framework/text';
+import { useTailwind } from 'hooks/style';
 
 export const Theme = () => {
+  const { getColor } = useTailwind();
   const dispatch = useDispatch();
 
   return (
