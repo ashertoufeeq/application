@@ -28,7 +28,6 @@ global.notify = notify;
 global.css = css;
 global.btoa = btoa;
 
-// setCustomText({ style: { ...fontFactory('body', 400, 'Nunito') } });
 
 const App = () => {
   useNotification();
