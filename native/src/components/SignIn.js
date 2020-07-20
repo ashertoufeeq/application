@@ -17,7 +17,7 @@ export const SignIn = ()  => {
       <View className='bg-white'>
         <View style={{ height: getStatusBarHeight() }} />
         <View className='px-4'>
-          <Title1 animation='fadeInLeft'>
+          <Title1 animation='fadeInLeft' className='bg-primary'>
             SIGN IN.
           </Title1>
           <View className='py-4'>

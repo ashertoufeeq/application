@@ -36,7 +36,7 @@ const DecrementAction = ({ productId }) => {
 
 const ButtonIncDec =({ title,image,productId ,price,unit }) => {
   return (
-    <View className='flex-row flex-wrap border-1 border-gray-300 '>
+    <View className='flex-row flex-wrap  '>
       <DecrementAction productId={productId} />
       <View className='border-2 border-gray-300 '>
         <Text className='mt-auto mb-auto'>
@@ -87,7 +87,7 @@ export const CartCard = (props) => {
   const loading = !productId;
 
   return (
-    <View className='flex-row p-2 bg-gary-200 rounded-lg m-2 mx-1'>
+    <View className='flex-row p-2 bg-gray-200 rounded-lg m-2 mx-1'>
       <View className='flex-1 px-2'>
         <CardHeader {...{ title, loading, productId }} />
         <View className='flex-row flex-wrap justify-between '>

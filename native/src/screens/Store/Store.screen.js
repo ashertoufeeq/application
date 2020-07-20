@@ -11,6 +11,7 @@ import { SearchBar } from 'components/SearchBar.native';
 import { StoreHomeImage } from 'components/svg/StoreHomeImage';
 import { ProductCard } from 'components/ProductCard';
 import { VerticalCard } from "../../components/VerticalCard";
+import { CustomModal } from "../../components/customModal";
 
 const LoadingComp = ({ loading }) => {
   if (loading)
@@ -129,7 +130,7 @@ export const StoreScreen = ({ navigation }) => {
 
   const HeaderComp = () => (
     <View className='flex-1'>
-      <View className='bg-grey-100'>
+      <View className='bg-gray-100'>
         <View style={{ height: getStatusBarHeight() }} />
         <View className='px-4'>
           <LargeTitle animation='fadeInLeft'>

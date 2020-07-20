@@ -11,7 +11,7 @@ const CardHeader = ({ title, loading, size, productId }) => {
   const TitleComp = size === 'sm' ? Title : Title1;
   return (
     <Shimmer active={loading} className={`${size === 'sm' ? 'h-6' : 'h-12'}`}>
-      <TitleComp className={`${size === 'sm' ? 'font-display' : 'text-display-bold'}`}>
+      <TitleComp>
         {title}
       </TitleComp>
     </Shimmer>

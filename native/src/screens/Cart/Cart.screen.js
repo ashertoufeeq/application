@@ -6,6 +6,24 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { useSelector } from 'react-redux';
 import { CartCard } from 'components/CartCard';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import  { WebView } from "react-native-webview";
+
+const Payment = () =>{
+  console.log("inside payment kgikhihi");
+  return(
+    <View className='w-screen h-screen'>
+      <WebView
+        source={{ uri: 'https://reactnative.dev/docs/environment-setup' }}
+        onError={syntheticEvent => {
+          const { nativeEvent } = syntheticEvent;
+          console.warn('WebView error: ', nativeEvent);
+        }}
+    />
+    </View>
+
+  );
+}
+
 
 const CalculateTotal = () =>{
   const { cart } = useSelector(state => state.product);
@@ -14,6 +32,11 @@ const CalculateTotal = () =>{
   Object.keys(cart).forEach((key,index) => {
     total+=cart[key].price*cart[key].unit;
   });
+  const handlePayment = () => {
+    return(
+      <Payment />
+    );
+  }
   return (
     <View className=' mt-auto flex-row flex-wrap justify-between bg-gray-200 rounded  p-3 '>
       <Text className='font-bold text-xl  pt-2'>
@@ -21,7 +44,7 @@ const CalculateTotal = () =>{
         {' '}
         {total}
       </Text>
-      <Touchable className=''>
+      <Touchable className='' onPress={handlePayment}>
         <Text className='bg-primary font-sans text-xl p-2 rounded text-white'> PLACE ORDER </Text>
       </Touchable>
     </View>
@@ -105,6 +128,7 @@ export const CartScreen = ({ navigation }) => {
         <Cart {...{ navigation }} />
       </View>
       <CalculateTotal />
+
     </ScreenWrapper>
   );
 };
