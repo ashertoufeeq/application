@@ -1,11 +1,12 @@
 import React from 'react';
 import { Text, TouchableOpacity, View, Image } from 'react-native';
 
-import { css } from 'styles';
 import { styles } from 'styles/default';
 import { useUser } from 'common/hooks/auth';
+import { useTailwind } from 'hooks/style';
 
 export const Tailwind = () => {
+  const { css } = useTailwind();
   const { user, isAuthenticated } = useUser();
 
   return (

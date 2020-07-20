@@ -12,7 +12,6 @@ import { getStore } from 'common/reducers';
 import { getStorage } from 'common/storage';
 
 import { notify } from 'helpers/notify';
-import { css } from 'styles';
 
 import { Initial } from 'components/Initial';
 import { useNotification } from 'hooks/notification';
@@ -25,10 +24,8 @@ const { store, persistor } = getStore(AsyncStorage);
 global.persistor = persistor;
 global.storage = getStorage(AsyncStorage);
 global.notify = notify;
-global.css = css;
 global.btoa = btoa;
 
-// setCustomText({ style: { ...fontFactory('body', 400, 'Nunito') } });
 
 const App = () => {
   useNotification();

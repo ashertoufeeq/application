@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { css } from 'styles';
 
 import { useSpring } from 'react-spring/native';
+import { useTailwind } from 'hooks/style';
 
 export const BaseStyler = ({
   component: Comp,
@@ -9,6 +9,7 @@ export const BaseStyler = ({
   animate = '', animateStyle = {},
   className = '', style = {}, ...props
 }) => {
+  const { css } = useTailwind();
   const baseStyle = css(className, style);
   const [animatedStyle, animateTo, stopAnimation] =
     useSpring(() => ({ ...css(animate, animateStyle), ...animateConfig }));

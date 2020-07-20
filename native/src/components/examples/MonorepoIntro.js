@@ -4,6 +4,7 @@ import openURLInBrowser from 'react-native/Libraries/Core/Devtools/openURLInBrow
 
 import { styles } from 'styles/default';
 
+import { ScreenWrapper } from 'components/ScreenWrapper.native';
 import { GoogleAuthenticate } from './GoogleAuthenticate';
 import { Tailwind } from './Tailwind';
 import { PushNotification } from './PushNotification';
@@ -16,7 +17,7 @@ const repoLink = 'https://github.com/Faisal-Manzer/react-and-react-native-monore
 
 
 export const MonorepoIntro = () => (
-  <>
+  <ScreenWrapper>
     <StatusBar barStyle='dark-content' />
     <SafeAreaView>
       <ScrollView contentInsetAdjustmentBehavior='automatic' style={styles.scrollView}>
@@ -44,5 +45,5 @@ export const MonorepoIntro = () => (
         </View>
       </ScrollView>
     </SafeAreaView>
-  </>
+  </ScreenWrapper>
 );

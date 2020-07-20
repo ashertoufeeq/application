@@ -46,7 +46,7 @@ export const sendData = (method) => (url, data, options = {}) =>
 export const loadData = (method) => (url, options) =>
   load(url, { method, ...options });
 
-export const getData = (method) => (url, options, refresh = (res) => res) => {
+export const getData = (method) => (url, options = {}, refresh = (res) => res) => {
   const { cache = null, ...opts } = options;
   if (cache) {
     return Promise.race([

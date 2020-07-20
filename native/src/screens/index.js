@@ -7,7 +7,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 
 import { useThemeColors } from 'common/hooks/theme';
 
-import { getColor } from 'styles';
+import { TestTab } from 'screens/Test';
 import { SettingsTab } from 'screens/Settings';
 import { StoreTab } from 'screens/Store';
 import { LiveOrderTab } from 'screens/LiveOrder';
@@ -15,6 +15,7 @@ import { CartTab } from 'screens/Cart';
 import { WishlistTab } from 'screens/Wishlist';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SignInScreen } from 'components/SignIn';
+import { useTailwindSetup, TailwindProvider } from 'hooks/style';
 import { modalConfigs } from '../helpers/modalConfig';
 
 
@@ -22,6 +23,7 @@ const Tab = createMaterialBottomTabNavigator();
 const RootStack = createStackNavigator();
 
 const TabNav =()=>{
+  const { t, c, css, getColor } = useTailwindSetup();
   const { primary } = useThemeColors();
 
   return(
@@ -41,6 +43,7 @@ const TabNav =()=>{
   )}
 
 export const Navigator = () => {
+  const { t, c, css, getColor } = useTailwindSetup();
   const { primary } = useThemeColors();
   const theme = {
     dark: false,
@@ -54,20 +57,22 @@ export const Navigator = () => {
   };
   return (
     <SafeAreaProvider>
-      <NavigationContainer theme={theme} screenOptions={{ headerShown: false }}>
-        <RootStack.Navigator initialRouteName='Main' screenOptions={modalConfigs}>
-          <RootStack.Screen
-            name='Main'
-            component={TabNav}
-            headerMode={null}
+      <TailwindProvider value={{ t, c, css, getColor }}>
+        <NavigationContainer theme={theme} screenOptions={{ headerShown: false }}>
+          <RootStack.Navigator initialRouteName='Main' screenOptions={modalConfigs}>
+            <RootStack.Screen
+              name='Main'
+              component={TabNav}
+              headerMode={null}
           />
-          <RootStack.Screen
-            name='SignIn'
-            component={SignInScreen}
-            headerMode={null}
+            <RootStack.Screen
+              name='SignIn'
+              component={SignInScreen}
+              headerMode={null}
           />
-        </RootStack.Navigator>
-      </NavigationContainer>
+          </RootStack.Navigator>
+        </NavigationContainer>
+      </TailwindProvider>
     </SafeAreaProvider>
   );
 };
