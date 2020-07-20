@@ -1,13 +1,17 @@
+import React, { useContext } from 'react';
 import { Tailwind } from 'react-native-tailwindcss/tailwind';
-// import { useSelector } from 'react-redux';
 import _ from 'lodash-es';
 
 import { mergeArrayObject } from 'common/helpers/funcs';
 import { useThemeColors } from 'common/hooks/theme';
 
-export const useTailwind = () => {
+export const TailwindContext = React.createContext({});
+export const TailwindProvider = TailwindContext.Provider;
+export const TailwindConsumer = TailwindContext.Consumer;
+
+
+export const useTailwindSetup = () => {
   const { primary } = useThemeColors();
-  // const primary = useSelector(state => state.theme.primaryColor);
 
   const tailwind = new Tailwind({
     theme: {
@@ -41,5 +45,10 @@ export const useTailwind = () => {
   };
   const getColor = (colorName) => colors[_.camelCase(colorName)];
 
+  return { t, c, css, getColor };
+};
+
+export const useTailwind = () => {
+  const { t, c, css, getColor } = useContext(TailwindContext);
   return { t, c, css, getColor };
 };

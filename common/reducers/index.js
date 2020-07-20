@@ -2,7 +2,6 @@ import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
 
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
-import createEncryptor from 'redux-persist-transform-encrypt';
 
 import thunk from 'redux-thunk';
 
@@ -13,7 +12,7 @@ import { product } from './product';
 
 const middlewares = [thunk];
 
-if (process.env.NODE_ENV === 'kkk') {
+if (process.env.NODE_ENV === 'development') {
   // eslint-disable-next-line global-require
   const { createLogger } = require('redux-logger');
   const logger = createLogger({});
@@ -27,10 +26,6 @@ const reducers = combineReducers({
   product
 });
 
-const encryptor = createEncryptor({
-  secretKey: '&ug6!_v61ww8410ji9f=-06)v2&&nq$kc01249rg4fdk(l94m3',
-});
-
 export const getStore = (storage) => {
   const persistConfig = {
     key: 'root-store',
@@ -38,7 +33,6 @@ export const getStore = (storage) => {
     debug: true,
     stateReconciler: autoMergeLevel2,
     whitelist: ['auth', 'demo', 'product'],
-    transforms: [encryptor],
   };
   const persistedReducer = persistReducer(persistConfig, reducers);
 

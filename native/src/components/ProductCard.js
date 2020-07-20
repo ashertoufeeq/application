@@ -123,7 +123,7 @@ const Actions = ({ productId, loading, onAddCart,
           multiVariants }} />
         <View className='flex-1' />
         <BuyNowAction productId={productId} />
-        <AddToCartAction productId={productId} onAddCart={onAddCart} />
+        <AddToCartAction onAddCart={onAddCart} {...variant} />
       </View>
     </Shimmer>
 )

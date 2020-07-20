@@ -1,9 +1,15 @@
-import { ADD_TO_CART, RESET_STATE,DECREMENT_CART } from 'common/actions';
+import {ADD_TO_CART, RESET_STATE, DECREMENT_CART, MANAGE_ADDRESS} from 'common/actions';
 
 import _ from 'lodash-es';
 
 const initialState = {
-  cart: {}
+  cart: {},
+  addresses:[
+    {street:'Moh Sarai Kohna',
+      city:'Amroha',
+      pin:244221,id:0,
+      state:"Uttar Pradesh"}
+  ]
 };
 
 export const product = (state = initialState, action) => {
@@ -35,7 +41,10 @@ export const product = (state = initialState, action) => {
 
     case RESET_STATE:
       return initialState;
-
+    case MANAGE_ADDRESS:return({
+      ...state,
+      addresses: action.addresses
+    })
     default:
       return state;
   }

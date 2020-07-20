@@ -90,13 +90,15 @@ export const CartCard = (props) => {
     <View className='flex-row p-2 bg-gray-200 rounded-lg m-2 mx-1'>
       <View className='flex-1 px-2'>
         <CardHeader {...{ title, loading, productId }} />
-        <View className='flex-row flex-wrap justify-between '>
-          <Text className=' bg-gray-100 text-center rounded-sm px-2 '>
+        <View className='flex-row flex-wrap justify-between items-center'>
+          <View className='flex-row items-center bg-gray-100 rounded-sm px-2 '>
             <Icon color='#000' size={25} name='cash' />
-            {'  '}
-            {' '}
-            {price}
-          </Text>
+            <Text className='text-center'>
+              {'  '}
+              {' '}
+              {price}
+            </Text>
+          </View>
           <ButtonIncDec className='' {...{ title,image,productId,price,unit }} />
         </View>
       </View>

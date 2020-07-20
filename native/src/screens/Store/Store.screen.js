@@ -10,8 +10,13 @@ import { ScreenWrapper } from 'components/ScreenWrapper';
 import { SearchBar } from 'components/SearchBar.native';
 import { StoreHomeImage } from 'components/svg/StoreHomeImage';
 import { ProductCard } from 'components/ProductCard';
+<<<<<<< HEAD
 import { VerticalCard } from "../../components/VerticalCard";
 import { CustomModal } from "../../components/customModal";
+=======
+import { VerticalCard } from "components/VerticalCard";
+import { useHttpGet } from 'common/hooks/http';
+>>>>>>> fa5deb8eda513602503f822fc766b12a1eff2497
 
 const LoadingComp = ({ loading }) => {
   if (loading)
@@ -37,7 +42,7 @@ const LoadingComp = ({ loading }) => {
 export const StoreScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [refresh, setRefresh] = useState(false);
-
+  // console.log(...useHttpGet('/shop/products/',{ defaultData:{ method:'GET' } }))
   const initialData = [
     {
       navigation,
