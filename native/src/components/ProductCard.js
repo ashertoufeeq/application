@@ -1,53 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, Title1, Headline, Title } from 'framework/text';
 import { Shimmer } from 'framework/utils';
 import { Picker } from '@react-native-community/picker';
 import { useDispatch } from 'react-redux';
 import { ADD_TO_CART } from 'shared/actions';
 import { View, Touchable } from 'framework/surface';
-
+import { useHttpGet } from 'common/hooks/http';
 
 const CardHeader = ({ title, loading, size, productId }) => {
   const TitleComp = size === 'sm' ? Title : Title1;
   return (
     <Shimmer active={loading} className={`${size === 'sm' ? 'h-6' : 'h-12'}`}>
-      <TitleComp>
+      <Text className='text-lg'>
         {title}
-      </TitleComp>
+      </Text>
     </Shimmer>
   );
 };
-const VarientsDropDown = ({ variant, setVariant, options, multiVariants }) => {
-  if (multiVariants)
+const VarientsDropDown = ({ results,variant, setVariant, count }) => {
+  const keys=Object.keys(results);
+  console.log({ results ,keys });
+  if (count)
     return (
       <View className='border-solid w-32 border-gray-400 mt-1 border rounded'>
-        <Picker
-          selectedValue={variant.leaderFeature}
-          onValueChange={(itemValue) => {
-            setVariant(itemValue);
-          }}>
-          {options.map((Item) => (
-            <Picker.Item
-              label={`${Item.leaderFeature}    ₹ ${Item.price}`}
-              value={Item}
-              key={Item.leaderFeature}
-            />
-          ))}
-        </Picker>
+        {keys.forEach((key,index)=>(
+          <Text>
+            {results[key].name}
+          </Text>
+        ))}
       </View>
     );
   return null;
 };
 
-const PriceLabel = ({ price, unit, loading, description,
-  size, variant, setVariant, options, multiVariants,navigate }) => {
+const PriceLabel = ({ shortDetails,price, unit, loading,
+  size, results,variant,setVariant,count,navigate }) => {
   const TitleComp = size === 'sm' ? Title : Title1;
-
+  console.log("inside price label");
+  const keys=Object.keys(shortDetails);
+  console.log(keys,shortDetails);
   return (
     <Shimmer active={loading} className='w-1/2'>
       <View className='flex-row flex-wrap justify-between'>
         {size === 'sm' ?
-          <VarientsDropDown {...{ variant, setVariant, multiVariants, options }} />
+          <VarientsDropDown {...{ results,variant, setVariant, count }} />
           : (
             <Touchable
               feedback={false}
@@ -55,9 +51,11 @@ const PriceLabel = ({ price, unit, loading, description,
                 navigate();
               }}>
               <View className='flex-1 flex-row py-1'>
-                {description.map((detail, index) => (
+                {Object.keys(shortDetails).forEach((key, index) => (
                   <Text className='text-gray-600 px-1' key={index.toString()}>
-                    {detail}
+                    {shortDetails[key]}
+                    {' '}
+                    textt
                   </Text>
                 ))}
               </View>
@@ -71,7 +69,7 @@ const PriceLabel = ({ price, unit, loading, description,
           <View>
             <TitleComp primary className={`${size === 'sm' ? '' : 'mx-2'} font-display`}>
               {unit}
-              {price}
+              {results[variant].price}
             </TitleComp>
           </View>
         </Touchable>
@@ -142,32 +140,41 @@ const ProductImage = ({ image, loading, size }) => {
   );
 };
 
-export const ProductCard = (props) => {
-  const [variant, setVariant] = useState(props.multiVariants ? {
-    ...props.variants[0],
-  } : { ...props });
+export const ProductCard = ({ id ,navigation,size='sm' }) => {
+  console.log("in Product Carddd");
+  const { data,loading:productLoading,error }=useHttpGet(`/shop/products/${id}/`,{ secure:false });
+  console.log({ data,productLoading,error, });
+  const { data:variants,loading:variantsLoading,error:variantsError }=useHttpGet(`/shop/products/${id}/variants/`,{ secure:false });
+  console.log({ variants,variantsLoading,variantsError });
+  const { brand,name:productName }=data||"null";
+  const { name:shopName }=brand||"null";
+  const title=`${shopName}  ${productName}`;
+  const { results }=variants!==undefined?variants : { results:{} };
+  const { count }=variants!==undefined?variants:{ count:1 };
+  console.log({ results,count });
+  const productId=id;
+  const unit='₹';
+  console.log("sdfghjklwertyuioxcvbn");
+  console.log({ title,unit,productId });
+  const loading = productLoading || variantsLoading;
+  const [variant,setVariant] = useState(0);
+  console.log({ variant });
 
-  const {
-    productId, title, price, unit = '₹',
-    shortDetails, image, size = 'md',
-    onAddCart,
-  } = variant;
+  if(results!==undefined)
+    console.log(results['0']);
 
-  const loading = !productId;
+  const image="";
   const navigate = () => {
     if (!loading) {
-      props.navigation.navigate(
-        'variants',
-        props.multiVariants?{
-          variants:props.variants,
-          multiVariants:props.multiVariants
-        }:{ ...props },
+      navigation.navigate(
+        'variantsM',
+        { productId, title, price:results["0"].detail, unit, shortDetails:results["0"].detail, image },
       );
     }
   };
   return (
-    <View className={`p-2 bg-white rounded-lg ${size === 'lg' ? 'shadow-lg my-4' : ''} 
-    ${size === 'md' ? 'my-1' : ''}`}>
+    <View className={`p-2 bg-white rounded-lg ${size === 'lg' ? 'shadow-lg my-4' : ''}
+  ${size === 'md' ? 'my-1' : ''}`}>
       <View className='flex-row '>
         <Touchable
           feedback={false}
@@ -184,16 +191,18 @@ export const ProductCard = (props) => {
             }}>
             <CardHeader {...{ title, loading, size, productId }} />
           </Touchable>
-          <PriceLabel {...{
-            description: shortDetails, price, unit, loading, size, variant, setVariant,
-            options: props.variants, multiVariants: props.multiVariants,navigate
-          }} />
+          {!variantsLoading ? (
+            <PriceLabel {...{
+              shortDetails:results["0"].detail, price:results["0"].price, unit, loading, size,variant, setVariant,count,navigate,results
+            }} />
+          ):null}
+
         </View>
       </View>
-      {size === 'lg' ? (
-        <Actions {...{ productId, loading, onAddCart, variant, setVariant,
-          options: props.variants, multiVariants: props.multiVariants, }} />
-      ) : null}
+      {/* {size === 'lg' ? ( */}
+      {/*  <Actions {...{ productId, loading, onAddCart, variant, setVariant, */}
+      {/*    options: props.variants, multiVariants: props.multiVariants, }} /> */}
+      {/* ) : null} */}
     </View>
   );
 };

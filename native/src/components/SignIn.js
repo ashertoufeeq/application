@@ -22,11 +22,7 @@ export const SignInScreen = ( )  => {
       <View className='bg-white'>
         <View style={{ height: getStatusBarHeight() }} />
         <View className='px-4'>
-<<<<<<< HEAD
-          <Title1 animation='fadeInLeft' className='bg-primary'>
-=======
           <LargeTitle animation='fadeInLeft' className='text-primary'>
->>>>>>> fa5deb8eda513602503f822fc766b12a1eff2497
             SIGN IN.
           </LargeTitle>
           <View className='py-4'>
