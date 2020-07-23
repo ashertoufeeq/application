@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 
 import { View,Touchable } from 'framework/surface';
@@ -7,16 +7,23 @@ import { Shimmer } from 'framework/utils';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { min } from "lodash-es";
-import { Dimensions } from "react-native";
+import { ActivityIndicator, Dimensions } from "react-native";
 import { useGoogleAuthentication } from 'hooks/auth';
+import { useUser } from 'common/hooks/auth';
 import { SignInImage } from "./svg/SignInImage";
 
 
 
 
-export const SignInScreen = ( )  => {
-  const { signIn, signOut, inProgress } = useGoogleAuthentication();
+export const SignInScreen = ({ navigation })  => {
+  const { signIn, inProgress } = useGoogleAuthentication();
+  const { isAuthenticated } = useUser();
 
+  useEffect(()=>{
+    if(isAuthenticated){
+      navigation.navigate('Store')
+    }
+  },[isAuthenticated])
   return (
     <View className='flex flex-warp justify-between bg-white h-full'>
       <View className='bg-white'>
@@ -28,7 +35,7 @@ export const SignInScreen = ( )  => {
           <View className='py-4'>
             <SignInImage
               className='self-center'
-              height={min([250, Dimensions.get('window').height / 2])}
+              height={min([250, Dimensions.get('window').height / 3])}
             />
           </View>
         </View>
@@ -51,7 +58,8 @@ export const SignInScreen = ( )  => {
       <Touchable className='m-5 mt-10' onPress={()=>{signIn()}}>
         <View
           className='flex-row flex-wrap w-45 justify-center items-center bg-primary p-3 rounded-lg'>
-          <Icon color='#fff' size={25} name='google' />
+          {inProgress?<ActivityIndicator loading={inProgress} size={25} color='#fff' />
+            :<Icon color='#fff' size={25} name='google' />}
           <Headline className=' ml-5 text-white font-semibold text-center tracking-tighter '>
             Sign In with Google
           </Headline>

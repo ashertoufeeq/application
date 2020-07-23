@@ -29,7 +29,7 @@ const UserInfo = ({ signOut,user }) =>(
     <Shimmer active={!user.image} className='h-16 w-16 rounded-full'>
       <Image
         className='h-16 w-16 rounded-full bg-gray-500 ml-2 mr-4'
-        source={Profile}
+        source={{ uri:user.image }}
      />
     </Shimmer>
     <View className='justify-between'>

@@ -11,7 +11,7 @@ import { SearchBar } from 'components/SearchBar.native';
 import { StoreHomeImage } from 'components/svg/StoreHomeImage';
 import { ProductCard } from 'components/ProductCard';
 import { VerticalCard } from "components/VerticalCard";
-import { useHttpGet } from 'common/hooks/http';
+
 
 const LoadingComp = ({ loading }) => {
   if (loading)

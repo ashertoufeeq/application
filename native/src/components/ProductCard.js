@@ -5,6 +5,7 @@ import { Picker } from '@react-native-community/picker';
 import { useDispatch } from 'react-redux';
 import { ADD_TO_CART } from 'shared/actions';
 import { View, Touchable } from 'framework/surface';
+import { Dropdown, DropDownItem } from 'components/dropdown/dropdown';
 
 
 const CardHeader = ({ title, loading, size, productId }) => {
@@ -20,20 +21,19 @@ const CardHeader = ({ title, loading, size, productId }) => {
 const VarientsDropDown = ({ variant, setVariant, options, multiVariants }) => {
   if (multiVariants)
     return (
-      <View className='border-solid w-32 border-gray-400 mt-1 border rounded'>
-        <Picker
-          selectedValue={variant.leaderFeature}
-          onValueChange={(itemValue) => {
-            setVariant(itemValue);
-          }}>
-          {options.map((Item) => (
-            <Picker.Item
-              label={`${Item.leaderFeature}    ₹ ${Item.price}`}
-              value={Item}
-              key={Item.leaderFeature}
-            />
-          ))}
-        </Picker>
+      <View className='w-32'>
+        <Dropdown selectedValue={variant.leaderFeature}>
+          <View className='rounded m-2 bg-white p-2'>
+            {options.map((Item) => (
+              <DropDownItem
+                onChange={(e)=>{setVariant(e)}}
+                value={Item}
+                key={Item.leaderFeature}
+                label={Item.leaderFeature}
+              />
+            ))}
+          </View>
+        </Dropdown>
       </View>
     );
   return null;
