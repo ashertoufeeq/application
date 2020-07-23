@@ -7,6 +7,7 @@ import { View, Touchable } from 'framework/surface';
 import { Dropdown, DropDownItem } from 'components/dropdown/dropdown';
 
 import { useHttpGet } from 'common/hooks/http';
+import { Image } from '../framework/surface';
 
 const CardHeader = ({ title, loading, size, productId }) => {
   const TitleComp = size === 'sm' ? Title : Title1;
@@ -18,42 +19,31 @@ const CardHeader = ({ title, loading, size, productId }) => {
     </Shimmer>
   );
 };
-const VarientsDropDown = ({ results,variant, setVariant, count }) => {
-  const keys=Object.keys(results);
-  console.log({ results ,keys });
+const VarientsDropDown = ({ results, variant,setVariant, count }) => {
   if (count)
     return (
       <View className='w-32'>
-        {/* <Dropdown selectedValue={variant.leaderFeature}> */}
-        {/*  <View className='rounded m-2 bg-white p-2'> */}
-        {/*    {options.map((Item) => ( */}
-        {/*      <DropDownItem */}
-        {/*        onChange={(e)=>{setVariant(e)}} */}
-        {/*        value={Item} */}
-        {/*        key={Item.leaderFeature} */}
-        {/*        label={Item.leaderFeature} */}
-        {/*      /> */}
-        {/*    ))} */}
-        {/*  </View> */}
-        {/* </Dropdown> */}
-        <View className='border-solid w-32 border-gray-400 mt-1 border rounded'>
-          {keys.forEach((key,index)=>(
-            <Text>
-              {results[key].name}
-            </Text>
+        <Dropdown selectedValue={results[variant].name}>
+          {results.map((result,index)=>(
+            <DropDownItem
+              onChange={(e)=>{
+                setVariant(index);
+              }}
+              value={result.name}
+              key={result.name}
+              label={result.name}
+/>
+
           ))}
-        </View>
+        </Dropdown>
       </View>
     );
   return null;
 };
 
-const PriceLabel = ({ shortDetails,price, unit, loading,
+const PriceLabel = ({ shortDetails, unit, loading,
   size, results,variant,setVariant,count,navigate }) => {
   const TitleComp = size === 'sm' ? Title : Title1;
-  console.log("inside price label");
-  const keys=Object.keys(shortDetails);
-  console.log(keys,shortDetails);
   return (
     <Shimmer active={loading} className='w-1/2'>
       <View className='flex-row flex-wrap justify-between'>
@@ -66,11 +56,9 @@ const PriceLabel = ({ shortDetails,price, unit, loading,
                 navigate();
               }}>
               <View className='flex-1 flex-row py-1'>
-                {Object.keys(shortDetails).forEach((key, index) => (
+                {shortDetails.map((detail, index) => (
                   <Text className='text-gray-600 px-1' key={index.toString()}>
-                    {shortDetails[key]}
-                    {' '}
-                    textt
+                    {detail}
                   </Text>
                 ))}
               </View>
@@ -150,30 +138,31 @@ const ProductImage = ({ image, loading, size }) => {
 
   return (
     <Shimmer active={loading} className={`${heightWidth} rounded-lg m-0`}>
-      <View className={`${heightWidth} bg-gray-400 rounded-lg`} />
+      <Image source={{ uri:image }} className={`${heightWidth} bg-gray-400 rounded-lg`} />
     </Shimmer>
   );
 };
 
 export const ProductCard = ({ id ,navigation,size='sm' }) => {
-  console.log("in Product Carddd");
+  // console.log("in Product Carddd");
   const { data,loading:productLoading,error }=useHttpGet(`/shop/products/${id}/`,{ secure:false });
-  console.log({ data,productLoading,error, });
-  const { data:variants,loading:variantsLoading,error:variantsError }=useHttpGet(`/shop/products/${id}/variants/`,{ secure:false });
-  console.log({ variants,variantsLoading,variantsError });
+  // console.log({ data,productLoading,error, });
+  const { data:variants,loading:variantsLoading,error:variantsError }=
+    useHttpGet(`/shop/products/${id}/variants/`,{ secure:false });
+  // console.log({ variants,variantsLoading,variantsError });
   const { brand,name:productName }=data||"null";
   const { name:shopName }=brand||"null";
   const title=`${shopName}  ${productName}`;
   const { results }=variants!==undefined?variants : { results:{} };
   const { count }=variants!==undefined?variants:{ count:1 };
-  console.log({ results,count });
+  // console.log({ results,count });
   const productId=id;
   const unit='₹';
-  console.log("sdfghjklwertyuioxcvbn");
-  console.log({ title,unit,productId });
+  console.log(results ,data,'ye')
+  // console.log("sdfghjklwertyuioxcvbn");
+  // console.log({ title,unit,productId });
   const loading = productLoading || variantsLoading;
   const [variant,setVariant] = useState(0);
-  console.log({ variant });
 
   if(results!==undefined)
     console.log(results['0']);
@@ -182,8 +171,8 @@ export const ProductCard = ({ id ,navigation,size='sm' }) => {
   const navigate = () => {
     if (!loading) {
       navigation.navigate(
-        'variantsM',
-        { productId, title, price:results["0"].detail, unit, shortDetails:results["0"].detail, image },
+        'variants',
+        { results,variant,unit },
       );
     }
   };
@@ -208,7 +197,9 @@ export const ProductCard = ({ id ,navigation,size='sm' }) => {
           </Touchable>
           {!variantsLoading ? (
             <PriceLabel {...{
-              shortDetails:results["0"].detail, price:results["0"].price, unit, loading, size,variant, setVariant,count,navigate,results
+              shortDetails:results[0].detail,
+              price:results[0].price,
+              unit, loading, size,variant, setVariant,count,navigate,results
             }} />
           ):null}
 

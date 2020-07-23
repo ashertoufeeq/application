@@ -21,10 +21,10 @@ const VarientsTag = ({ loading, setProduct, item }) => (
   <Shimmer active={loading} className='h-6'>
     <Touchable
       feedback={false}
-      className='w-24 bg-white shadow justify-center align-center p-2 rounded-full m-2'
+      className='w-24 bg-white shadow justify-center align-center p-2 rounded-lg m-2'
       onPress={() => {setProduct(item)}}>
       <Headline className='text-primary text-center'>
-        {item.leaderFeature}
+        {item.name}
       </Headline>
     </Touchable>
   </Shimmer>
@@ -43,10 +43,11 @@ const BackButton = ({ navigation }) => (
 
 export const VariantsModal = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
-  const [product, setProduct] = useState(route.params.multiVariants
-    ? { ...route.params.variants[0] } : route.params);
-  const { title, unit, price, image, shortDetails } = product;
-
+  const { results,unit } = route.params;
+  const [product, setProduct] = useState(  results[0]);
+  const { name,  price, image, detail } = product;
+  const keys = Object.keys(detail);
+  console.log(route.params,'GGG')
   return (
     <View
       className='absolute insetX0 bottom0 borderPrimary borderSolid borderT4 bgWhite'
@@ -54,55 +55,49 @@ export const VariantsModal = ({ navigation, route }) => {
       <View className='flex-row'>
         <BackButton navigation={navigation} />
         <Title2 primary={false} animation='fadeInLeft' className='p-4 text-gray-600 uppercase'>
-          Product Details
+          Product detail
         </Title2>
       </View>
-      <ScreenWrapper title='Product Details'>
-        <ScrollView scroll className='flex-1'>
+      <ScreenWrapper title='Product detail' className='flex-1'>
+        <ScrollView>
           <View className='flex-row flex-1 align-center justify-center'>
             <ProductImage {...{ loading,navigation }} />
           </View>
           <View className='px-4 pt-4'>
             <Shimmer active={loading} className='h-6'>
               <Title2 primary={false}>
-                {title}
+                {name}
               </Title2>
             </Shimmer>
           </View>
           <View className='px-4 pb-4 flex-row justify-between align-center'>
             <Shimmer active={loading} className='w-16'>
               <View className='flex-row'>
-                <Text className='text-gray-700'>
-                  {shortDetails[1]}
-                  {' for '}
-                </Text>
                 <Title primary={false} className='font-display text-primary '>
                   {unit}
                   {price}
                 </Title>
               </View>
             </Shimmer>
-            <Shimmer active={loading} className='w-16'>
-              <Text className='text-gray-700'>
-                {shortDetails[0]}
-              </Text>
-            </Shimmer>
+          </View>
+          <View className='flex-row px-4 flex-wrap m-b4'>
+            {results.map((item) => (<VarientsTag {...{ loading, setProduct, item }} />))}
           </View>
           {
-          shortDetails.slice(2, shortDetails.length).map(detail => (
-            <View className='px-4 flex-row justify-start align-center' key={detail}>
+          keys.map(key => (
+            <View className='px-4 flex-row justify-start align-center' key={detail[key]}>
               <Shimmer active={loading} className='w-1/2'>
+                <Headline className='text-gray-800'>
+                  {key}
+                  {" : "}
+                </Headline>
                 <Text className='text-gray-800'>
-                  {detail}
+                  {detail[key]}
                 </Text>
               </Shimmer>
             </View>
           ))
         }
-          <View className='flex-row px-4 flex-wrap m-b4'>
-            {route.params.multiVariants ?
-              route.params.variants.map((item) => (<VarientsTag {...{ loading, setProduct, item }} />)) : null}
-          </View>
         </ScrollView>
       </ScreenWrapper>
       <Touchable

@@ -33,11 +33,17 @@ export const mapObject = (obj, func) => {
 };
 
 export const camelCaseObject = (obj) => {
-  if (typeof obj === 'object' && obj !== null)
+  if (_.isArray(obj))
+    return obj.map(value => camelCaseObject(value));
+
+  if (_.isObject(obj))
     return mapObject(obj, (key, value) => [_.camelCase(key), camelCaseObject(value)]);
+
+
 
   return obj;
 };
+
 
 export const snakeCaseObject = (obj) => {
   if (typeof obj === 'object' && obj !== null)

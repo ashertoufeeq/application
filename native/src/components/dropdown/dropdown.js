@@ -5,25 +5,35 @@ import { Text } from 'framework/text';
 import { Modal,Dimensions } from 'react-native';
 import { ScrollView } from '../../framework/surface';
 
-export const DropDownItem = ({ key,value,label,children,onChange }) => (
-  <Touchable onPress={()=>onChange(value)} key={key || value} className='bg-white p-2'>
-    {children || <Text>{label}</Text>}
-  </Touchable>
-)
+
+export const DropDownItem = ({ key,value,label,children,onChange }) => {
+  return(
+    <Touchable
+      onPress={() => {
+        onChange(value);
+      }}
+      key={key || value}
+      className='bg-white p-2'>
+      {children || <Text>{label}</Text>}
+    </Touchable>
+  )}
 
 export const Dropdown = ({ selectedValue,children }) => {
   const [visible,setVisible] = useState(false)
   useEffect(()=>{
     setVisible(false)
-  },[selectedValue])
+  },[selectedValue,])
   return (
     <Touchable
       onPress={()=>{setVisible(true)}}
-      className='m-2 px-2 border rounded border-gray-500
-      flex-1 flex-row justify-between items-center'
+      className=' flex-nowrap m-2 px-2 border rounded border-gray-500
+      flex-row justify-between items-center relative'
+
     >
-      <Text>{selectedValue || 'Select'}</Text>
-      <Icon name='menu-down' color='#444' size={25} />
+      <Text ellipsizeMode='tail' numberOfLines={1}>{selectedValue}</Text>
+      <View className='absolute right0'>
+        <Icon name='menu-down' color='#444' size={25} />
+      </View>
       <Modal
         animationType='slide'
         transparent
@@ -46,7 +56,9 @@ export const Dropdown = ({ selectedValue,children }) => {
             }}>
             <ScrollView
               className='flex-1'>
-              {children}
+              <View className='rounded m-2 bg-white p-2'>
+                {children}
+              </View>
             </ScrollView>
           </View>
         </View>

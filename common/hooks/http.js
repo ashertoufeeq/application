@@ -37,6 +37,5 @@ export const useHttpGet = (url, opts={}) => {
     load().then();
 
   }, [url, jsOpt, refreshCount]);
-
   return { ...response, reload };
 };

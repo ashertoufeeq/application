@@ -5,7 +5,7 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { min } from 'lodash-es';
 
 import { Text, LargeTitle, Title2 } from 'framework/text';
-import { View, Touchable } from 'framework/surface';
+import { View, Touchable, ScrollView } from 'framework/surface';
 import { ScreenWrapper } from 'components/ScreenWrapper';
 import { SearchBar } from 'components/SearchBar.native';
 import { StoreHomeImage } from 'components/svg/StoreHomeImage';
@@ -39,23 +39,18 @@ export const StoreScreen = ({ navigation }) => {
   const [refresh, setRefresh] = useState(false);
   const { data,loading:productsLoading,error,_fromCache } =
     useHttpGet("/app/products/",{ secure:false });
-  console.log({ data,productsLoading,error,_fromCache });
-  const { results } =data || {};
-  console.log({ results });
-  const initialData=[];
-  if(results){
-    Object.keys(results).forEach((key,index) => {
-      initialData.push(results[key].id);
-    });
-  }
+  // console.log({ data,productsLoading,error,_fromCache });
+  const { results } = data || [];
+  // console.log({ results });
+
   const RenderItem =()=>{
-    console.log("inside render item");
+    // console.log("inside render item");
     return (
-      <View className='p-1 m-1 '>
-        { initialData.map((productId,index)=>(
+      <View className='p-1 m-1 flex-1 '>
+        { (results || []).map((result,index)=>(
           <ProductCard
             key={index.toString()}
-            id={productId}
+            id={result.id}
             navigation={navigation}
                   />
         ))}
@@ -82,20 +77,15 @@ export const StoreScreen = ({ navigation }) => {
       <Title2 primary={false} animation='fadeInLeft' className='p-4 text-gray-600 uppercase'>
         Daily Essentials
       </Title2>
-      <VerticalCard
-        navigation={navigation}
-        productId={loading ? null : 'xyz3'}
-        title='Mr White Detergent powder'
-        shortDetails={['🇮🇳', '3kg']}
-        price={195}
-        size='lg'
-        />
     </View>
   );
 
   return (
-    <ScreenWrapper>
-      <RenderItem />
+    <ScreenWrapper className='flex-1 w-100'>
+      <ScrollView>
+        <HeaderComp />
+        <RenderItem />
+      </ScrollView>
       <SearchBar />
     </ScreenWrapper>
   );
