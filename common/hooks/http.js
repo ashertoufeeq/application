@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
-import api from '../api';
+import api from '../api'
 
 const defaultHttpResponse = {
-  data: undefined,
+  data: {},
   error: null,
   loading: true,
   status: 0,
   _fromCache: false,
 };
 
-export const useHttpGet = (url, opts) => {
+export const useHttpGet = (url, opts={}) => {
   const [response, setResponse] = useState(defaultHttpResponse);
   const [refreshCount, setRefreshCount] = useState(0);
-  const { defaultData, refresh: refreshSetting = true, ...options } = opts;
+  const { defaultData, refresh: refreshSetting = true, ...options } = opts || {};
 
   const overrideResponse = (override) => setResponse({ ...response, ...override });
   const reload = () => setRefreshCount(refreshCount + 1);
@@ -21,7 +21,7 @@ export const useHttpGet = (url, opts) => {
       // eslint-disable-next-line no-underscore-dangle
       if (response._fromCache) setResponse(res);
   };
-
+  const jsOpt= JSON.stringify(opts);
 
   useEffect(() => {
     setResponse(defaultHttpResponse);
@@ -36,7 +36,7 @@ export const useHttpGet = (url, opts) => {
 
     load().then();
 
-  }, [url, options, refreshCount]);
+  }, [url, jsOpt, refreshCount]);
 
   return { ...response, reload };
 };

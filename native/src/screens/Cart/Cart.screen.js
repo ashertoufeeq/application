@@ -6,28 +6,7 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { useSelector } from 'react-redux';
 import { CartCard } from 'components/CartCard';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-<<<<<<< HEAD
-import  { WebView } from "react-native-webview";
-
-const Payment = () =>{
-  console.log("inside payment kgikhihi");
-  return(
-    <View className='w-screen h-screen'>
-      <WebView
-        source={{ uri: 'https://reactnative.dev/docs/environment-setup' }}
-        onError={syntheticEvent => {
-          const { nativeEvent } = syntheticEvent;
-          console.warn('WebView error: ', nativeEvent);
-        }}
-    />
-    </View>
-
-  );
-}
-
-=======
 import { useUser } from 'common/hooks/auth';
->>>>>>> fa5deb8eda513602503f822fc766b12a1eff2497
 
 const placeOrder = ( navigation,cart,user,isAuthenticated ) =>{
   if(isAuthenticated){
@@ -44,11 +23,6 @@ const CalculateTotal = ({ navigation,user,isAuthenticated }) =>{
   Object.keys(cart).forEach((key,index) => {
     total+=cart[key].price*cart[key].unit;
   });
-  const handlePayment = () => {
-    return(
-      <Payment />
-    );
-  }
   return (
     <View className=' mt-auto flex-row flex-wrap justify-between bg-gray-200 rounded  p-3 '>
       <Text className='font-bold text-xl  pt-2'>
@@ -56,14 +30,10 @@ const CalculateTotal = ({ navigation,user,isAuthenticated }) =>{
         {' '}
         {total}
       </Text>
-<<<<<<< HEAD
-      <Touchable className='' onPress={handlePayment}>
-=======
       <Touchable
         className=''
         feedback={false}
         onPress={()=>{placeOrder(navigation,cart,user,isAuthenticated)}}>
->>>>>>> fa5deb8eda513602503f822fc766b12a1eff2497
         <Text className='bg-primary font-sans text-xl p-2 rounded text-white'> PLACE ORDER </Text>
       </Touchable>
     </View>
@@ -145,12 +115,7 @@ export const CartScreen = ({ navigation }) => {
         </Title>
         <Cart {...{ navigation }} />
       </View>
-<<<<<<< HEAD
-      <CalculateTotal />
-
-=======
       <CalculateTotal {...{ navigation,user,isAuthenticated }} />
->>>>>>> fa5deb8eda513602503f822fc766b12a1eff2497
     </ScreenWrapper>
   );
 };

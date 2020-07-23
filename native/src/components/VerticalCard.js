@@ -5,6 +5,7 @@ import { Shimmer } from 'framework/utils';
 import { useDispatch } from 'react-redux';
 import { ADD_TO_CART,RESET_STATE } from 'shared/actions';
 import { WebView } from 'react-native-webview';
+import { ProductDetailScreen } from "../screens/ProductDetail.screen";
 
 const CardHeader = ({ title,loading,size,productId }) => {
   const TitleComp=size==='sm'?Title:Title1;
