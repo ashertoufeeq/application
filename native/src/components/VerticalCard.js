@@ -4,15 +4,15 @@ import { Text,Title1,Headline,Title } from 'framework/text';
 import { Shimmer } from 'framework/utils';
 import { useDispatch } from 'react-redux';
 import { ADD_TO_CART,RESET_STATE } from 'shared/actions';
+import { WebView } from 'react-native-webview';
 
 const CardHeader = ({ title,loading,size,productId }) => {
   const TitleComp=size==='sm'?Title:Title1;
   return(
     <Shimmer active={loading}>
-      <TitleComp className={`${size === 'sm' ? 'font-display' : 'text-display-bold'}`}>
+      <TitleComp>
         {title}
         {' '}
-        friction
       </TitleComp>
     </Shimmer>
   );

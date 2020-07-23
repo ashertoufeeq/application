@@ -61,5 +61,8 @@
     "pretty-quick": "^2.0.1",
     "rimraf": "^3.0.2",
     "sync-directory": "^2.2.2"
+  },
+  "dependencies": {
+    "react-native-tailwindcss": "https://github.com/Faisal-Manzer/react-native-tailwindcss.git"
   }
 }

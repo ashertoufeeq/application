@@ -10,7 +10,8 @@ import { ScreenWrapper } from 'components/ScreenWrapper';
 import { SearchBar } from 'components/SearchBar.native';
 import { StoreHomeImage } from 'components/svg/StoreHomeImage';
 import { ProductCard } from 'components/ProductCard';
-import { VerticalCard } from "components/VerticalCard";
+import { useHttpGet } from 'common/hooks/http';
+import { VerticalCard } from "../../components/VerticalCard";
 
 
 const LoadingComp = ({ loading }) => {
@@ -130,7 +131,7 @@ export const StoreScreen = ({ navigation }) => {
 
   const HeaderComp = () => (
     <View className='flex-1'>
-      <View className='bg-grey-100'>
+      <View className='bg-gray-100'>
         <View style={{ height: getStatusBarHeight() }} />
         <View className='px-4'>
           <LargeTitle animation='fadeInLeft'>
