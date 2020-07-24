@@ -19,20 +19,20 @@ const CardHeader = ({ title, loading, size, productId }) => {
     </Shimmer>
   );
 };
-const VarientsDropDown = ({ results, variant,setVariant, count }) => {
+const VarientsDropDown = ({ results, variant, setVariant, count }) => {
   if (count)
     return (
       <View className='w-32'>
         <Dropdown selectedValue={results[variant].name}>
-          {results.map((result,index)=>(
+          {results.map((result, index) => (
             <DropDownItem
-              onChange={(e)=>{
+              onChange={(e) => {
                 setVariant(index);
               }}
               value={result.name}
               key={result.name}
               label={result.name}
-/>
+            />
 
           ))}
         </Dropdown>
@@ -41,14 +41,16 @@ const VarientsDropDown = ({ results, variant,setVariant, count }) => {
   return null;
 };
 
-const PriceLabel = ({ shortDetails, unit, loading,
-  size, results,variant,setVariant,count,navigate }) => {
+const PriceLabel = ({
+  shortDetails, unit, loading,
+  size, results, variant, setVariant, count, navigate,
+}) => {
   const TitleComp = size === 'sm' ? Title : Title1;
   return (
     <Shimmer active={loading} className='w-1/2'>
       <View className='flex-row flex-wrap justify-between'>
         {size === 'sm' ?
-          <VarientsDropDown {...{ results,variant, setVariant, count }} />
+          <VarientsDropDown {...{ results, variant, setVariant, count }} />
           : (
             <Touchable
               feedback={false}
@@ -89,18 +91,18 @@ const BuyNowAction = ({ productId }) => (
   </Touchable>
 );
 
-const AddToCartAction = ({ title,image,productId, price }) => {
+const AddToCartAction = ({ title, image, productId, price }) => {
   const dispatch = useDispatch();
   const addToCart = () => {
     dispatch({
       type: ADD_TO_CART,
-      payload:{
+      payload: {
         price,
         title,
         image,
         productId,
-      }
-    })
+      },
+    });
   };
 
   return (
@@ -112,22 +114,26 @@ const AddToCartAction = ({ title,image,productId, price }) => {
   );
 };
 
-const Actions = ({ productId, loading, onAddCart,
+const Actions = ({
+  productId, loading, onAddCart,
   variant,
   setVariant,
   multiVariants,
-  options }) => (
-    <Shimmer active={loading} className='h-8'>
-      <View className='flex-row flex-wrap z-30'>
-        <VarientsDropDown {...{ variant, setVariant,
-          options,
-          multiVariants }} />
-        <View className='flex-1' />
-        <BuyNowAction productId={productId} />
-        <AddToCartAction onAddCart={onAddCart} {...variant} />
-      </View>
-    </Shimmer>
-)
+  options,
+}) => (
+  <Shimmer active={loading} className='h-8'>
+    <View className='flex-row flex-wrap z-30'>
+      <VarientsDropDown {...{
+        variant, setVariant,
+        options,
+        multiVariants,
+      }} />
+      <View className='flex-1' />
+      <BuyNowAction productId={productId} />
+      <AddToCartAction onAddCart={onAddCart} {...variant} />
+    </View>
+  </Shimmer>
+);
 
 
 const ProductImage = ({ image, loading, size }) => {
@@ -138,41 +144,30 @@ const ProductImage = ({ image, loading, size }) => {
 
   return (
     <Shimmer active={loading} className={`${heightWidth} rounded-lg m-0`}>
-      <Image source={{ uri:image }} className={`${heightWidth} bg-gray-400 rounded-lg`} />
+      <Image className={`${heightWidth} bg-gray-400 rounded-lg`} />
     </Shimmer>
   );
 };
 
-export const ProductCard = ({ id ,navigation,size='sm' }) => {
-  // console.log("in Product Carddd");
-  const { data,loading:productLoading,error }=useHttpGet(`/shop/products/${id}/`,{ secure:false });
-  // console.log({ data,productLoading,error, });
-  const { data:variants,loading:variantsLoading,error:variantsError }=
-    useHttpGet(`/shop/products/${id}/variants/`,{ secure:false });
-  // console.log({ variants,variantsLoading,variantsError });
-  const { brand,name:productName }=data||"null";
-  const { name:shopName }=brand||"null";
-  const title=`${shopName}  ${productName}`;
-  const { results }=variants!==undefined?variants : { results:{} };
-  const { count }=variants!==undefined?variants:{ count:1 };
-  // console.log({ results,count });
-  const productId=id;
-  const unit='₹';
-  console.log(results ,data,'ye')
-  // console.log("sdfghjklwertyuioxcvbn");
-  // console.log({ title,unit,productId });
+export const ProductCard = ({ id: productId, navigation, size = 'sm', unit = '₹' }) => {
+  const { data, loading: productLoading } = useHttpGet(`/shop/products/${productId}/`, { secure: false, cache: 1000 * 60 * 60 * 5 });
+  const { data: variants, loading: variantsLoading } =
+    useHttpGet(`/shop/products/${productId}/variants/`, { secure: false, cache: 1000 * 60 * 60 * 5 });
+  const { brand, name: productName } = data || {};
+  const { name: brandName = '' } = brand || {};
+
+  const title = `${brandName} ${productName}`;
+
+  const { results } = variants !== undefined ? variants : { results: {} };
+  const { count } = variants !== undefined ? variants : { count: 1 };
   const loading = productLoading || variantsLoading;
-  const [variant,setVariant] = useState(0);
+  const [variant, setVariant] = useState(0);
 
-  if(results!==undefined)
-    console.log(results['0']);
-
-  const image="";
   const navigate = () => {
     if (!loading) {
       navigation.navigate(
         'variants',
-        { results,variant,unit },
+        { results, variant, unit },
       );
     }
   };
@@ -185,7 +180,7 @@ export const ProductCard = ({ id ,navigation,size='sm' }) => {
           onPress={() => {
             navigate();
           }}>
-          <ProductImage {...{ image, loading, size }} />
+          <ProductImage {...{ loading, size }} />
         </Touchable>
         <View className='flex-1 px-2 '>
           <Touchable
@@ -197,11 +192,11 @@ export const ProductCard = ({ id ,navigation,size='sm' }) => {
           </Touchable>
           {!variantsLoading ? (
             <PriceLabel {...{
-              shortDetails:results[0].detail,
-              price:results[0].price,
-              unit, loading, size,variant, setVariant,count,navigate,results
+              shortDetails: results[0].detail,
+              price: results[0].price,
+              unit, loading, size, variant, setVariant, count, navigate, results,
             }} />
-          ):null}
+          ) : null}
 
         </View>
       </View>

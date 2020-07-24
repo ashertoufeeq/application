@@ -22,25 +22,26 @@ import { modalConfigs } from '../helpers/modalConfig';
 const Tab = createMaterialBottomTabNavigator();
 const RootStack = createStackNavigator();
 
-const TabNav =()=>{
+const TabNav = () => {
   const { t, c, css, getColor } = useTailwindSetup();
   const { primary } = useThemeColors();
 
-  return(
+  return (
     <Tab.Navigator
       initialRouteName='Store'
       activeColor={primary}
       inactiveColor={getColor('gray-500')}
       barStyle={{ backgroundColor: getColor('gray-100'), borderRadius: 20, elevation: 0 }}
-  >
-      {/* {TestTab({ tab: Tab })} */}
+    >
+      {TestTab({ tab: Tab })}
       {SettingsTab({ tab: Tab })}
       {WishlistTab({ tab: Tab })}
       {StoreTab({ tab: Tab })}
       {LiveOrderTab({ tab: Tab })}
       {CartTab({ tab: Tab })}
     </Tab.Navigator>
-  )}
+  );
+};
 
 export const Navigator = () => {
   const { t, c, css, getColor } = useTailwindSetup();
@@ -64,12 +65,12 @@ export const Navigator = () => {
               name='Main'
               component={TabNav}
               headerMode={null}
-          />
+            />
             <RootStack.Screen
               name='SignIn'
               component={SignInScreen}
               headerMode={null}
-          />
+            />
           </RootStack.Navigator>
         </NavigationContainer>
       </TailwindProvider>

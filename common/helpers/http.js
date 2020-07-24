@@ -44,6 +44,8 @@ const getAccessToken = async (url, opts) => {
 const getDeviceInfo = () => Btoa()(JSON.stringify(snakeCaseObject(Device() || {})));
 
 export const load = async (url, opts = {}) => {
+  const startTime = new Date();
+
   const {
     onSuccess = (data) => data,
     onFailure = (error) => console.log(url, opts, error),
@@ -78,6 +80,8 @@ export const load = async (url, opts = {}) => {
       data = middleware(data, status, url, finalOptions);
 
     await onSuccess(data);
+
+    console.log(`URL ${url} loaded from Network... in ${(new Date()) - startTime}ms`);
     return { data, status, error: undefined, loading: false };
   } catch (error) {
     if (error.response) {
