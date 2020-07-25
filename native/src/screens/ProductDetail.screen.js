@@ -4,6 +4,9 @@ import { ScreenWrapper } from 'components/ScreenWrapper';
 import { Text, Title2, Title, Headline } from 'framework/text';
 import { View, Touchable } from 'framework/surface';
 import { Shimmer } from 'framework/utils';
+import { useDispatch } from "react-redux";
+import { ADD_TO_CART } from "shared/actions";
+import { postProductOnCart } from "shared/reducers/product";
 
 
 const ProductImage = ({ image, loading }) => {
@@ -40,8 +43,13 @@ const BackButton = ({ navigation }) => (
 export const ProductDetailScreen = ({ route, productId, navigation }) => {
   const [product, setProduct] = useState({ ...route.params });
   const id = product.productId || productId;
+  console.log({ id });
   const { title, unit, price, image, shortDetails } = product;
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const addToCart = () => {
+    // postProductOnCart(id);
+  };
   return (
     <ScreenWrapper title='Product Details'>
       <View scroll className='flex-1'>
@@ -91,7 +99,7 @@ export const ProductDetailScreen = ({ route, productId, navigation }) => {
       <Touchable
         feedback={false}
         className='bg-purple-900 p-4 absolute bottom0 right0 left0'
-        onPress={() => setLoading(!loading)}
+        onPress={()=> (setLoading(!loading))}
         >
         <Text className='text-white text-center font-bold'>
           Add To Cart

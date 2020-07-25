@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { ADD_TO_CART } from 'shared/actions';
 import { View, Touchable } from 'framework/surface';
 import { Dropdown, DropDownItem } from 'components/dropdown/dropdown';
-
+import { postProductOnCart } from "shared/hooks/postCart";
 import { useHttpGet } from 'common/hooks/http';
 import { Image } from '../framework/surface';
 
@@ -91,18 +91,11 @@ const BuyNowAction = ({ productId }) => (
   </Touchable>
 );
 
-const AddToCartAction = ({ title, image, productId, price }) => {
-  const dispatch = useDispatch();
+const AddToCartAction = ({ variant,results }) => {
+  const dispatch=useDispatch();
   const addToCart = () => {
-    dispatch({
-      type: ADD_TO_CART,
-      payload: {
-        price,
-        title,
-        image,
-        productId,
-      },
-    });
+    console.log("inside add cart");
+    dispatch(()=>postProductOnCart(results[variant].id));
   };
 
   return (
@@ -114,7 +107,7 @@ const AddToCartAction = ({ title, image, productId, price }) => {
   );
 };
 
-const Actions = ({ productId, loading, onAddCart,count,
+const Actions = ({ productId, loading,count,
   variant,
   setVariant,
   results }) => (
@@ -124,7 +117,7 @@ const Actions = ({ productId, loading, onAddCart,count,
           results,count }} />
         <View className='flex-1' />
         <BuyNowAction productId={productId} />
-        <AddToCartAction onAddCart={onAddCart} {...variant} />
+        <AddToCartAction {...{ variant,results }} />
       </View>
     </Shimmer>
 )
@@ -197,6 +190,7 @@ export const ProductCard = ({ id ,navigation,size='sm' }) => {
               unit, loading, size, variant, setVariant, count, navigate, results,
             }} />
           ) : null}
+          <Actions {...{ productId, loading, variant, setVariant,results,count }} />
         </View>
       </View>
       {size === 'lg' ? (

@@ -9,6 +9,7 @@ import { useUser } from 'common/hooks/auth';
 import { min } from 'lodash-es';
 import { Dimensions } from 'react-native';
 import { CartScreenImage } from '../../components/svg/CartImage';
+import { useHttpGet } from "../../common/hooks/http";
 
 const placeOrder = ( navigation,cart,user,isAuthenticated ) =>{
   if(isAuthenticated){
@@ -82,7 +83,13 @@ const PriceDetails = () => {
 const Cart = ({ navigation }) => {
   const { cart } = useSelector(state => state.product);
   const keys = Object.keys(cart);
-
+  // const { data,error,loading }=useHttpGet('/app/cart/', {
+  //   limit: 1,
+  //   secure: false,
+  //   replaceMode: false,
+  //   autoLoad: true,
+  // });
+  // console.log({ data,error,loading });
   return (
     <View className='h-12 w-auto mb-1 '>
       {keys.map((key, index) =>(
