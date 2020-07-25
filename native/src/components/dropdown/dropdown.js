@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { View,Touchable } from 'framework/surface';
 import { Text } from 'framework/text';
 import { Modal,Dimensions } from 'react-native';
+import { BackButton } from 'components/BackButton';
 import { ScrollView } from '../../framework/surface';
 
 
@@ -13,7 +14,7 @@ export const DropDownItem = ({ key,value,label,children,onChange }) => {
         onChange(value);
       }}
       key={key || value}
-      className='bg-white p-2'>
+      className='p-2'>
       {children || <Text>{label}</Text>}
     </Touchable>
   )}
@@ -26,42 +27,41 @@ export const Dropdown = ({ selectedValue,children }) => {
   return (
     <Touchable
       onPress={()=>{setVisible(true)}}
-      className=' flex-nowrap m-2 px-2 border rounded border-gray-500
+      className=' flex-nowrap m-2 px-2 py-1 rounded bg-gray-300
       flex-row justify-between items-center relative'
-
     >
       <Text ellipsizeMode='tail' numberOfLines={1}>{selectedValue}</Text>
-      <View className='absolute right0'>
+      <View className=''>
         <Icon name='menu-down' color='#444' size={25} />
       </View>
       <Modal
-        animationType='slide'
+        animationType='fade'
         transparent
         visible={visible}
         onRequestClose={() => {
           setVisible(false)
         }}
       >
-        <View
+        <Touchable
           className='items-center justify-center h-full'
           style={{
             backgroundColor: 'rgba(0,0,0,.5)' }}
+          onPress={()=>setVisible(false)}
         >
           <View
-            className='bg-white'
-            style={{
-              backgroundColor:'rgba(0,0,0,0)',
-              width:Dimensions.get('window').width-30 ,
-              height:Dimensions.get('window').height/2
-            }}>
+            className='absolute inset-x0 bottom0 border-primary border-solid border-t4 bg-white'
+            style={{ maxHeight: (Dimensions.get('window').height / 1.5) }}>
+            <View className='flex-row'>
+              <BackButton onPress={()=>{setVisible(false)}} />
+            </View>
             <ScrollView
               className='flex-1'>
-              <View className='rounded m-2 bg-white p-2'>
+              <View className='rounded m-2 bg-white'>
                 {children}
               </View>
             </ScrollView>
           </View>
-        </View>
+        </Touchable>
       </Modal>
     </Touchable>
   );

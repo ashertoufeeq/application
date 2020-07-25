@@ -10,19 +10,19 @@ import { useHttpGet } from 'common/hooks/http';
 import { Image } from '../framework/surface';
 
 const CardHeader = ({ title, loading, size, productId }) => {
-  const TitleComp = size === 'sm' ? Title : Title1;
   return (
     <Shimmer active={loading} className={`${size === 'sm' ? 'h-6' : 'h-12'}`}>
-      <Text className='text-lg'>
+      <Headline>
         {title}
-      </Text>
+      </Headline>
     </Shimmer>
   );
 };
 const VarientsDropDown = ({ results, variant,setVariant, count }) => {
-  if (count)
+  console.log(count,'count')
+  if (count > 1)
     return (
-      <View className='w-32'>
+      <View>
         <Dropdown selectedValue={results[variant].name}>
           {results.map((result,index)=>(
             <DropDownItem
@@ -38,7 +38,7 @@ const VarientsDropDown = ({ results, variant,setVariant, count }) => {
         </Dropdown>
       </View>
     );
-  return null;
+  return <View />;
 };
 
 const PriceLabel = ({ shortDetails, unit, loading,
@@ -112,16 +112,14 @@ const AddToCartAction = ({ title,image,productId, price }) => {
   );
 };
 
-const Actions = ({ productId, loading, onAddCart,
+const Actions = ({ productId, loading, onAddCart,count,
   variant,
   setVariant,
-  multiVariants,
-  options }) => (
+  results }) => (
     <Shimmer active={loading} className='h-8'>
       <View className='flex-row flex-wrap z-30'>
         <VarientsDropDown {...{ variant, setVariant,
-          options,
-          multiVariants }} />
+          results,count }} />
         <View className='flex-1' />
         <BuyNowAction productId={productId} />
         <AddToCartAction onAddCart={onAddCart} {...variant} />
@@ -144,23 +142,16 @@ const ProductImage = ({ image, loading, size }) => {
 };
 
 export const ProductCard = ({ id ,navigation,size='sm' }) => {
-  // console.log("in Product Carddd");
   const { data,loading:productLoading,error }=useHttpGet(`/shop/products/${id}/`,{ secure:false });
-  // console.log({ data,productLoading,error, });
   const { data:variants,loading:variantsLoading,error:variantsError }=
     useHttpGet(`/shop/products/${id}/variants/`,{ secure:false });
-  // console.log({ variants,variantsLoading,variantsError });
   const { brand,name:productName }=data||"null";
   const { name:shopName }=brand||"null";
   const title=`${shopName}  ${productName}`;
   const { results }=variants!==undefined?variants : { results:{} };
   const { count }=variants!==undefined?variants:{ count:1 };
-  // console.log({ results,count });
   const productId=id;
   const unit='₹';
-  console.log(results ,data,'ye')
-  // console.log("sdfghjklwertyuioxcvbn");
-  // console.log({ title,unit,productId });
   const loading = productLoading || variantsLoading;
   const [variant,setVariant] = useState(0);
 
@@ -170,9 +161,9 @@ export const ProductCard = ({ id ,navigation,size='sm' }) => {
   const image="";
   const navigate = () => {
     if (!loading) {
-      navigation.navigate(
+      navigation.push(
         'variants',
-        { results,variant,unit },
+        { results,variant,unit,count,title },
       );
     }
   };
@@ -202,13 +193,11 @@ export const ProductCard = ({ id ,navigation,size='sm' }) => {
               unit, loading, size,variant, setVariant,count,navigate,results
             }} />
           ):null}
-
         </View>
       </View>
-      {/* {size === 'lg' ? ( */}
-      {/*  <Actions {...{ productId, loading, onAddCart, variant, setVariant, */}
-      {/*    options: props.variants, multiVariants: props.multiVariants, }} /> */}
-      {/* ) : null} */}
+      {size === 'lg' ? (
+        <Actions {...{ productId, loading, variant, setVariant,results,count }} />
+      ) : null}
     </View>
   );
 };

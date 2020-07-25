@@ -39,12 +39,8 @@ export const StoreScreen = ({ navigation }) => {
   const [refresh, setRefresh] = useState(false);
   const { data,loading:productsLoading,error,_fromCache } =
     useHttpGet("/app/products/",{ secure:false });
-  // console.log({ data,productsLoading,error,_fromCache });
   const { results } = data || [];
-  // console.log({ results });
-
   const RenderItem =()=>{
-    // console.log("inside render item");
     return (
       <View className='p-1 m-1 flex-1 '>
         { (results || []).map((result,index)=>(
@@ -74,7 +70,7 @@ export const StoreScreen = ({ navigation }) => {
           </View>
         </View>
       </View>
-      <Title2 primary={false} animation='fadeInLeft' className='p-4 text-gray-600 uppercase'>
+      <Title2 primary={false} animation='fadeInLeft' className='p-4 text-black uppercase'>
         Daily Essentials
       </Title2>
     </View>

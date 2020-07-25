@@ -1,12 +1,14 @@
 import React from 'react';
 import { ScreenWrapper } from 'components/ScreenWrapper';
-import { Title ,Text } from 'framework/text';
+import { Text,LargeTitle } from 'framework/text';
 import { View ,Touchable } from 'framework/surface';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { useSelector } from 'react-redux';
 import { CartCard } from 'components/CartCard';
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useUser } from 'common/hooks/auth';
+import { min } from 'lodash-es';
+import { Dimensions } from 'react-native';
+import { CartScreenImage } from '../../components/svg/CartImage';
 
 const placeOrder = ( navigation,cart,user,isAuthenticated ) =>{
   if(isAuthenticated){
@@ -106,13 +108,24 @@ export const CartScreen = ({ navigation }) => {
   return (
     <ScreenWrapper title='Cart Screen'>
       <View style={{ height: getStatusBarHeight() }} />
+      <View className='px-4'>
+        <LargeTitle animation='fadeInLeft'>
+          Your Cart.
+        </LargeTitle>
+        <View className='py-4'>
+          <CartScreenImage
+            className='self-center'
+            height={min([150, Dimensions.get('window').height / 3])}
+          />
+        </View>
+      </View>
       <View className='p-4 '>
-        <Title>
-          Cart
-          {' '}
-          {' '}
-          <Icon color='#000' size={25} name='cart' />
-        </Title>
+        {/* <Title> */}
+        {/*  Cart */}
+        {/*  {' '} */}
+        {/*  {' '} */}
+        {/*  <Icon color='#000' size={25} name='cart' /> */}
+        {/* </Title> */}
         <Cart {...{ navigation }} />
       </View>
       <CalculateTotal {...{ navigation,user,isAuthenticated }} />
