@@ -1,5 +1,5 @@
 import React from 'react';
-import CartImage from 'assets/svgs/cart.svg';
+import CartImage from 'assets/svgs/webShopping.svg';
 import { BaseImage } from './index';
 
 

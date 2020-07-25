@@ -5,4 +5,4 @@ export const signInAPI = ({ googleId, token }) =>
 
 export const getUserMetaAPI = () => api.get(`/auth/meta/`);
 
-export const signOutAPI = () => api.get(`/auth/sign-out/`, { secure: false });
+export const signOutAPI = () => api.get(`/auth/sign-out/`);

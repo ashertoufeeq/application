@@ -24,15 +24,15 @@ const VarientsDropDown = ({ results, variant,setVariant, count }) => {
     return (
       <View>
         <Dropdown selectedValue={results[variant].name}>
-          {results.map((result,index)=>(
+          {results.map((result, index) => (
             <DropDownItem
-              onChange={(e)=>{
+              onChange={(e) => {
                 setVariant(index);
               }}
               value={result.name}
               key={result.name}
               label={result.name}
-/>
+            />
 
           ))}
         </Dropdown>
@@ -41,14 +41,16 @@ const VarientsDropDown = ({ results, variant,setVariant, count }) => {
   return <View />;
 };
 
-const PriceLabel = ({ shortDetails, unit, loading,
-  size, results,variant,setVariant,count,navigate }) => {
+const PriceLabel = ({
+  shortDetails, unit, loading,
+  size, results, variant, setVariant, count, navigate,
+}) => {
   const TitleComp = size === 'sm' ? Title : Title1;
   return (
     <Shimmer active={loading} className='w-1/2'>
       <View className='flex-row flex-wrap justify-between'>
         {size === 'sm' ?
-          <VarientsDropDown {...{ results,variant, setVariant, count }} />
+          <VarientsDropDown {...{ results, variant, setVariant, count }} />
           : (
             <Touchable
               feedback={false}
@@ -89,18 +91,18 @@ const BuyNowAction = ({ productId }) => (
   </Touchable>
 );
 
-const AddToCartAction = ({ title,image,productId, price }) => {
+const AddToCartAction = ({ title, image, productId, price }) => {
   const dispatch = useDispatch();
   const addToCart = () => {
     dispatch({
       type: ADD_TO_CART,
-      payload:{
+      payload: {
         price,
         title,
         image,
         productId,
-      }
-    })
+      },
+    });
   };
 
   return (
@@ -128,6 +130,7 @@ const Actions = ({ productId, loading, onAddCart,count,
 )
 
 
+
 const ProductImage = ({ image, loading, size }) => {
   let heightWidth = '';
   if (size === 'lg') heightWidth = 'h-24 w-24';
@@ -136,29 +139,30 @@ const ProductImage = ({ image, loading, size }) => {
 
   return (
     <Shimmer active={loading} className={`${heightWidth} rounded-lg m-0`}>
-      <Image source={{ uri:image }} className={`${heightWidth} bg-gray-400 rounded-lg`} />
+      <Image className={`${heightWidth} bg-gray-400 rounded-lg`} />
     </Shimmer>
   );
 };
 
 export const ProductCard = ({ id ,navigation,size='sm' }) => {
-  const { data,loading:productLoading,error }=useHttpGet(`/shop/products/${id}/`,{ secure:false });
-  const { data:variants,loading:variantsLoading,error:variantsError }=
-    useHttpGet(`/shop/products/${id}/variants/`,{ secure:false });
-  const { brand,name:productName }=data||"null";
-  const { name:shopName }=brand||"null";
-  const title=`${shopName}  ${productName}`;
+  const productId=id;
+  const { data, loading: productLoading } = useHttpGet(`/shop/products/${productId}/`,
+    { secure: false, cache: 1000 * 60 * 60 * 5 });
+  const { data: variants, loading: variantsLoading } =
+    useHttpGet(`/shop/products/${productId}/variants/`,
+      { secure: false, cache: 1000 * 60 * 60 * 5 });
+  const { brand, name: productName } = data || {};
+  const { name: brandName = '' } = brand || {};
+  const title = `${brandName} ${productName}`;
   const { results }=variants!==undefined?variants : { results:{} };
   const { count }=variants!==undefined?variants:{ count:1 };
-  const productId=id;
   const unit='₹';
   const loading = productLoading || variantsLoading;
   const [variant,setVariant] = useState(0);
 
-  if(results!==undefined)
-    console.log(results['0']);
 
-  const image="";
+
+
   const navigate = () => {
     if (!loading) {
       navigation.push(
@@ -176,7 +180,7 @@ export const ProductCard = ({ id ,navigation,size='sm' }) => {
           onPress={() => {
             navigate();
           }}>
-          <ProductImage {...{ image, loading, size }} />
+          <ProductImage {...{ loading, size }} />
         </Touchable>
         <View className='flex-1 px-2 '>
           <Touchable
@@ -188,11 +192,11 @@ export const ProductCard = ({ id ,navigation,size='sm' }) => {
           </Touchable>
           {!variantsLoading ? (
             <PriceLabel {...{
-              shortDetails:results[0].detail,
-              price:results[0].price,
-              unit, loading, size,variant, setVariant,count,navigate,results
+              shortDetails: results[0].detail,
+              price: results[0].price,
+              unit, loading, size, variant, setVariant, count, navigate, results,
             }} />
-          ):null}
+          ) : null}
         </View>
       </View>
       {size === 'lg' ? (
