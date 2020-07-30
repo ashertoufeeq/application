@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScreenWrapper } from 'components/ScreenWrapper';
-import { Text,LargeTitle } from 'framework/text';
+import { Text,LargeTitle,Title2 } from 'framework/text';
 import { View ,Touchable } from 'framework/surface';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { useSelector } from 'react-redux';
@@ -8,7 +8,11 @@ import { CartCard } from 'components/CartCard';
 import { useUser } from 'common/hooks/auth';
 import { min } from 'lodash-es';
 import { Dimensions } from 'react-native';
-import { CartScreenImage } from '../../components/svg/CartImage';
+import { CartScreenImage } from 'components/svg/CartImage';
+import { ProductCard } from 'components/ProductCard';
+import { Divider } from 'react-native-paper';
+import { ScrollView } from '../../framework/surface';
+import { Footnote, Headline } from '../../framework/text';
 
 const placeOrder = ( navigation,cart,user,isAuthenticated ) =>{
   if(isAuthenticated){
@@ -27,16 +31,16 @@ const CalculateTotal = ({ navigation,user,isAuthenticated }) =>{
   });
   return (
     <View className=' mt-auto flex-row flex-wrap justify-between bg-gray-200 rounded  p-3 '>
-      <Text className='font-bold text-xl  pt-2'>
+      <Headline className='pt-2'>
         {' $ '}
         {' '}
         {total}
-      </Text>
+      </Headline>
       <Touchable
-        className=''
+        className='bg-primary justify-center p-2 rounded mx-2'
         feedback={false}
         onPress={()=>{placeOrder(navigation,cart,user,isAuthenticated)}}>
-        <Text className='bg-primary font-sans text-xl p-2 rounded text-white'> PLACE ORDER </Text>
+        <Headline className='text-white'>PLACE ORDER</Headline>
       </Touchable>
     </View>
   );
@@ -52,11 +56,13 @@ const PriceDetails = () => {
   return (
     <View className='w-auto'>
       {keys.map((key, index) =>(
-        <View className='flex-row flex-wrap justify-between p-2 bg-gray-100' key={index.toString()}>
+        <View
+          className='flex-row flex-wrap justify-between p-2 bg-gray-100 w5_4'
+          key={index.toString()}>
           <Text>
             {cart[key].name}
           </Text>
-          <View className='flex-row flex-wrap justify-between'>
+          <View className='w1_4 flex-row flex-wrap justify-start'>
             <Text>
               {' '}
               {cart[key].unit}
@@ -68,31 +74,38 @@ const PriceDetails = () => {
       ))}
       <View className='w-auto h-1 bg-gray-700 my-2' />
       <View className='flex-row flex-wrap justify-between'>
-        <Text className='font-sans font-bold tracking-widest'>TOTAL</Text>
-        <Text>
+        <Headline>TOTAL</Headline>
+        <Footnote>
           {total}
-        </Text>
+        </Footnote>
       </View>
     </View>
   )
 }
-
-
 
 const Cart = ({ navigation }) => {
   const { cart } = useSelector(state => state.product);
   const keys = Object.keys(cart);
 
   return (
-    <View className='h-12 w-auto mb-1 '>
+    <View className='w-auto mb-1 '>
+      {/* {keys.map((key, index) =>( */}
+      {/*  <CartCard */}
+      {/*    key={index.toString()} */}
+      {/*    productId={key} */}
+      {/*    title={cart[key].name} */}
+      {/*    price={cart[key].price} */}
+      {/*    unit={cart[key].unit} */}
+      {/*    image={cart[key].img} */}
+      {/*    navigation={navigation} */}
+      {/*      /> */}
+      {/* ))} */}
       {keys.map((key, index) =>(
-        <CartCard
+        <ProductCard
+          size='md'
+          quantity={cart[key].unit}
           key={index.toString()}
-          productId={key}
-          title={cart[key].name}
-          price={cart[key].price}
-          unit={cart[key].unit}
-          image={cart[key].img}
+          id={key}
           navigation={navigation}
             />
       ))}
@@ -101,34 +114,38 @@ const Cart = ({ navigation }) => {
   );
 };
 
-
 export const CartScreen = ({ navigation }) => {
   const { user, isAuthenticated } = useUser();
 
   return (
     <ScreenWrapper title='Cart Screen'>
-      <View style={{ height: getStatusBarHeight() }} />
-      <View className='px-4'>
-        <LargeTitle animation='fadeInLeft'>
-          Your Cart.
-        </LargeTitle>
-        <View className='py-4'>
-          <CartScreenImage
-            className='self-center'
-            height={min([150, Dimensions.get('window').height / 3])}
+      <ScrollView>
+        <View style={{ height: getStatusBarHeight() }} />
+        <View className='px-4'>
+          <LargeTitle animation='fadeInLeft'>
+            Your Cart.
+          </LargeTitle>
+          <View className='py-4'>
+            <CartScreenImage
+              className='self-center'
+              height={min([150, Dimensions.get('window').height / 3])}
           />
+          </View>
         </View>
-      </View>
-      <View className='p-4 '>
-        {/* <Title> */}
-        {/*  Cart */}
-        {/*  {' '} */}
-        {/*  {' '} */}
-        {/*  <Icon color='#000' size={25} name='cart' /> */}
-        {/* </Title> */}
-        <Cart {...{ navigation }} />
-      </View>
-      <CalculateTotal {...{ navigation,user,isAuthenticated }} />
+        <Title2 primary={false} animation='fadeInLeft' className='p-4 text-black uppercase'>
+          Items IN Cart
+        </Title2>
+        <View className='p-4 '>
+          {/* <Title> */}
+          {/*  Cart */}
+          {/*  {' '} */}
+          {/*  {' '} */}
+          {/*  <Icon color='#000' size={25} name='cart' /> */}
+          {/* </Title> */}
+          <Cart {...{ navigation }} />
+        </View>
+        <CalculateTotal {...{ navigation,user,isAuthenticated }} />
+      </ScrollView>
     </ScreenWrapper>
   );
 };

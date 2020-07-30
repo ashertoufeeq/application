@@ -27,7 +27,7 @@ export const Dropdown = ({ selectedValue,children }) => {
   return (
     <Touchable
       onPress={()=>{setVisible(true)}}
-      className=' flex-nowrap m-2 px-2 py-1 rounded bg-gray-300
+      className=' flex-nowrap m-2 px-2 py-1 rounded bg-gray-100
       flex-row justify-between items-center relative'
     >
       <Text ellipsizeMode='tail' numberOfLines={1}>{selectedValue}</Text>

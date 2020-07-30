@@ -40,31 +40,27 @@ export const SignInScreen = ({ navigation })  => {
           </View>
         </View>
       </View>
-      <View className='flex-row flex-wrap justify-center items-center m-2 mb-10 p-3'>
-        <Shimmer className='h-10 w-10 rounded-lg mr-2'>
-          <View className='h-10 w-10 rounded-lg m-0 bg-red-100' />
-        </Shimmer>
-        <Title1 className='text-center font-mono font-bold '>Dukan Ka Naam </Title1>
-      </View>
-      <View className='px-2'>
-        <Text className='text-center text-md'>Simple & Safe Shoping </Text>
-        <Text className='text-xs text-center text-gray-500'>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-          Aliquam animi culpa delectus dicta dolorum eos, harum inventore
-          labore laborum, libero, molestias nam placeat quaerat reprehenderi
-          t voluptatum! Consequuntur cupiditate facere vitae?
-        </Text>
-      </View>
-      <Touchable className='m-5 mt-10' onPress={()=>{signIn()}}>
-        <View
-          className='flex-row flex-wrap w-45 justify-center items-center bg-primary p-3 rounded-lg'>
-          {inProgress?<ActivityIndicator loading={inProgress} size={25} color='#fff' />
-            :<Icon color='#fff' size={25} name='google' />}
-          <Headline className=' ml-5 text-white font-semibold text-center tracking-tighter '>
-            Sign In with Google
-          </Headline>
+      <View>
+        <View className='px-2'>
+          <Text className='text-center text-md'>Simple & Safe Shoping </Text>
+          <Text className='text-xs text-center text-gray-500'>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Aliquam animi culpa delectus dicta dolorum eos, harum inventore
+            labore laborum, libero, molestias nam placeat quaerat reprehenderi
+            t voluptatum! Consequuntur cupiditate facere vitae?
+          </Text>
         </View>
-      </Touchable>
+        <Touchable className='m-5 mt-10' onPress={()=>{signIn()}}>
+          <View
+            className='flex-row flex-wrap w-45 justify-center items-center bg-primary p-3 rounded-lg'>
+            {inProgress?<ActivityIndicator loading={inProgress} size={25} color='#fff' />
+              :<Icon color='#fff' size={25} name='google' />}
+            <Headline className=' ml-5 text-white font-semibold text-center tracking-tighter '>
+              Sign In with Google
+            </Headline>
+          </View>
+        </Touchable>
+      </View>
     </View>
   );
 }

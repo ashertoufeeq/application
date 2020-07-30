@@ -56,11 +56,17 @@ export const StoreScreen = ({ navigation }) => {
         </Touchable>
         <View className='p-1 m-1 flex-1 '>
           {(results || []).map((result, index) => (
-            <ProductCard
+            <View
+              className='my-2'
               key={index.toString()}
-              id={result.id}
-              navigation={navigation}
+            >
+              <ProductCard
+                size='lg'
+                key={index.toString()}
+                id={result.id}
+                navigation={navigation}
             />
+            </View>
           ))}
         </View>
       </ScrollView>
