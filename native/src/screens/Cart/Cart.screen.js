@@ -4,7 +4,6 @@ import { Text,LargeTitle,Title2 } from 'framework/text';
 import { View ,Touchable } from 'framework/surface';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { useSelector } from 'react-redux';
-import { CartCard } from 'components/CartCard';
 import { useUser } from 'common/hooks/auth';
 import { min } from 'lodash-es';
 import { Dimensions } from 'react-native';
@@ -13,6 +12,7 @@ import { ProductCard } from 'components/ProductCard';
 import { Divider } from 'react-native-paper';
 import { ScrollView } from '../../framework/surface';
 import { Footnote, Headline } from '../../framework/text';
+import { useHttpGet } from "../../common/hooks/http";
 
 const placeOrder = ( navigation,cart,user,isAuthenticated ) =>{
   if(isAuthenticated){
@@ -86,7 +86,13 @@ const PriceDetails = () => {
 const Cart = ({ navigation }) => {
   const { cart } = useSelector(state => state.product);
   const keys = Object.keys(cart);
-
+  // const { data,error,loading }=useHttpGet('/app/cart/', {
+  //   limit: 1,
+  //   secure: false,
+  //   replaceMode: false,
+  //   autoLoad: true,
+  // });
+  // console.log({ data,error,loading });
   return (
     <View className='w-auto mb-1 '>
       {/* {keys.map((key, index) =>( */}

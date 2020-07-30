@@ -5,9 +5,9 @@ import { useDispatch } from 'react-redux';
 import { ADD_TO_CART, DECREMENT_CART } from 'shared/actions';
 import { View, Touchable } from 'framework/surface';
 import { Dropdown, DropDownItem } from 'components/dropdown/dropdown';
+import { postProductOnCart } from "shared/hooks/postCart";
 import { useHttpGet } from 'common/hooks/http';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { postProductOnCart } from "common/actions/postCarts";
 import { Image } from '../framework/surface';
 
 const CardHeader = ({ title, loading, size, productId }) => {
@@ -137,11 +137,26 @@ const PriceLabel = ({
   );
 };
 
+
+// const BuyNowAction = ({ productId }) => (
+//   <Touchable className='justify-center mx-2'>
+//     <Headline className='text-gray-600'>
+//       Buy Now
+//     </Headline>
+//   </Touchable>
+// );
+//
+// const AddToCartAction = ({ variant,results }) => {
+//   const dispatch=useDispatch();
+//   const addToCart = () => {
+//     console.log("inside add cart");
+//     dispatch(()=>postProductOnCart(results[variant].id));
+
+
 const AddToCartAction = ( { variant,results,productId }) => {
   const dispatch = useDispatch();
   const { id,name:title, } = results[variant];
   const addToCart = () => {
-    console.log(id,productId)
     dispatch(postProductOnCart(id));
   };
 

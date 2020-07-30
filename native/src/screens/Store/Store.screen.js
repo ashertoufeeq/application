@@ -40,7 +40,7 @@ export const StoreScreen = ({ navigation }) => {
   const [refresh, setRefresh] = useState(false);
   const { results, nextPage } = useHttpList('/app/products/', {
     limit: 1,
-    secure: false,
+    secure: true,
     replaceMode: false,
     autoLoad: true,
   });
