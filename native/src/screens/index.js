@@ -12,6 +12,7 @@ import { SettingsTab } from 'screens/Settings';
 import { StoreTab } from 'screens/Store';
 import { LiveOrderTab } from 'screens/LiveOrder';
 import { CartTab } from 'screens/Cart';
+import { CategoriesTab } from "screens/categories";
 import { WishlistTab } from 'screens/Wishlist';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SignInScreen } from 'components/SignIn';
@@ -33,7 +34,8 @@ const TabNav = () => {
       inactiveColor={getColor('gray-500')}
       barStyle={{ backgroundColor: getColor('gray-100'), borderRadius: 20, elevation: 0 }}
     >
-      {TestTab({ tab: Tab })}
+      {/* {TestTab({ tab: Tab })} */}
+      {CategoriesTab({ tab: Tab })}
       {SettingsTab({ tab: Tab })}
       {WishlistTab({ tab: Tab })}
       {StoreTab({ tab: Tab })}

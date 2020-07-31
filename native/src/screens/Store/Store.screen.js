@@ -11,7 +11,7 @@ import { ScreenWrapper } from 'components/ScreenWrapper';
 import { SearchBar } from 'components/SearchBar.native';
 import { StoreHomeImage } from 'components/svg/StoreHomeImage';
 import { ProductCard } from 'components/ProductCard';
-import { useHttpList } from 'common/hooks/http';
+import { useHttpGet, useHttpList } from 'common/hooks/http';
 
 const HeaderComp = () => (
   <View className='flex-1 '>
@@ -44,7 +44,6 @@ export const StoreScreen = ({ navigation }) => {
     replaceMode: false,
     autoLoad: true,
   });
-
   return (
     <ScreenWrapper className='flex-1 w-100'>
       <ScrollView>
