@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Carousel ,{ Pagination } from 'react-native-snap-carousel';
 import { Touchable, View } from 'framework/surface';
-import { Headline, Text, Title1 } from 'framework/text';
+import { Headline, Text, Title1,Title2 } from 'framework/text';
 import { Dimensions } from 'react-native';
 import { min } from "lodash-es";
 import  CarouselImage1  from 'assets/svgs/carouselImage1.svg';
@@ -48,7 +48,7 @@ const CarouselDisplay = ({ image }) =>{
 const renderItem = ({ item, index }) => {
   const { image } = item;
   return (
-    <View className='m-2 mt-auto mb-auto bg-gray-100 p-5 justify-center rounded '>
+    <View className='m-2 mt-auto mb-auto bg-gray-100 p-3 justify-center rounded '>
       <View className='p-5 mb-5'>
         <CarouselDisplay className='self-center' {...{ image }} />
       </View>
@@ -83,14 +83,14 @@ const PaginationReturn = ({ entries,activeSlide }) => {
 
 export const MyCarousel = ({ navigation }) => {
   const [activeSlide,setactiveSlide]=useState(1);
-  useEffect(()=>{
-    Storage().save({
-      key: 'openFirstTime',
-      data: {
-        value:true
-      }
-    });
-  });
+  // useEffect(()=>{
+  //   Storage().save({
+  //     key: 'openFirstTime',
+  //     data: {
+  //       value:true
+  //     }
+  //   });
+  // });
   const handleOnPress = () => {
     navigation.navigate('SignIn');
   }
@@ -114,15 +114,20 @@ export const MyCarousel = ({ navigation }) => {
   const sliderWidth=Dimensions.get('window').width;
   const itemWidth=Dimensions.get('window').width-10;
   return (
-    <View className='bg-gray-300 h-full pt-5 rounded'>
-      <Carousel
-        data={entries}
-        renderItem={renderItem}
-        onSnapToItem={(index) => setactiveSlide(index)}
-        sliderWidth={sliderWidth}
-        itemWidth={itemWidth} />
+    <View className='bg-gray-300 h-full rounded'>
+      <View className='text-primary'>
+        <Title2 className='ml-3 my-3 '>
+          Letss goo !!
+        </Title2>
+        <Carousel
+          data={entries}
+          renderItem={renderItem}
+          onSnapToItem={(index) => setactiveSlide(index)}
+          sliderWidth={sliderWidth}
+          itemWidth={itemWidth} />
+      </View>
       <Touchable onPress={handleOnPress} className=''>
-        <Headline className='font-semibold text-center ml-auto m-2'>
+        <Headline className='font-semibold text-center ml-auto m-4'>
           Skip
         </Headline>
       </Touchable>
