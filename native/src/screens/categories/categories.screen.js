@@ -1,11 +1,11 @@
-import React,{ useState } from 'react';
+import React from 'react';
 
-import { LargeTitle, Title2, Text } from 'framework/text';
+import {  Title2, Text } from 'framework/text';
 import { View, ScrollView, Touchable } from 'framework/surface';
 
 import { ScreenWrapper } from 'components/ScreenWrapper';
 import { SearchBar } from 'components/SearchBar.native';
-import { useHttpGet, useHttpList } from 'common/hooks/http';
+import { useHttpList } from 'common/hooks/http';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { min } from "lodash-es";
 import { Dimensions } from "react-native";
@@ -35,7 +35,6 @@ export const CategoriesScreen = ({ navigation }) => {
     replaceMode: false,
     autoLoad: true,
   });
-  console.log({ results });
 
   return (
     <ScreenWrapper className='flex-1 w-100'>

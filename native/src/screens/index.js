@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 import { useThemeColors } from 'common/hooks/theme';
+import { Storage } from 'common/helpers/shared';
 
 import { TestTab } from 'screens/Test';
 import { SettingsTab } from 'screens/Settings';
@@ -18,14 +19,19 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { SignInScreen } from 'components/SignIn';
 import { useTailwindSetup, TailwindProvider } from 'hooks/style';
 import { modalConfigs } from '../helpers/modalConfig';
+import { MyCarousel } from "../components/carousel";
 
 
 const Tab = createMaterialBottomTabNavigator();
 const RootStack = createStackNavigator();
 
-const TabNav = () => {
-  const { t, c, css, getColor } = useTailwindSetup();
+const TabNav = ({ navigation }) => {
+  const { getColor } = useTailwindSetup();
   const { primary } = useThemeColors();
+  Storage().load({ key:'openFirstTime' })
+    .catch(err=>{
+      navigation.navigate('Intro')
+    });
 
   return (
     <Tab.Navigator
@@ -73,6 +79,11 @@ export const Navigator = () => {
               component={SignInScreen}
               headerMode={null}
             />
+            <RootStack.Screen
+              name='Intro'
+              component={MyCarousel}
+              headerMode={null}
+              />
           </RootStack.Navigator>
         </NavigationContainer>
       </TailwindProvider>

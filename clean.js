@@ -10,7 +10,7 @@ const rimraf = promisify(rimrafSync);
 
 const main = async () => {
   console.log('clean Android');
-  await exec('cd ./native/android && ./gradlew clean');
+//  await exec('cd ./native/android && ./gradlew clean');
 
   console.log('clean iOS');
   await rimraf('native/ios/Pods');

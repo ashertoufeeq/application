@@ -23,7 +23,11 @@ export const SignInScreen = ({ navigation })  => {
     if(isAuthenticated){
       navigation.navigate('Store')
     }
-  },[isAuthenticated])
+  },[isAuthenticated]);
+
+  const handleOnPress = () => {
+    navigation.navigate('Main');
+  }
   return (
     <View className='flex flex-warp justify-between bg-white h-full'>
       <View className='bg-white'>
@@ -55,13 +59,20 @@ export const SignInScreen = ({ navigation })  => {
           t voluptatum! Consequuntur cupiditate facere vitae?
         </Text>
       </View>
-      <Touchable className='m-5 mt-10' onPress={()=>{signIn()}}>
+      <Touchable className='m-5 mb-1 mt-10' onPress={()=>{signIn()}}>
         <View
           className='flex-row flex-wrap w-45 justify-center items-center bg-primary p-3 rounded-lg'>
           {inProgress?<ActivityIndicator loading={inProgress} size={25} color='#fff' />
             :<Icon color='#fff' size={25} name='google' />}
           <Headline className=' ml-5 text-white font-semibold text-center tracking-tighter '>
             Sign In with Google
+          </Headline>
+        </View>
+      </Touchable>
+      <Touchable className='mb-5' onPress={handleOnPress}>
+        <View>
+          <Headline className='font-semibold text-center'>
+            Not Now
           </Headline>
         </View>
       </Touchable>

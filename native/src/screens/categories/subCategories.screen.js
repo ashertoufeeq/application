@@ -8,13 +8,10 @@ import { ScreenWrapper } from "../../components/ScreenWrapper.native";
 
 const HandleTouch = ({ child,reRender,setreRender ,index }) => {
   const handleSubmit = () => {
-    console.log("inside hhandle submit");
-    console.log({ child });
     let temp=child;
     temp=temp.charAt(0).toLowerCase() + temp.slice(1);
     temp=temp.replace(/ /g, "-");
     const uRl=`${reRender}/${temp}`;
-    console.log({ uRl });
     setreRender(uRl);
   };
   return (
@@ -33,12 +30,8 @@ const SubScreen = ({  childRepresentation,reRender,setreRender }) => {
     let temp=child.slice(len+1);
     temp=temp.charAt(0).toUpperCase() + temp.slice(1);
     temp=temp.replace(/-/g, " ");
-    console.log({ temp });
     children.push(temp);
   });
-
-  console.log({ children });
-
   return(
     <View className='p-1 m-1 flex-1 '>
       {(children || []).map((child, index) => (
@@ -50,12 +43,8 @@ const SubScreen = ({  childRepresentation,reRender,setreRender }) => {
 
 export const SubCategoriesScreen = (props) => {
   // eslint-disable-next-line react/destructuring-assignment
-  console.log({ props });
-  // eslint-disable-next-line react/destructuring-assignment
   const { url } = props.route.params;
   const [reRender,setreRender]=useState(url);
-  console.log("inside sub Categories");
-  console.log({ url ,reRender });
   const uRl=`/shop/categories/${reRender}`;
   const { data }=useHttpList(uRl,{
     limit: 5,
@@ -63,9 +52,7 @@ export const SubCategoriesScreen = (props) => {
     replaceMode: false,
     autoLoad: true,
   });
-  console.log({ data });
   const { childRepresentation } =data||{ childRepresentation:{} };
-  console.log({ childRepresentation });
   const { name }=data || { name:"Loading...." };
   return(
     <ScreenWrapper className='flex-1 w-100'>
