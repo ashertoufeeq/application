@@ -83,14 +83,14 @@ const PaginationReturn = ({ entries,activeSlide }) => {
 
 export const MyCarousel = ({ navigation }) => {
   const [activeSlide,setactiveSlide]=useState(1);
-  // useEffect(()=>{
-  //   Storage().save({
-  //     key: 'openFirstTime',
-  //     data: {
-  //       value:true
-  //     }
-  //   });
-  // });
+  useEffect(()=>{
+    Storage().save({
+      key: 'openFirstTime',
+      data: {
+        value:true
+      }
+    });
+  });
   const handleOnPress = () => {
     navigation.navigate('SignIn');
   }

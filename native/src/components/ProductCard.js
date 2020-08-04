@@ -190,7 +190,6 @@ export const ProductCard = ({ id ,navigation,size='sm' }) => {
               unit, loading, size, variant, setVariant, count, navigate, results,
             }} />
           ) : null}
-          <Actions {...{ productId, loading, variant, setVariant,results,count }} />
         </View>
       </View>
       {size === 'lg' ? (
